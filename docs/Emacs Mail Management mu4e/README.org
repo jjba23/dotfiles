@@ -1,0 +1,201 @@
+
+
+
+* E-mail Management with mu4e
+
+I like using Emacs for my e-mail needs, and mu4e is an excellent e-mail client
+
+https://www.djcbsoftware.nl/code/mu/mu4e.html
+
+Emacs interface for the mu mail indexer, highly efficient for keyboard users.
+Syncs your e-mail in the background using an external program and boasts a powerful search interface, while being able to manage several e-mail accounts.
+
+** Syncing your mail
+
+Configuring mbsync
+
+Today we’ll sync a Gmail account since they’re pretty common. In another episode we’ll show a more traditional IMAP account too.
+
+We’ll use a program called isync (in practice it’s mbsync!) to sync our mail. You can also use a program called offlineimap, it’s a bit slower but it works on Windows too. We’ll cover it in another video.
+
+Install it:
+sudo apt install isync
+Set up an initial configuration at ~~/.mbsyncrc~:
+
+#+begin_src nix
+  IMAPAccount gmail
+    Host imap.gmail.com
+    User systemcrafters.test@gmail.com
+    PassCmd "cat ~/.oh-no-insecure-password"
+    SSLType IMAPS
+    CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+
+    IMAPStore gmail-remote
+    Account gmail
+
+    MaildirStore gmail-local
+    Subfolders Verbatim
+    Path ~/Mail/
+    Inbox ~/Mail/Inbox
+
+    # With mbsync 1.4.0 and later: Use 'Far' instead of 'Master', and
+    # 'Near' instead of 'Slave'.
+    Channel gmail
+    Master :gmail-remote:
+  Slave :gmail-local:
+  Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
+    Create Both
+    SyncState *
+#+end_src
+
+NOTE: Be careful of how you manage whitespace between lines in this file, the spaces define groupings!
+
+Settings you may need to change:
+
+#+begin_src
+      PassCmd - We’re getting the contents of a plain text file here, you might want to use gpg!
+    Pass - If you want to use plaintext password (not recommended!), doesn’t need quotation marks
+    CertificateFile - This location can vary based on your Linux distribution!
+    Patterns - Defines which folders will be synced
+    NOTE: Non-English users might need to pay extra attention to the Patterns line since Gmail renames the IMAP folders based on the selected user interface language one uses in the Gmail web interface. In Dutch e.g. the folder [Gmail]/Starred would need to be changed to [Gmail]/Met ster. Changing the Patterns line to * and running the command mbsync --list gmail might give some insight into which folders are available. Unfortunately the mapping does not appear to be one to one, e.g. the label Sent is shown as Verzonden in Dutch while mbsync reports [Gmail]/Verzonden berichten as the name of the IMAP folder. Furthermore similar changes need to be made to the mu4e configuration below.
+
+#+end_src
+
+For the security conscious:
+
+Use GPG to decrypt an encrypted password file: gpg --quiet --for-your-eyes-only --no-tty --decrypt ~/.passwords/gmail.gpg
+Use the Password Store program to simplify this: pass Mail/MyGmail
+
+
+* Enable IMAP for your Gmail account
+
+IMAP e-mail access is not enabled on your Gmail account by default! Follow these steps to enable it:
+
+https://support.google.com/mail/answer/7126229?hl=en
+
+Make sure to configure these settings!
+
+“Auto-expunge off”
+“Move the message to the trash”
+
+Enable access for mbsync
+
+This can go one of two ways:
+
+** You have two-factor authentication turned on:
+
+If you have two-factor authentication turned on, you will need to create an App Password to access your account. More details can be found at this link:
+
+https://support.google.com/accounts/answer/185833
+
+** No two-factor authentication: enable “Less secure apps” for your Google account
+
+If you don’t have two-factor authentication turned on, Google will still automatically block “less secure” apps like isync from accessing your mail over IMAP. Give access to mbsync by going to the following page:
+
+https://myaccount.google.com/lesssecureapps
+
+** Start the initial sync
+
+You might receive a scary e-mail from Google the first time you run this, just open it and confirm that it was you who tried to use the account!
+
+#+begin_src 
+mbsync -a
+#+end_src
+
+NOTE: mbsync won’t create the base maildir for you, you’ll have to create it: mkdir ~/Mail
+
+** Setting up mu to index the mailbox
+
+Run the initial index, providing your e-mail address so it knows how to identify you:
+
+mu init --maildir=~/Mail --my-address=systemcrafters.test@gmail.com
+mu index
+
+NOTE: You will need to use --my-address for every e-mail address you use in a multiple account setup.
+
+Indexing could take a while depending on how much e-mail you have, but it’s quite fast in general.
+
+See [[file:emacs/mu4e-config.el]] for my implementation.
+
+Run mu4e, see the landing page.
+
+When reading mail, you start out in the Headers buffer. When you select an email with RET, the View buffer is displayed in a window below the Headers buffer window.
+¶
+*** mu4e Headers Mode
+
+Key Bindings
+
+#+begin_src 
+Key 	Evil 	Command 	Description
+Movement 	 
+C-n 	j 	next-line 	Moves to the next header line
+C-p 	k 	previous-line 	Moves to the previous header line
+[[ 	[[ 	mu4e-headers-prev-unread 	Moves to previous unread message
+]] 	]] 	mu4e-headers-next-unread 	Moves to next unread message
+j 	J 	mu4e~headers-jump-to-maildir 	Jump to another mail directory
+  	  	  	 
+Toggles 	 
+P 	zt 	mu4e-headers-toggle-threading 	Toggles threaded message display
+W 	zr 	mu4e-headers-toggle-include-related 	Toggles related message display
+  	  	  	 
+Marking 	 
+d 	d 	mu4e-headers-mark-for-trash 	Marks message for deletion
+m 	m 	mu4e-headers-mark-for-move 	Marks message for move to folder
++ 	+ 	mu4e-headers-mark-for-flag 	Marks message for flagging
+- 	- 	mu4e-headers-mark-for-unflag 	Marks message for unflagging
+% 	% 	mu4e-headers-mark-pattern 	Marks based on a regex pattern
+u 	u 	mu4e-headers-mark-for-unmark 	Removes mark for message
+U 	U 	mu4e-mark-unmark-all 	Unmarks all marks in the view
+x 	x 	mu4e-mark-execute-all 	Executes all marks in the view
+  	  	  	 
+Searching 	 
+s 	s 	mu4e-headers-search 	Search all e-mails
+S 	S 	mu4e-headers-search-edit 	Edit current search (useful!)
+/ 	/ 	mu4e-headers-search-narrow 	Narrow down the current results
+b 	b 	mu4e-headers-search-bookmark 	Select a bookmark to search with
+B 	B 	mu4e-headers-search-bookmark-edit 	Edit bookmark before search
+g 	gr 	mu4e-rerun-search 	Rerun the current search
+  	  	  	 
+Composing 	 
+C 	C, cc 	mu4e-compose-new 	Compose a new e-mail
+R 	R, cr 	mu4e-compose-reply 	Compose a reply to selected email
+F 	F, cf 	mu4e-compose-forward 	Compose a forward for selected email
+E 	E, ce 	mu4e-compose-edit 	Edit selected draft message
+  	  	  	 
+Other Actions 	 
+q 	q 	mu4e~headers-quit-buffer 	Quit the headers view
+#+end_src
+
+Controlling the number of messages visible:
+
+mu4e-headers-results-limit: The number of messages to display in mail listings (default 500)
+mu4e-headers-full-search: If t, shows all messages, ignoring limit
+
+You can toggle mu4e-headers-full-search with M-x mu4e-headers-toggle-full-search!
+
+*** mu4e view Mode
+
+Many of the same keybindings work! Marking keys work on the currently viewed message.
+#+begin_src 
+Key 	Evil 	Command 	Description
+Movement 	 
+C-n 	j 	next-line 	Moves to the next line in message
+C-p 	k 	previous-line 	Moves to the previous line in message
+n 	C-j 	mu4e-view-headers-next 	Moves to next email in header list
+p 	C-k 	mu4e-view-headers-prev 	Moves to previous email in header list
+[[ 	[[ 	mu4e-headers-prev-unread 	Moves to previous unread message
+]] 	]] 	mu4e-headers-next-unread 	Moves to next unread message
+#+end_src
+
+
+*** mu4e  Search queries
+
+something - General text search for “something”
+from:stallman - Emails from a particular sender
+date:today..now - Date range
+flag:attach - Emails with an attachment
+"maildir:/Inbox" - Search in a specific mail directory
+You can also use logic statements like and , not:
+
+"maildir:/Inbox" and from:eli and docs

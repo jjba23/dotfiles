@@ -1,0 +1,6 @@
+(setq which-key-sort-order 'which-key-key-order-alpha)
+(setq which-key-idle-delay 0.4)
+(setq which-key-max-description-length 35)
+(which-key-mode)
+(which-key-setup-side-window-right-bottom)
+(which-key-enable-god-mode-support)

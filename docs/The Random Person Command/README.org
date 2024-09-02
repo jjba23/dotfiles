@@ -1,0 +1,47 @@
+
+* The Random Person Command
+
+** Haskell
+
+#+begin_src haskell
+  import Data.List (partition)
+  import Control.Monad (replicateM)    
+  import Data.Function (on)
+  import Data.List     (sortBy)
+  import System.Random (randomRIO) 
+
+  randomize :: [a] -> IO [a]                                           
+  randomize xs = do                                                   
+    ys <- replicateM (length xs) $ randomRIO (1 :: Int, 100000)             
+    pure $ map fst $ sortBy (compare `on` snd) (zip xs ys)
+  
+  main :: IO ()
+  main = do
+    sorted <- randomize names
+    mapM_ putStrLn sorted
+    where
+      names = ["Joe", "Dan", "Jordy", "Marcel", "Judy", "Cedric", "Thomas", "John", "Michael", "Nik"]
+
+#+end_src
+
+** Bash
+
+#+begin_src bash
+#!/usr/bin/env bash
+
+function random_person {
+      peeps[0]="Josep"
+      peeps[1]="Frank"
+      peeps[2]="Rodney"
+      peeps[3]="Francois"
+
+      amount_of_peeps=${#peeps[@]}
+      some_index=$(($RANDOM % $amount_of_peeps))
+      someone=${peeps[$some_index]}
+      echo "$someone has been chosen!"
+}
+
+random_person | cowsay | clolcat
+
+#+end_src
+

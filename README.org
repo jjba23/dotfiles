@@ -1,0 +1,125 @@
+#+title: Joe's dotfiles
+#+author: Josep Bigorra
+#+email: jjbigorra@gmail.com
+#+options: num:nil
+
+
+These are my configuration files, which also explain a lot about the tooling I use and enjoy, and can teach you a thing or two.
+
+If you like my work, please support me by [[https://bmc.link/jjbigorra][buying me a cup of coffee ☕]] so I can continue with a lot of motivation.
+
+#+begin_html
+<div>
+<img src="https://img.shields.io/badge/NixOS-5277C3?logo=nixos&logoColor=fff&style=plastic" alt="NixOS"/>
+<img src="https://img.shields.io/badge/GNU%20Emacs-7F5AB6?logo=gnuemacs&logoColor=fff&style=plastic" alt="GNU Emacs"/>
+<img src="https://img.shields.io/badge/Haskell-5D4F85?logo=haskell&logoColor=fff&style=plastic" alt="Haskell"/>
+<img src="https://img.shields.io/badge/Python-3178C6?logo=python&logoColor=fff&style=plastic" alt="Typescript"/>
+<img src="https://img.shields.io/badge/GTK-7FE719?logo=gtk&logoColor=000&style=plastic" alt="GTK"/>
+<img src="https://img.shields.io/badge/fish%20shell-34C534?logo=fishshell&logoColor=fff&style=plastic" alt="Fish shell"/>
+</div>
+#+end_html
+
+* Using
+
+If you are a Nix connaisseur, you will have no questions here.
+
+Otherwise, for convenience, an example of how to deploy this config in a fully automated fashion:
+#+begin_src bash
+  cabal run dotfiles -- rebuild-system
+  # or using cabal and GHC from the flake
+  nix develop -c cabal run dotfiles -- rebuild-system
+#+end_src
+
+** Available tasks
+- rebuild-system :: rebuild the entire NixOS + HomeManager flake config, deployed to ~/etc/nixos~
+- update-system :: update the NixOS flake inputs
+
+See my Haskell glue code (for example at [[file:Main.hs][./Main.hs]] or at [[file:buildscript][./buildscript]])  for more information about how I deploy, build and use my NixOS configuration.  
+
+* Showcase
+
+#+begin_html
+<div>
+<img src="https://gitlab.com/jjba-projects/dotfiles/-/raw/master/resources/screenshots/08-07-2024.png?ref_type=heads&inline=false" alt="Screenshot of Joe's setup"/>
+</div>
+#+end_html
+
+
+This is an ever changing setup, so only by using it can you see its latest evolutionary stage. In any case, see the folder at [[file:resources/screenshots/]] for screenshots.
+
+See some Reddit posts where the setup is shown:
+
+- [[https://www.reddit.com/r/unixporn/comments/1cwrpeb/hyprland_comfy_warm_computing_nixos_homemanager/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button][Comfy warm computing with NixOS, HomeManager, Emacs and Ef themes]]
+
+- [[https://www.reddit.com/r/unixporn/comments/1dy6hrb/hyprland_nixos_catppuccin_ags_emacs_setup_zzz/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button][Hyprland NixOS - Catppuccin + Ags + Emacs setup - ZZZ inspiration (Zenless Zone Zero) - optional light mode - my main beast: Ryzen 9 7900X3D + Radeon RX 6800 XT]]
+
+
+* My way of installing NixOS
+
+I like to carry around a USB drive with me that contains a NixOS Live ISO.
+I boot from it, rather using EFI than legacy bios, and then usually just choose GNOME desktop and manual partitioning, with:
+
+- a GUID/GPT partition table
+- a 1024MB FAT32 partition as ESP/EFI, with the mountpoint ~/boot~ and the ~boot~ flag
+- a BTRFS root filesystem, encrypted with LUKS, and with mountpoint ~/~.
+- install bootloader to ~/boot~
+  
+Note you might get a warning about this type of partitioning, but you can pretty much safely ignore it as this is quite a safe way to partition.
+Even safer would be to also encrypt the ~/boot~ but that brings a whole lot more challenges.
+If running on virtual machines, you might need to turn off 3D acceleration for the installation process.
+
+
+* Per host
+
+There are some "host-specific" configurations to be turned on or off depending on the system.
+Define a file at ~./per-host.nix~ with some Nix expression like:
+
+#+begin_src nix
+{ }
+#+end_src
+
+You may specify per host settings in the following fashion:
+#+begin_src nix
+  {
+    masterOptions.proprietaryNvidia.enable = true;
+    masterOptions.joe.lightMode.enable = true;
+    masterOptions.defaultSession = "gnome";
+  }
+#+end_src
+
+See [[file:options.nix][options.nix file]] for more details on all possibilities.
+
+
+* Why would I want *my dotfiles* in version control?
+
+Having your dotfiles and configurations in version control allows you to backup, restore, and sync the preferences and settings for your toolbox.
+Your dotfiles might be the most important files on your machine.
+
+You can then also learn from the community and spread the knowledge. Discover new tools for your toolbox and new tricks for the ones you already use.
+
+For maximum profit and reproducibility you should use NixOS and/or the nix package manager.
+
+
+* Copyright and licensing
+
+Copyright (C) 2024  Josep Jesus Bigorra Algaba (jjbigorra@gmail.com)
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+* TODO
+** Proper ELisp etiquette (follow the right way)
+** WhiteSur GNOME for Manon
+** Improve cheatsheet and export to org/markdown automatically
+
+* Cheatsheet
+
+All good software needs good documentation.
+
+
+
+
+
