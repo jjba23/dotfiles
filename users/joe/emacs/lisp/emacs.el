@@ -221,7 +221,7 @@ the default is \"/\"."
          (dir (read-directory-name "[git-riddance] Directory of target repo:" "." ))
          (default-directory dir)
          (remote (read-string "[git-riddance] Origin to force push to:"))
-         (remote-name (read-string "[git-riddance] Name of origin to force push to:" "origin"))
+         (remote-name (read-string "[git-riddance] Name of origin to force push to:" "github"))
          (branch (read-string "[git-riddance] Name of the new branch:"  "trunk"))
          (commit-message (read-string "[git-riddance] New commit message:"  "Proprietary software is an injustice!"))
          )
@@ -237,7 +237,7 @@ the default is \"/\"."
         (shell-command (format "git branch -m %s" branch))
         ;;Finally, all changes are completed on your local repository,
         ;; and force update your remote repository:
-        (shell-command (format "git push -f %s %s" remote-name branch))
+        (shell-command (format "git push -uf %s %s" remote-name branch))
     )
   )
 
