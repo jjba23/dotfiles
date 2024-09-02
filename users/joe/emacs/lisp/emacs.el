@@ -20,7 +20,7 @@
 (setq-default user-personal-initials "JJBA")
 
 (setq org-todo-keywords
-      '((sequence "TODO" "ONGOING" "VERIFY" "|" "DONE")))
+      '((sequence "TODO" "WIP" "REVIEWING" "|" "DONE")))
 
 (defun dired-joe-show-hidden (value)
   (interactive "p")
