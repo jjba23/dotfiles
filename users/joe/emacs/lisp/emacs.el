@@ -237,6 +237,7 @@ the default is \"/\"."
         (shell-command (format "git branch -m %s" branch))
         ;;Finally, all changes are completed on your local repository,
         ;; and force update your remote repository:
+        (shell-command (format "git remote add %s %s" remote-name remote))
         (shell-command (format "git push -uf %s %s" remote-name branch))
     )
   )
