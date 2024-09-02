@@ -3,8 +3,10 @@
 ;;     '(vc-state subtree-state collapse git-msg file-time file-size))
 ;; (setq dirvish-attributes
 ;;       '(subtree-state collapse file-time file-size))
+;; (setq dirvish-attributes
+;;       '(nerd-icons collapse subtree-state file-time file-size))
 (setq dirvish-attributes
-      '(nerd-icons collapse subtree-state file-size))
+      '(nerd-icons collapse subtree-state))
 (setq dired-mouse-drag-files t)                   
 (setq mouse-drag-and-drop-region-cross-program t) 
 
