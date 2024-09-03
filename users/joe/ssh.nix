@@ -24,7 +24,7 @@
   programs.ssh = {
     enable = true;
     matchBlocks = {
-      "github.com" = {
+      "personal.github.com" = {
         hostname = "github.com";
         identityFile = "/home/joe/.ssh/gitlab_prive";
       };
