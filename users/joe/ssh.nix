@@ -24,9 +24,14 @@
   programs.ssh = {
     enable = true;
     matchBlocks = {
-      "gitlab.com/" = { identityFile = "/home/joe/.ssh/gitlab_prive"; };
-      "github.com/jjba23" = { identityFile = "/home/joe/.ssh/gitlab_prive"; };
-      "github.com/Vandebron" = { identityFile = "/home/joe/.ssh/vandebron"; };
+      "github.com" = {
+        hostname = "github.com";
+        identityFile = "/home/joe/.ssh/gitlab_prive";
+      };
+      "work.github.com" = {
+        hostname = "github.com";
+        identityFile = "/home/joe/.ssh/vandebron";
+      };
       "aws-nixos" = {
         hostname = "ec2-35-180-109-81.eu-west-3.compute.amazonaws.com";
         identityFile = "/home/joe/.ssh/gitlab_prive";
