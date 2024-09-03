@@ -22,8 +22,8 @@
 (add-to-list 'eglot-server-programs '(markdown-mode . ("marksman")))
 
 
-(add-hook 'after-save-hook #'eglot-format-buffer)
-;;(add-hook 'after-save-hook 'eglot-code-action-organize-imports)
+(add-hook 'before-save-hook #'eglot-format-buffer)
+;;(add-hook 'before-save-hook 'eglot-code-action-organize-imports)
 
 
 (setq-default eglot-workspace-configuration
@@ -36,7 +36,7 @@
                          :inlayHints (
                                       :inferredTypes (:enable t )
                                       :implicitArguments (:enable nil)
-                                      :implicitConversions (:enable t )
+                                      :implicitConversions (:enable nil )
                                       :typeParameters (:enable t )
                                       :hintsInPatternMatch (:enable t )
                                       )
