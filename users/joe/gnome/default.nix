@@ -317,6 +317,8 @@ in {
       list = [ "8dcb80c6-c836-4a6c-aeaf-087be449f5c2" ];
     };
     "org/gnome/terminal/legacy/keybindings" = terminalKeybindings;
+    "org/gnome/desktop/sound" = { allow-volume-above-100-percent = true; };
+    "org/gnome/shell/extensions/dash-to-dock" = { hot-keys = false; };
   };
 }
 

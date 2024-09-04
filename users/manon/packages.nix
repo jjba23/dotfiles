@@ -64,21 +64,5 @@
 
     dconf
 
-    # Fonts
-    fira
-    fira-mono
-    fira-code
-    noto-fonts
-    noto-fonts-emoji
-    libre-baskerville
-
-    gnomeExtensions.user-themes
-    gnomeExtensions.tray-icons-reloaded
-    gnomeExtensions.vitals
-    gnomeExtensions.dash-to-panel
-    gnomeExtensions.sound-output-device-chooser
-    gnomeExtensions.space-bar
-    gnomeExtensions.blur-my-shell
-
   ];
 }

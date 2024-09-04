@@ -34,20 +34,11 @@
     brave
     obs-studio
     inkscape
-    qbittorrent
 
     #
     _1password-gui
 
     dconf
-
-    gnomeExtensions.user-themes
-    gnomeExtensions.tray-icons-reloaded
-    gnomeExtensions.vitals
-    gnomeExtensions.dash-to-panel
-    gnomeExtensions.sound-output-device-chooser
-    gnomeExtensions.space-bar
-    gnomeExtensions.blur-my-shell
 
     dolphin-emu
     prismlauncher

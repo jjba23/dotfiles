@@ -19,8 +19,7 @@
 # Claudio's personal user account configuration in Nix Home Manager
 #
 #
-
-{
+{ pkgs, ... }: {
   imports = [ ./packages.nix ];
 
   home = {
@@ -57,18 +56,18 @@
   };
 
   dconf.settings = {
-    # ...
     "org/gnome/shell" = {
       disable-user-extensions = false;
-      # `gnome-extensions list` for a list
-      enabled-extensions = [
-        "user-theme@gnome-shell-extensions.gcampax.github.com"
-        "trayIconsReloaded@selfmade.pl"
-        "Vitals@CoreCoding.com"
-        "dash-to-panel@jderose9.github.com"
-        "sound-output-device-chooser@kgshank.net"
-        "space-bar@luchrioh"
-        "blur-my-shell@aunetx"
+      enabled-extensions = with pkgs.gnomeExtensions; [
+        blur-my-shell.extensionUuid
+        gsconnect.extensionUuid
+        places-status-indicator.extensionUuid
+        tiling-shell.extensionUuid
+        removable-drive-menu.extensionUuid
+        vitals.extensionUuid
+        move-clock.extensionUuid
+        caffeine.extensionUuid
+        dash-to-dock.extensionUuid
       ];
     };
     "org/gnome/desktop/interface" = {
@@ -84,10 +83,6 @@
       natural-scroll = false;
     };
     "org/gnome/desktop/sound" = { allow-volume-above-100-percent = true; };
-    "org/gnome/shell/extensions/dash-to-panel" = {
-      trans-use-custom-opacity = true;
-      trans-panel-opacity = 0.4;
-    };
   };
 
 }
