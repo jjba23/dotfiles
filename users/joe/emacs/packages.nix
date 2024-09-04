@@ -609,6 +609,10 @@ in {
       (auto-dark-mode t)
     '';
   };
+  dape = {
+    init = ''
+      (setq dape-buffer-window-arrangement 'gud)
+    '';
+  };
 
 }
-
