@@ -54,6 +54,7 @@ let
     gnomeExtensions.applications-menu
     gnomeExtensions.move-clock
     gnomeExtensions.caffeine
+    gnomeExtensions.dash-to-dock
   ];
   # More software, uncategorized
   morePackages = with pkgs; [

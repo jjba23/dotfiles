@@ -289,6 +289,7 @@ in {
         vitals.extensionUuid
         move-clock.extensionUuid
         caffeine.extensionUuid
+        dash-to-dock.extensionUuid
       ];
       favorite-apps = favoriteApps;
     };
