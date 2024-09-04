@@ -141,6 +141,11 @@ let
       height = "1.0";
       font = mono;
     }
+    {
+      face = "markdown-inline-code-face";
+      height = "1.0";
+      font = mono;
+    }
   ];
   orgFaces = [
     {
