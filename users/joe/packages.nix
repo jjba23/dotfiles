@@ -172,6 +172,7 @@ let
     valuta
     warp
     wike
+    sqlitebrowser
   ];
 in {
   home.packages = lib.mkMerge [
