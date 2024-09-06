@@ -35,8 +35,8 @@ let
     roboto-mono
     roboto-serif
     google-fonts
-    mononoki
     inter
+    inconsolata
   ];
   gnomeExtensionPackages = with pkgs; [
     gnomeExtensions.blur-my-shell

@@ -6,7 +6,7 @@ with lib; {
     description = ''
       Monospaced font for many applications and UI.
     '';
-    default = "Mononoki";
+    default = "Inconsolata";
   };
   sansFontFamily = mkOption {
     description = ''

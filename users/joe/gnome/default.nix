@@ -32,7 +32,7 @@ let
   terminalProfile = {
     visible-name = "joe";
     use-system-font = false;
-    font = "Mononoki 11";
+    font = "Inconsolata 11";
     audible-bell = false;
     scrollback-lines = 1000000;
     use-theme-colors = true;

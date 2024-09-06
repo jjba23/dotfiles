@@ -59,7 +59,7 @@
 (defvar *my-dark-theme*
   (make-instance 'theme:theme
                            :font-family "Inter"
-                           :monospace-font-family "Mononoki"
+                           :monospace-font-family "Inconsolata"
                            :dark-p t
                            :background-color- "rgb(49, 50, 68)"
                            :background-color "rgb(36, 39, 58)"
