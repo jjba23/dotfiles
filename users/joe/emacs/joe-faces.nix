@@ -22,7 +22,7 @@ let
   bold = "bold";
   unspecified = "'unspecified";
   mkSetFaceAttribute = import ./mk-set-face-attribute.nix { inherit osConfig; };
-  themeColor = x: "(catppuccin-get-color '${x})";
+  themeColor = x: "(joe/get-color '${x})";
   generalFaces = [
     {
       face = "line-number";
@@ -289,6 +289,13 @@ let
       backgroundSexp = unspecified;
     }
   ];
+  darkPalette = { text = "#FFFFFF"; };
+  lightPalette = { text = "#000000"; };
+  mkPalette = palette: ''
+    '(
+      (text . ${palette.text})
+    )
+  '';
   joeFaces = lib.lists.flatten [
     generalFaces
     markdownFaces
@@ -299,8 +306,29 @@ let
 
   myFaces = builtins.concatStringsSep " " (map mkSetFaceAttribute joeFaces);
 in ''
-  (defun joe/set-faces ()
-    (interactive)
-    ${myFaces}
-  )
+    (defun joe/set-faces ()
+      (interactive)
+      ${myFaces}
+    )
+
+
+    (setq light-palette ${mkPalette lightPalette})
+    (setq dark-palette ${mkPalette darkPalette})
+    (setq joe/palette light-palette)
+
+    (defun joe/load-flavor (flavor)
+      (interactive)
+      (if (equal 'dark flavor)
+  	(message "loading dark palette")
+  	(setq joe/palette dark-palette)
+  	)
+      (if (equal 'light flavor)
+  	(message "loading light palette")
+  	(setq joe/palette light-palette)
+  	)
+      )
+
+    (defun joe/get-color (color)
+      (alist-get 'color joe/palette "#FFFFFF")
+    )
 ''

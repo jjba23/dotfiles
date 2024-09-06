@@ -143,7 +143,6 @@ let
     sops
     ispell
     libnotify
-    nyxt
     apostrophe
     blanket
     collision

@@ -168,33 +168,6 @@ the default is \"/\"."
 
 (global-prettify-symbols-mode +1)
 
-(defun slurp-file (f)
-  (with-temp-buffer
-    (insert-file-contents f)
-    (buffer-substring-no-properties
-     (point-min)
-     (point-max))))
-
-(defun add-browser-bookmark ()
-  "Add a bookmark to my Nyxt browser bookmarks in Lisp"
-  (interactive)
-  (let* (
-         (bookmark-file-path "~/Ontwikkeling/Persoonlijk/dotfiles/users/joe/nyxt/lisp/bookmarks.lisp")
-         (bookmark-content (read (slurp-file bookmark-file-path)))
-         (url (read-string "Enter a URL you wish to bookmark:"))
-         (title (read-string "Enter a title for the bookmark:"))
-         (tags (read-string "Enter some tags for the bookmark ( delimited by , ):"))
-         (new-bookmark (list
-                         :url url
-                         :title title
-                         :tags (split-string tags ",")))
-         )
-    
-    (push new-bookmark bookmark-content)
-    (setq-local new-file-contents (pp-to-string bookmark-content))
-    (f-write-text new-file-contents 'utf-8 bookmark-file-path)
-    ))
-
 (add-to-list 'major-mode-remap-alist '(css-mode . css-ts-mode))
 (add-to-list 'major-mode-remap-alist '(js-mode . js-ts-mode))
 (add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))

@@ -25,16 +25,6 @@
     (rename-buffer (concat "*eshell" (number-to-string count) "*"))
     (setq count (1+ count))))
 
-(defun eshell/web (&rest args)
-  ""
-  (insert "GDK_BACKEND=x11 nyxt")
-  (eshell-send-input)
-  )
-(defun eshell/nyxt (&rest args)
-  ""
-  (insert "GDK_BACKEND=x11 nyxt")
-  (eshell-send-input)
-  )
 
 (defun eshell/aboutnix (&rest args)
   ""

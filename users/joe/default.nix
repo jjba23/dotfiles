@@ -24,7 +24,6 @@
     ./ssh.nix
     ./gtk.nix
     ./mail.nix
-    ./nyxt
     ./dconf.nix
     ./gnome
   ];

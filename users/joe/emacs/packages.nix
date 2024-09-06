@@ -482,10 +482,9 @@ in {
   };
 
   emacs = {
-    after = [ "markdown-mode" "org" "catppuccin-theme" ];
+    after = [ "markdown-mode" "org" ];
     config = ''
       ${builtins.readFile ./lisp/emacs.el}
-      ${builtins.readFile ./lisp/nyxt.el}
     '';
     bind = lib.mkMerge [ bindings.joe bindings.flymake ];
   };
@@ -555,10 +554,6 @@ in {
     '';
   };
   flutter = { after = [ "eglot" "dart-mode" ]; };
-  catppuccin-theme = {
-    after = [ "org" "fancy-compilation" "dashboard" ];
-    config = builtins.readFile ./lisp/catppuccin.el;
-  };
   eshell = { config = builtins.readFile ./lisp/eshell.el; };
   transmission = { };
   bug-hunter = { };
@@ -589,20 +584,18 @@ in {
   };
   ob-restclient = { };
   auto-dark = {
-    after = [ "org" "fancy-compilation" "dashboard" "catppuccin-theme" ];
+    after = [ "org" "fancy-compilation" "dashboard" ];
     init = builtins.readFile ./lisp/auto-dark.el;
     config = ''
       (add-hook 'auto-dark-dark-mode-hook
           (lambda ()
-            ;; something to execute when dark mode is detected
-            (catppuccin-load-flavor 'mocha)
+            (joe/load-flavor 'dark)
             (joe/set-faces)
             ))
 
       (add-hook 'auto-dark-light-mode-hook
           (lambda ()
-            ;; something to execute when light mode is detected
-            (catppuccin-load-flavor 'latte)
+            (joe/load-flavor 'light)
             (joe/set-faces)
             ))
 
