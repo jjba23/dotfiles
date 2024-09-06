@@ -105,7 +105,7 @@
     "C-c i a" = "eglot-code-actions";
     "C-c i m" = "eglot-menu";
     "C-c i f" = "eglot-format-buffer";
-    "C-c i d" = "flutter-run-or-hot-reload";
+    "C-c i h" = "eglot-inlay-hints-mode";
   };
   helpful = {
     "C-h f" = "helpful-callable";
