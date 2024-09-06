@@ -64,7 +64,6 @@ let
     awscli2
     docker-compose
     amazon-ecr-credential-helper
-    jetbrains.idea-community
     postgresql_15
     libgcc
     gcc

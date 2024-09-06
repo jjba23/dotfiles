@@ -6,18 +6,18 @@ with lib; {
     description = ''
       Monospaced font for many applications and UI.
     '';
-    default = "JetBrains Mono";
+    default = "Mononoki";
   };
   sansFontFamily = mkOption {
     description = ''
       Sans Serif font for many applications and UI.
     '';
-    default = "Aileron";
+    default = "Inter";
   };
   serifFontFamily = mkOption {
     description = ''
       Serif font for many applications and UI.
     '';
-    default = "Aileron";
+    default = "Inter";
   };
 }

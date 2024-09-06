@@ -27,10 +27,6 @@ let
   ];
   # Fonts
   fontPackages = with pkgs; [
-    ibm-plex
-    fira
-    fira-mono
-    fira-code
     noto-fonts
     noto-fonts-emoji
     libre-baskerville
@@ -38,11 +34,9 @@ let
     roboto-slab
     roboto-mono
     roboto-serif
-    inter
-    aileron
-    nerdfonts
     google-fonts
-    jetbrains-mono
+    mononoki
+    inter
   ];
   gnomeExtensionPackages = with pkgs; [
     gnomeExtensions.blur-my-shell

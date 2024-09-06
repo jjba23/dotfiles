@@ -58,8 +58,8 @@
 ;; Nyxt browser with Catppuccin Mocha theme
 (defvar *my-dark-theme*
   (make-instance 'theme:theme
-                           :font-family "Aileron"
-                           :monospace-font-family "JetBrains Mono"
+                           :font-family "Inter"
+                           :monospace-font-family "Mononoki"
                            :dark-p t
                            :background-color- "rgb(49, 50, 68)"
                            :background-color "rgb(36, 39, 58)"

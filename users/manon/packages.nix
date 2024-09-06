@@ -25,7 +25,6 @@
     yq
 
     vscode
-    jetbrains.pycharm-community
     gedit
 
     # Nerd
