@@ -15,30 +15,27 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (require 'eglot)
+
 (add-to-list 'eglot-server-programs '(nix-ts-mode . ("nil")))
 (add-to-list 'eglot-server-programs '(scala-ts-mode . ("metals")))
-;; (add-to-list 'eglot-server-programs
-;;    '(dart-mode . ("dart" "language-server" "--client-id" "emacs.eglot-dart" "--client-version" "1.2" "--protocol" "lsp")))
 (add-to-list 'eglot-server-programs '(markdown-mode . ("marksman")))
 
-
 (add-hook 'before-save-hook #'eglot-format-buffer)
-;;(add-hook 'before-save-hook 'eglot-code-action-organize-imports)
 
 
 (setq-default eglot-workspace-configuration
               '(
                 :metals (
                          :autoImportBuild t
-			             :superMethodLensesEnabled t
-			             :showInferredType t
+                         :superMethodLensesEnabled t
+			 :showInferredType t
                          :enableSemanticHighlighting t
                          :inlayHints (
                                       :inferredTypes (:enable t )
                                       :implicitArguments (:enable nil)
                                       :implicitConversions (:enable nil )
                                       :typeParameters (:enable t )
-                                      :hintsInPatternMatch (:enable t )
+                                      :hintsInPatternMatch (:enable nil )
                                       )
 			             )
                 :haskell (

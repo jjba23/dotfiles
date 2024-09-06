@@ -118,7 +118,7 @@ let
     gnome.gnome-calendar
     gnupg
     pinentry-all
-    poetry
+    brave
   ];
 in {
   environment.systemPackages =
