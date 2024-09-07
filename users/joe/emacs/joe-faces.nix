@@ -109,6 +109,7 @@ let
     orgFaces
     dashboardFaces
     modelineFaces
+    devFaces
   ];
 
   myFaces = builtins.concatStringsSep " " (map mkSetFaceAttribute joeFaces);
@@ -119,6 +120,33 @@ let
   unspecified = "'unspecified";
   mkSetFaceAttribute = import ./mk-set-face-attribute.nix { inherit osConfig; };
   themeColor = x: "(joe/get-color '${x})";
+  devFaces = [
+    {
+      face = "font-lock-comment-face";
+      font = mono;
+      italic = true;
+      height = "1.0";
+      foregroundSexp = themeColor "surface1";
+    }
+    {
+      face = "font-lock-keyword-face";
+      font = mono;
+      height = "1.0";
+      foregroundSexp = themeColor "mauve";
+    }
+    {
+      face = "font-lock-variable-name-face";
+      font = mono;
+      height = "1.0";
+      foregroundSexp = themeColor "flamingo";
+    }
+    {
+      face = "font-lock-string-face";
+      font = mono;
+      height = "1.0";
+      foregroundSexp = themeColor "green";
+    }
+  ];
   generalFaces = [
     {
       face = "line-number";
@@ -156,13 +184,7 @@ let
       height = "1.3";
       foregroundSexp = themeColor "text";
     }
-    {
-      face = "font-lock-comment-face";
-      font = mono;
-      italic = true;
-      height = "1.0";
-      foregroundSexp = themeColor "surface1";
-    }
+
     {
       face = "header-line";
       font = sans;
