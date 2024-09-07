@@ -122,7 +122,7 @@
 
 
 ;; Set font to regular at startup
-(set-font-scale-small)
+(set-font-scale-regular)
 
 (setq-default line-spacing 2)
 
