@@ -26,5 +26,6 @@
     ./mail.nix
     ./dconf.nix
     ./gnome
+    ./autostart
   ];
 }

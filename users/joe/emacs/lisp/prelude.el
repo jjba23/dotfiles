@@ -6,12 +6,11 @@
 
 (defun joe/load-flavor (flavor)
   (interactive)
+  (message (format "loading %s Emacs flavor" flavor))
   (if (equal 'dark flavor)
-    (message "loading dark palette")
     (setq joe/palette dark-palette)
     )
   (if (equal 'light flavor)
-    (message "loading light palette")
     (setq joe/palette light-palette)
     )
   )
