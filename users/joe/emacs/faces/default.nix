@@ -60,9 +60,16 @@ let
       backgroundSexp = themeColor "mantle";
     }
     {
+      face = "button";
+      font = sans;
+      height = "1.0";
+      foregroundSexp = themeColor "lavender";
+    }
+    {
       face = "widget-button";
-      font = mono;
-      foregroundSexp = themeColor "blue";
+      font = sans;
+      height = "1.0";
+      foregroundSexp = themeColor "lavender";
     }
     {
       face = "fixed-pitch";

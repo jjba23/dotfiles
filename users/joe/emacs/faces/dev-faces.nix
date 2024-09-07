@@ -52,4 +52,10 @@ in [
     height = "1.0";
     foregroundSexp = themeColor "green";
   }
+  {
+    face = "font-lock-type-face";
+    font = mono;
+    height = "1.0";
+    foregroundSexp = themeColor "rosewater";
+  }
 ]
