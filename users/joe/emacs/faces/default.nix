@@ -16,92 +16,9 @@
 
 { osConfig, lib, ... }:
 let
-  darkPalette = {
-    rosewater = "#f5e0dc";
-    flamingo = "#f2cdcd";
-    pink = "#f5c2e7";
-    mauve = "#cba67f";
-    red = "#f38ba9";
-    maroon = "#eba0ac";
-    peach = "#fab387";
-    yellow = "#f9e2af";
-    green = "#a6e3a1";
-    teal = "#94e2d5";
-    sky = "#89dceb";
-    sapphire = "#74c7ec";
-    blue = "#89b4fa";
-    lavender = "#b4befe";
-    text = "#cdd6f4";
-    subtext1 = "#bac2de";
-    subtext0 = "#a6adc8";
-    overlay2 = "#9399b2";
-    overlay1 = "#7f849c";
-    overlay0 = "#6c7086";
-    surface2 = "#585b70";
-    surface1 = "#45475a";
-    surface0 = "#313244";
-    base = "#1e1e2e";
-    mantle = "#181825";
-    crust = "#11111b";
-  };
-  lightPalette = {
-    rosewater = "#dc8a78";
-    flamingo = "#dd7878";
-    pink = "#ea76cb";
-    mauve = "#8839ef";
-    red = "#d20f39";
-    maroon = "#e64553";
-    peach = "#fe640b";
-    yellow = "#df8e1d";
-    green = "#40a02b";
-    teal = "#179299";
-    sky = "#04a5e5";
-    sapphire = "#209fb5";
-    blue = "#1e66f5";
-    lavender = "#7287fd";
-    text = "#4c4f69";
-    subtext1 = "#5c5f77";
-    subtext0 = "#6c6f85";
-    overlay2 = "#7c7f93";
-    overlay1 = "#8c8fa1";
-    overlay0 = "#9ca0b0";
-    surface2 = "#acb0be";
-    surface1 = "#bcc0cc";
-    surface0 = "#ccd0da";
-    base = "#eff1f5";
-    mantle = "#e6e9ef";
-    crust = "#dce0e8";
-  };
-  mkPalette = p: ''
-    '(      
-      (rosewater . "${p.rosewater}")
-      (flamingo . "${p.flamingo}")
-      (pink . "${p.pink}")
-      (mauve . "${p.mauve}")
-      (red . "${p.red}")
-      (maroon . "${p.maroon}")
-      (peach . "${p.peach}")
-      (yellow . "${p.yellow}")
-      (green . "${p.green}")
-      (teal . "${p.teal}")
-      (sky . "${p.sky}")
-      (sapphire . "${p.sapphire}")
-      (blue . "${p.blue}")
-      (lavender . "${p.lavender}")
-      (text . "${p.text}")
-      (subtext1 . "${p.subtext1}")
-      (subtext0 . "${p.subtext0}")
-      (overlay2 . "${p.overlay2}")
-      (overlay1 . "${p.overlay1}")
-      (overlay0 . "${p.overlay0}")
-      (surface2 . "${p.surface2}")
-      (surface1 . "${p.surface1}")
-      (surface0 . "${p.surface0}")
-      (base . "${p.base}")
-      (mantle . "${p.mantle}")
-      (crust . "${p.crust}")
-    )
-  '';
+  darkPalette = import ./palettes/dark.nix;
+  lightPalette = import ./palettes/light.nix;
+  mkPalette = import ./mk-palette.nix;
 
   joeFaces = lib.lists.flatten [
     generalFaces
@@ -119,34 +36,8 @@ let
   bold = "bold";
   unspecified = "'unspecified";
   mkSetFaceAttribute = import ./mk-set-face-attribute.nix { inherit osConfig; };
-  themeColor = x: "(joe/get-color '${x})";
-  devFaces = [
-    {
-      face = "font-lock-comment-face";
-      font = mono;
-      italic = true;
-      height = "1.0";
-      foregroundSexp = themeColor "surface1";
-    }
-    {
-      face = "font-lock-keyword-face";
-      font = mono;
-      height = "1.0";
-      foregroundSexp = themeColor "mauve";
-    }
-    {
-      face = "font-lock-variable-name-face";
-      font = mono;
-      height = "1.0";
-      foregroundSexp = themeColor "flamingo";
-    }
-    {
-      face = "font-lock-string-face";
-      font = mono;
-      height = "1.0";
-      foregroundSexp = themeColor "green";
-    }
-  ];
+  themeColor = import ./theme-color.nix;
+  devFaces = import ./dev-faces.nix { inherit osConfig; };
   generalFaces = [
     {
       face = "line-number";
@@ -167,6 +58,11 @@ let
       font = mono;
       foregroundSexp = themeColor "text";
       backgroundSexp = themeColor "mantle";
+    }
+    {
+      face = "widget-button";
+      font = mono;
+      foregroundSexp = themeColor "blue";
     }
     {
       face = "fixed-pitch";

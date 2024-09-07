@@ -586,7 +586,14 @@ in {
   ob-restclient = { };
   auto-dark = {
     after = [ "org" "fancy-compilation" "dashboard" ];
-    init = builtins.readFile ./lisp/auto-dark.el;
+    init = ''
+      (setq auto-dark-dark-theme 'modus-vivendi)
+      (setq auto-dark-light-theme 'modus-operandi)
+      (setq auto-dark-polling-interval-seconds 4)
+      (setq auto-dark-allow-osascript nil)
+      (setq auto-dark-allow-powershell nil)
+
+    '';
     config = ''
       (add-hook 'auto-dark-dark-mode-hook
           (lambda ()

@@ -23,7 +23,7 @@
 { pkgs, lib, osConfig, ... }:
 
 let
-  joe-faces = import ./joe-faces.nix { inherit osConfig lib; };
+  joe-faces = import ./faces/default.nix { inherit osConfig lib; };
   prelude = builtins.readFile ./lisp/prelude.el;
   usePackage = import ./packages.nix { inherit lib pkgs; };
 in {
