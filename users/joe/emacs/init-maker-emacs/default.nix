@@ -508,7 +508,7 @@ in {
         (epkgs.trivialBuild {
           pname = "hm-init";
           src = pkgs.writeText "hm-init.el" initFile;
-          version = "0.1.0";
+          version = "0.2.0";
           packageRequires = [ epkgs.use-package ] ++ packages
             ++ optional hasBind epkgs.bind-key
             ++ optional hasDiminish epkgs.diminish
@@ -532,6 +532,7 @@ in {
 
               # We know what we're doing?
               sed -i '/no-byte-compile: t/d' hm-package-quickstart.el
+              cat hm-package-quickstart.el
             ''}
           '';
         })

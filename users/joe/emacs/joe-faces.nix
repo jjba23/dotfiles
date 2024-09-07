@@ -72,34 +72,34 @@ let
     mantle = "#e6e9ef";
     crust = "#dce0e8";
   };
-  mkPalette = palette: ''
+  mkPalette = p: ''
     '(      
-      (rosewater . "${palette.rosewater}")
-      (flamingo . "${palette.flamingo}")
-      (pink . "${palette.pink}")
-      (mauve . "${palette.mauve}")
-      (red . "${palette.red}")
-      (maroon . "${palette.maroon}")
-      (peach . "${palette.peach}")
-      (yellow . "${palette.yellow}")
-      (green . "${palette.green}")
-      (teal . "${palette.teal}")
-      (sky . "${palette.sky}")
-      (sapphire . "${palette.sapphire}")
-      (blue . "${palette.blue}")
-      (lavender . "${palette.lavender}")
-      (text . "${palette.text}")
-      (subtext1 . "${palette.subtext1}")
-      (subtext0 . "${palette.subtext0}")
-      (overlay2 . "${palette.overlay2}")
-      (overlay1 . "${palette.overlay1}")
-      (overlay0 . "${palette.overlay0}")
-      (surface2 . "${palette.surface2}")
-      (surface1 . "${palette.surface1}")
-      (surface0 . "${palette.surface0}")
-      (base . "${palette.base}")
-      (mantle . "${palette.mantle}")
-      (crust . "${palette.crust}")
+      (rosewater . "${p.rosewater}")
+      (flamingo . "${p.flamingo}")
+      (pink . "${p.pink}")
+      (mauve . "${p.mauve}")
+      (red . "${p.red}")
+      (maroon . "${p.maroon}")
+      (peach . "${p.peach}")
+      (yellow . "${p.yellow}")
+      (green . "${p.green}")
+      (teal . "${p.teal}")
+      (sky . "${p.sky}")
+      (sapphire . "${p.sapphire}")
+      (blue . "${p.blue}")
+      (lavender . "${p.lavender}")
+      (text . "${p.text}")
+      (subtext1 . "${p.subtext1}")
+      (subtext0 . "${p.subtext0}")
+      (overlay2 . "${p.overlay2}")
+      (overlay1 . "${p.overlay1}")
+      (overlay0 . "${p.overlay0}")
+      (surface2 . "${p.surface2}")
+      (surface1 . "${p.surface1}")
+      (surface0 . "${p.surface0}")
+      (base . "${p.base}")
+      (mantle . "${p.mantle}")
+      (crust . "${p.crust}")
     )
   '';
 
@@ -138,6 +138,7 @@ let
       heightSexp = "(round (mk-font-size 114))";
       font = mono;
       foregroundSexp = themeColor "text";
+      backgroundSexp = themeColor "mantle";
     }
     {
       face = "fixed-pitch";
@@ -148,16 +149,19 @@ let
     {
       face = "variable-pitch";
       height = "1.3";
+      foregroundSexp = themeColor "text";
     }
     {
       face = "variable-pitch-text";
       height = "1.3";
+      foregroundSexp = themeColor "text";
     }
     {
       face = "font-lock-comment-face";
       font = mono;
       italic = true;
       height = "1.0";
+      foregroundSexp = themeColor "surface1";
     }
     {
       face = "header-line";
