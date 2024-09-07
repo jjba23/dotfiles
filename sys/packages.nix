@@ -119,6 +119,7 @@ let
     gnupg
     pinentry-all
     brave
+    caddy
   ];
 in {
   environment.systemPackages =
