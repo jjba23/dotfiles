@@ -413,6 +413,7 @@ in {
   };
 
   pdf-tools = {
+    defer = true;
     config = ''
       (pdf-tools-install)
       (setq-default pdf-view-display-size 'fit-page)

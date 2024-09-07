@@ -16,6 +16,102 @@
 
 { osConfig, lib, ... }:
 let
+  darkPalette = {
+    rosewater = "#f5e0dc";
+    flamingo = "#f2cdcd";
+    pink = "#f5c2e7";
+    mauve = "#cba67f";
+    red = "#f38ba9";
+    maroon = "#eba0ac";
+    peach = "#fab387";
+    yellow = "#f9e2af";
+    green = "#a6e3a1";
+    teal = "#94e2d5";
+    sky = "#89dceb";
+    sapphire = "#74c7ec";
+    blue = "#89b4fa";
+    lavender = "#b4befe";
+    text = "#cdd6f4";
+    subtext1 = "#bac2de";
+    subtext0 = "#a6adc8";
+    overlay2 = "#9399b2";
+    overlay1 = "#7f849c";
+    overlay0 = "#6c7086";
+    surface2 = "#585b70";
+    surface1 = "#45475a";
+    surface0 = "#313244";
+    base = "#1e1e2e";
+    mantle = "#181825";
+    crust = "#11111b";
+  };
+  lightPalette = {
+    rosewater = "#dc8a78";
+    flamingo = "#dd7878";
+    pink = "#ea76cb";
+    mauve = "#8839ef";
+    red = "#d20f39";
+    maroon = "#e64553";
+    peach = "#fe640b";
+    yellow = "#df8e1d";
+    green = "#40a02b";
+    teal = "#179299";
+    sky = "#04a5e5";
+    sapphire = "#209fb5";
+    blue = "#1e66f5";
+    lavender = "#7287fd";
+    text = "#4c4f69";
+    subtext1 = "#5c5f77";
+    subtext0 = "#6c6f85";
+    overlay2 = "#7c7f93";
+    overlay1 = "#8c8fa1";
+    overlay0 = "#9ca0b0";
+    surface2 = "#acb0be";
+    surface1 = "#bcc0cc";
+    surface0 = "#ccd0da";
+    base = "#eff1f5";
+    mantle = "#e6e9ef";
+    crust = "#dce0e8";
+  };
+  mkPalette = palette: ''
+    '(      
+      (rosewater . "${palette.rosewater}")
+      (flamingo . "${palette.flamingo}")
+      (pink . "${palette.pink}")
+      (mauve . "${palette.mauve}")
+      (red . "${palette.red}")
+      (maroon . "${palette.maroon}")
+      (peach . "${palette.peach}")
+      (yellow . "${palette.yellow}")
+      (green . "${palette.green}")
+      (teal . "${palette.teal}")
+      (sky . "${palette.sky}")
+      (sapphire . "${palette.sapphire}")
+      (blue . "${palette.blue}")
+      (lavender . "${palette.lavender}")
+      (text . "${palette.text}")
+      (subtext1 . "${palette.subtext1}")
+      (subtext0 . "${palette.subtext0}")
+      (overlay2 . "${palette.overlay2}")
+      (overlay1 . "${palette.overlay1}")
+      (overlay0 . "${palette.overlay0}")
+      (surface2 . "${palette.surface2}")
+      (surface1 . "${palette.surface1}")
+      (surface0 . "${palette.surface0}")
+      (base . "${palette.base}")
+      (mantle . "${palette.mantle}")
+      (crust . "${palette.crust}")
+    )
+  '';
+
+  joeFaces = lib.lists.flatten [
+    generalFaces
+    markdownFaces
+    orgFaces
+    dashboardFaces
+    modelineFaces
+  ];
+
+  myFaces = builtins.concatStringsSep " " (map mkSetFaceAttribute joeFaces);
   serif = osConfig.masterOptions.joe.serifFontFamily;
   sans = osConfig.masterOptions.joe.sansFontFamily;
   mono = osConfig.masterOptions.joe.monospacedFontFamily;
@@ -103,31 +199,31 @@ let
   markdownFaces = [
     {
       face = "markdown-header-face-1";
-      height = "1.44";
+      height = "1.6";
       font = serif;
       weight = bold;
     }
     {
       face = "markdown-header-face-2";
-      height = "1.38";
+      height = "1.6";
       font = serif;
       weight = bold;
     }
     {
       face = "markdown-header-face-3";
-      height = "1.34";
+      height = "1.5";
       font = serif;
       weight = bold;
     }
     {
       face = "markdown-header-face-4";
-      height = "1.32";
+      height = "1.4";
       font = serif;
       weight = bold;
     }
     {
       face = "markdown-header-face-5";
-      height = "1.28";
+      height = "1.3";
       font = serif;
       weight = bold;
     }
@@ -201,37 +297,37 @@ let
     }
     {
       face = "org-level-1";
-      height = "1.5";
+      height = "1.6";
       font = serif;
       weight = bold;
     }
     {
       face = "org-level-2";
-      height = "1.5";
+      height = "1.6";
       font = serif;
       weight = bold;
     }
     {
       face = "org-level-3";
-      height = "1.4";
+      height = "1.5";
       font = serif;
       weight = bold;
     }
     {
       face = "org-level-4";
-      height = "1.34";
+      height = "1.4";
       font = serif;
       weight = bold;
     }
     {
       face = "org-level-5";
-      height = "1.34";
+      height = "1.3";
       font = serif;
       weight = bold;
     }
     {
       face = "org-level-6";
-      height = "1.28";
+      height = "1.3";
       font = serif;
       weight = bold;
     }
@@ -289,46 +385,15 @@ let
       backgroundSexp = unspecified;
     }
   ];
-  darkPalette = { text = "#FFFFFF"; };
-  lightPalette = { text = "#000000"; };
-  mkPalette = palette: ''
-    '(
-      (text . ${palette.text})
-    )
-  '';
-  joeFaces = lib.lists.flatten [
-    generalFaces
-    markdownFaces
-    orgFaces
-    dashboardFaces
-    modelineFaces
-  ];
 
-  myFaces = builtins.concatStringsSep " " (map mkSetFaceAttribute joeFaces);
 in ''
-    (defun joe/set-faces ()
-      (interactive)
-      ${myFaces}
-    )
+  (defun joe/set-faces ()
+    (interactive)
+    ${myFaces}
+  )
 
+  (setq light-palette ${mkPalette lightPalette})
+  (setq dark-palette ${mkPalette darkPalette})
+  (setq joe/palette light-palette)
 
-    (setq light-palette ${mkPalette lightPalette})
-    (setq dark-palette ${mkPalette darkPalette})
-    (setq joe/palette light-palette)
-
-    (defun joe/load-flavor (flavor)
-      (interactive)
-      (if (equal 'dark flavor)
-  	(message "loading dark palette")
-  	(setq joe/palette dark-palette)
-  	)
-      (if (equal 'light flavor)
-  	(message "loading light palette")
-  	(setq joe/palette light-palette)
-  	)
-      )
-
-    (defun joe/get-color (color)
-      (alist-get 'color joe/palette "#FFFFFF")
-    )
 ''
