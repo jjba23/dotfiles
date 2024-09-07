@@ -13,7 +13,6 @@ If you like my work, please support me by [[https://bmc.link/jjbigorra][buying m
 <img src="https://img.shields.io/badge/NixOS-5277C3?logo=nixos&logoColor=fff&style=plastic" alt="NixOS"/>
 <img src="https://img.shields.io/badge/GNU%20Emacs-7F5AB6?logo=gnuemacs&logoColor=fff&style=plastic" alt="GNU Emacs"/>
 <img src="https://img.shields.io/badge/Haskell-5D4F85?logo=haskell&logoColor=fff&style=plastic" alt="Haskell"/>
-<img src="https://img.shields.io/badge/Python-3178C6?logo=python&logoColor=fff&style=plastic" alt="Typescript"/>
 <img src="https://img.shields.io/badge/GTK-7FE719?logo=gtk&logoColor=000&style=plastic" alt="GTK"/>
 <img src="https://img.shields.io/badge/fish%20shell-34C534?logo=fishshell&logoColor=fff&style=plastic" alt="Fish shell"/>
 </div>
