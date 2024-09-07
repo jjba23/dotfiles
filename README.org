@@ -21,9 +21,12 @@ If you like my work, please support me by [[https://bmc.link/jjbigorra][buying m
 
 * Using
 
-If you are a Nix connaisseur, you will have no questions here.
+If you are a Nix connaisseur, you will have very likely immediately know what to do and have no questions here.
 
-Otherwise, for convenience, an example of how to deploy this config in a fully automated fashion:
+Otherwise, for convenience, I have written some Haskell code that automates my usage of these dotfiles. See [[file:Main.hs][Main.hs]] for more.
+This should be highly readable to everyone, even if you are not familiar with Haskell.
+
+An example of how to deploy this config in a fully automated fashion:
 #+begin_src bash
   cabal run dotfiles -- rebuild-system
   # or using cabal and GHC from the flake
