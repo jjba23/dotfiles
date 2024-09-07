@@ -11,15 +11,15 @@ let
       Path=${binaryPath}
       Exec=${exec}
       Icon=${icon}
-      Terminal=${inTerminal}
+      Terminal=${if inTerminal then "true" else "false"}
       Categories=${lib.strings.intersperse ";" categories}
     '';
 in {
-  home.file.".config/autostart/emacs-daemon.desktop".text = (mkAutoStart {
+  home.file.".config/autostart/emacs-daemon.desktop".text = mkAutoStart {
     name = "emacs-daemon";
     fullName = "Emacs Daemon";
     binaryPath = "/etc/profiles/per-user/joe/bin/systemctl";
     exec = "systemctl --user start emacs";
-  });
+  };
 
 }
