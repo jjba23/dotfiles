@@ -49,6 +49,12 @@ rebuildSystem = do
   runCommand
     (Description "🔨 send success notification to user")
     (Command "notify-send 'Successful rebuilding of NixOS system + Home Manager flake'")
+  runCommand
+    (Description "🔨 restart Emacs daemon")
+    (Command "systemctl --user restart emacs")
+  runCommand
+    (Description "🔨 check Emacs daemon status")
+    (Command "systemctl --user status emacs")    
 
 updateSystem :: (MonadIO m) => m ()
 updateSystem = do

@@ -12,7 +12,9 @@ let
       Exec=${exec}
       Icon=${icon}
       Terminal=${if inTerminal then "true" else "false"}
-      Categories=${lib.strings.intersperse ";" categories}
+      Categories=${
+        lib.strings.concatStrings (lib.strings.intersperse ";" categories)
+      }
     '';
 in {
   home.file.".config/autostart/emacs-daemon.desktop".text = mkAutoStart {

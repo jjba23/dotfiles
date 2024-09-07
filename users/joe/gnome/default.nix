@@ -2,7 +2,7 @@
 let
 
   favoriteApps = map favoriteApp [
-    "emacs"
+    "emacsclient"
     "org.gnome.Terminal"
     "org.gnome.Nautilus"
     "org.gnome.Geary"
@@ -242,7 +242,7 @@ in {
         withSuper = true;
         key = "e";
       };
-      command = "emacs";
+      command = "emacsclient -c";
       name = "Open a new Emacs session";
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/gnome-characters" =
