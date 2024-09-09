@@ -35,6 +35,12 @@ in [
     foregroundSexp = themeColor "text";
   }
   {
+    face = "font-lock-function-name-face";
+    font = mono;
+    height = "1.0";
+    foregroundSexp = themeColor "teal";
+  }
+  {
     face = "font-lock-constant-face";
     font = mono;
     height = "1.0";
