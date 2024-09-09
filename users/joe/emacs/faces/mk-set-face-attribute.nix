@@ -18,7 +18,7 @@
 ({ face, height ? null, heightSexp ? null
   , font ? osConfig.masterOptions.joe.sansFontFamily, inherits ? null
   , background ? null, backgroundSexp ? null, foreground ? null
-  , foregroundSexp ? null, weight ? null, italic ? null, box ? null
+  , foregroundSexp ? null, weight ? null, italic ? false, box ? null
   , underline ? null, underlineSexp ? null }:
 
   let
@@ -49,7 +49,7 @@
     #
     weight_ = ifNullEmptyElse weight ":weight '${weight}";
     #
-    italic_ = ifNullEmptyElse italic ":italic t";
+    italic_ = if italic then ":italic t" else ":italic nil :slant nil";
     #
     box_ = ifNullEmptyElse box ":box ${box}";
     #
