@@ -85,7 +85,9 @@
       natural-scroll = false;
     };
     "org/gnome/desktop/sound" = { allow-volume-above-100-percent = true; };
-    "org/gnome/shell/extensions/dim-background-windows" = { brightness = 0.9; };
+    "org/gnome/shell/extensions/dim-background-windows" = {
+      brightness = 0.86;
+    };
   };
 }
 

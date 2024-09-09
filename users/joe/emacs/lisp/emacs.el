@@ -241,3 +241,4 @@ the default is \"/\"."
 (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 
+(joe/set-faces)

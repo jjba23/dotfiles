@@ -242,7 +242,7 @@ in {
         withSuper = true;
         key = "e";
       };
-      command = "emacsclient -c";
+      command = "emacsclient -c -e '(joe/set-faces)'";
       name = "Open a new Emacs session";
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/gnome-characters" =
@@ -321,7 +321,9 @@ in {
     "org/gnome/terminal/legacy/keybindings" = terminalKeybindings;
     "org/gnome/desktop/sound" = { allow-volume-above-100-percent = true; };
     "org/gnome/shell/extensions/dash-to-dock" = { hot-keys = false; };
-    "org/gnome/shell/extensions/dim-background-windows" = { brightness = 0.9; };
+    "org/gnome/shell/extensions/dim-background-windows" = {
+      brightness = 0.86;
+    };
 
   };
 }
