@@ -2,68 +2,54 @@
 let
   themeColor = import ./theme-color.nix;
   mono = osConfig.masterOptions.joe.monospacedFontFamily;
+  simpleMonoFace = { face, color, italic ? false }: {
+    inherit italic face;
+    font = mono;
+    height = "1.0";
+    foregroundSexp = themeColor color;
+  };
 in [
-  {
+  (simpleMonoFace {
     face = "font-lock-comment-face";
-    font = mono;
     italic = true;
-    height = "1.0";
-    foregroundSexp = themeColor "overlay2";
-  }
-  {
+    color = "overlay2";
+  })
+  (simpleMonoFace {
     face = "haskell-pragma-face";
-    font = mono;
-    height = "1.0";
-    foregroundSexp = themeColor "subtext0";
-  }
-  {
+    color = "subtext0";
+  })
+  (simpleMonoFace {
     face = "haskell-type-face";
-    font = mono;
-    height = "1.0";
-    foregroundSexp = themeColor "peach";
-  }
-  {
+    color = "peach";
+  })
+  (simpleMonoFace {
     face = "font-lock-keyword-face";
-    font = mono;
-    height = "1.0";
-    foregroundSexp = themeColor "mauve";
-  }
-  {
+    color = "mauve";
+  })
+  (simpleMonoFace {
     face = "font-lock-variable-name-face";
-    font = mono;
-    height = "1.0";
-    foregroundSexp = themeColor "text";
-  }
-  {
+    color = "text";
+  })
+  (simpleMonoFace {
     face = "font-lock-function-name-face";
-    font = mono;
-    height = "1.0";
-    foregroundSexp = themeColor "teal";
-  }
-  {
+    color = "teal";
+  })
+  (simpleMonoFace {
     face = "font-lock-constant-face";
-    font = mono;
-    height = "1.0";
-    foregroundSexp = themeColor "lavender";
-  }
-  {
+    color = "lavender";
+  })
+  (simpleMonoFace {
     face = "font-lock-function-call-face";
-    font = mono;
-    height = "1.0";
-    foregroundSexp = themeColor "lavender";
-  }
-  {
+    color = "lavender";
+  })
+  (simpleMonoFace {
     face = "font-lock-string-face";
-    font = mono;
-    height = "1.0";
-    foregroundSexp = themeColor "green";
-  }
-  {
+    color = "green";
+  })
+  (simpleMonoFace {
     face = "font-lock-type-face";
-    font = mono;
-    height = "1.0";
-    foregroundSexp = themeColor "rosewater";
-  }
+    color = "rosewater";
+  })
   {
     face = "eglot-inlay-hint-face";
     font = mono;
