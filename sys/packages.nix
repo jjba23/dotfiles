@@ -37,8 +37,12 @@ let
     google-fonts
     inter
     inconsolata
+    iosevka-comfy.comfy-wide
+    iosevka-comfy.comfy-wide-fixed
   ];
   gnomeExtensionPackages = with pkgs; [
+    gnomeExtensions.rounded-window-corners-reborn
+    gnomeExtensions.dim-background-windows
     gnomeExtensions.blur-my-shell
     gnomeExtensions.gsconnect
     gnomeExtensions.places-status-indicator

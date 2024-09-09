@@ -506,7 +506,41 @@ in {
     '';
     bind = bindings.pomodoro;
   };
-  dashboard = { config = builtins.readFile ./lisp/dashboard.el; };
+  dashboard = {
+    init = ''
+      (setq dashboard-center-content t)
+      (setq dashboard-vertically-center-content t)
+      (setq dashboard-items '(
+      			(projects  . 8)
+                              (bookmarks . 8)                        
+      			(recents   . 10)
+                              ;;(agenda    . 5)
+                              ;;(registers . 5)
+      			))
+      (setq dashboard-navigation-cycle t)
+      ;; (setq dashboard-startup-banner 'logo)
+      (setq dashboard-startup-banner '("/home/joe/Ontwikkeling/Persoonlijk/dotfiles/resources/images/emacs-dashboard-small.png" . "/home/joe/Ontwikkeling/Persoonlijk/dotfiles/resources/images/emacs-dashboard-text.txt"))
+      (setq dashboard-startupify-list '(
+                                        
+                                        dashboard-insert-newline
+      				  dashboard-insert-footer
+      				  dashboard-insert-newline
+                                        dashboard-insert-banner-title
+                                        dashboard-insert-newline
+                                        dashboard-insert-navigator
+                                        dashboard-insert-newline
+                                        dashboard-insert-init-info
+                                        dashboard-insert-items
+                                        dashboard-insert-newline
+                                        ))
+
+
+
+    '';
+    config = ''
+      (dashboard-setup-startup-hook)
+    '';
+  };
   mu4e = {
     defer = 2;
     bind = bindings.mu4e;

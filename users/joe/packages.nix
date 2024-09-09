@@ -37,7 +37,7 @@ let
   ];
   # Programming languages, compilers, etc.
   programmingLanguagePackages = with pkgs; [
-    nixfmt-classic
+    nixfmt
     nodejs_20
     sbcl
     terraform

@@ -32,7 +32,7 @@ let
   terminalProfile = {
     visible-name = "joe";
     use-system-font = false;
-    font = "Inconsolata 11";
+    font = "Iosevka Comfy Wide 11";
     audible-bell = false;
     scrollback-lines = 1000000;
     use-theme-colors = true;
@@ -290,6 +290,8 @@ in {
         move-clock.extensionUuid
         caffeine.extensionUuid
         dash-to-dock.extensionUuid
+        rounded-window-corners-reborn.extensionUuid
+        dim-background-windows.extensionUuid
       ];
       favorite-apps = favoriteApps;
     };

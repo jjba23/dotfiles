@@ -8,6 +8,8 @@ These are my configuration files, which also explain a lot about the tooling I u
 
 If you like my work, please support me by [[https://bmc.link/jjbigorra][buying me a cup of coffee ☕]] so I can continue with a lot of motivation.
 
+This is the set of files that powers my day-to-day computing experience, so do not track my dotfiles (rolling, unstable, and untested), but feel free to use them and take inspiration from them.
+
 #+begin_html
 <div>
 <img src="https://img.shields.io/badge/NixOS-5277C3?logo=nixos&logoColor=fff&style=plastic" alt="NixOS"/>
@@ -17,6 +19,11 @@ If you like my work, please support me by [[https://bmc.link/jjbigorra][buying m
 <img src="https://img.shields.io/badge/fish%20shell-34C534?logo=fishshell&logoColor=fff&style=plastic" alt="Fish shell"/>
 </div>
 #+end_html
+
+In some ways this is a laboratory of experimentation for my computing environment. What I do with any other program that forms part of my dotfiles is only meant to work for me. As such, I may introduce breaking changes without prior notice.
+
+This is all to say that you understand the risks associated with tracking an ever-changing project that does not enjoy widespread testing and whose target audience is only me. If you are fine with that and are willing to assume responsibility for any possible breakage, then please feel welcome to follow along. You can always open an issue here or contribute any fixes, if you will.
+
 
 * Using
 

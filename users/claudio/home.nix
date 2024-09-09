@@ -68,6 +68,8 @@
         move-clock.extensionUuid
         caffeine.extensionUuid
         dash-to-dock.extensionUuid
+        rounded-window-corners-reborn.extensionUuid
+        dim-background-windows.extensionUuid
       ];
     };
     "org/gnome/desktop/interface" = {
