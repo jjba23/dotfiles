@@ -49,7 +49,7 @@
     #
     weight_ = ifNullEmptyElse weight ":weight '${weight}";
     #
-    italic_ = if italic then ":italic t" else ":italic nil :slant 'roman";
+    italic_ = if italic then ":italic t" else ":italic nil";
     #
     box_ = ifNullEmptyElse box ":box ${box}";
     #

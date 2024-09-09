@@ -519,12 +519,15 @@ in {
       			))
       (setq dashboard-navigation-cycle t)
       ;; (setq dashboard-startup-banner 'logo)
-      (setq dashboard-startup-banner '("/home/joe/Ontwikkeling/Persoonlijk/dotfiles/resources/images/emacs-dashboard-small.png" . "/home/joe/Ontwikkeling/Persoonlijk/dotfiles/resources/images/emacs-dashboard-text.txt"))
+      (setq dashboard-startup-banner '(
+          "/home/joe/Ontwikkeling/Persoonlijk/dotfiles/resources/images/emacs-dashboard-small.png" . "/home/joe/Ontwikkeling/Persoonlijk/dotfiles/resources/texts/emacs-dashboard.txt")
+          )
       (setq dashboard-startupify-list '(
-                                        
                                         dashboard-insert-newline
-      				  dashboard-insert-footer
-      				  dashboard-insert-newline
+                                        dashboard-insert-banner
+                                        dashboard-insert-newline
+      				        dashboard-insert-footer
+      				        dashboard-insert-newline
                                         dashboard-insert-banner-title
                                         dashboard-insert-newline
                                         dashboard-insert-navigator
