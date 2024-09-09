@@ -61,7 +61,7 @@
         "openvpn3 session-start --config ~/Documenten/bigorra-zorgdomein-vpn.ovpn && openvpn3 session-auth";
       nr =
         "cd ~/Ontwikkeling/Persoonlijk/dotfiles && nix develop -c cabal run dotfiles -- rebuild-system";
-      rr = "systemctl --user restart emacs";
+      rr = "systemctl --user --no-pager restart emacs";
       lock = "hyprlock";
       aboutnix = "nix-info -m";
       fetch = "fastfetch";

@@ -54,6 +54,8 @@ let
     }
     {
       face = "default";
+      # the default face must be an integer value (imagine *100)
+      # so we scale it just the same as with "altitude" sizing for Emacs and round
       heightSexp = "(round (mk-font-size 114))";
       font = mono;
       foregroundSexp = themeColor "text";
@@ -63,7 +65,7 @@ let
       face = "button";
       font = sans;
       height = "1.0";
-      foregroundSexp = themeColor "lavender";
+      foregroundSexp = themeColor "mauve";
     }
     {
       face = "widget-button";
@@ -277,13 +279,13 @@ let
     {
       face = "dashboard-banner-logo-title";
       font = serif;
-      height = "1.3";
+      height = "1.5";
       weight = bold;
     }
     {
       face = "dashboard-footer-face";
       font = serif;
-      height = "1.2";
+      height = "1.4";
       weight = bold;
     }
   ];
@@ -291,21 +293,21 @@ let
     {
       face = "mode-line";
       font = sans;
-      height = "0.6";
-      backgroundSexp = themeColor "surface1";
+      height = "0.5";
+      backgroundSexp = themeColor "surface0";
       foregroundSexp = themeColor "text";
     }
     {
       face = "mode-line-active";
       font = sans;
-      height = "0.6";
-      backgroundSexp = themeColor "surface1";
+      height = "0.5";
+      backgroundSexp = themeColor "surface0";
       foregroundSexp = themeColor "text";
     }
     {
       face = "mode-line-inactive";
       font = sans;
-      height = "0.6";
+      height = "0.5";
       backgroundSexp = themeColor "mantle";
       foregroundSexp = themeColor "overlay1";
     }

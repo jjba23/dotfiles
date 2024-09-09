@@ -32,8 +32,8 @@
   )
 
 (savehist-mode 1)
-(set-frame-parameter nil 'alpha-background 92)
-(add-to-list 'default-frame-alist '(alpha-background . 92))
+(set-frame-parameter nil 'alpha-background 90)
+(add-to-list 'default-frame-alist '(alpha-background . 90))
 (setq frame-resize-pixelwise t)
 (when (fboundp 'windmove-default-keybindings) (windmove-default-keybindings))
 (setq backward-delete-char-untabify-method 'hungry)
@@ -226,7 +226,7 @@ the default is \"/\"."
 (defun nixos-restart-emacs ()
   "Restart the Emacs session and server."
   (interactive)
-  (async-shell-command "systemctl --user restart emacs")
+  (async-shell-command "systemctl --user --no-pager restart emacs")
   )
 
 (setq pop-up-windows nil)

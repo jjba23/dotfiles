@@ -21,7 +21,7 @@ in {
     name = "emacs-daemon";
     fullName = "Emacs Daemon";
     binaryPath = "/etc/profiles/per-user/joe/bin/systemctl";
-    exec = "systemctl --user start emacs";
+    exec = "systemctl --user --no-pager start emacs";
   };
 
 }

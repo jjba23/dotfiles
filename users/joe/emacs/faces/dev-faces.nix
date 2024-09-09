@@ -58,4 +58,10 @@ in [
     height = "1.0";
     foregroundSexp = themeColor "rosewater";
   }
+  {
+    face = "eglot-inlay-hint-face";
+    font = mono;
+    height = "0.8";
+    foregroundSexp = themeColor "surface2";
+  }
 ]
