@@ -321,6 +321,8 @@ in {
     "org/gnome/terminal/legacy/keybindings" = terminalKeybindings;
     "org/gnome/desktop/sound" = { allow-volume-above-100-percent = true; };
     "org/gnome/shell/extensions/dash-to-dock" = { hot-keys = false; };
+    "org/gnome/shell/extensions/dim-background-windows" = { brightness = 0.9; };
+
   };
 }
 
