@@ -577,13 +577,6 @@ in {
     '';
   };
   speed-type = { };
-  rest-client = {
-    config = ''
-
-      (setq network-stream-use-client-certificates t)
-    '';
-  };
-  ob-restclient = { };
   auto-dark = {
     after = [ "org" "fancy-compilation" "dashboard" ];
     init = ''
