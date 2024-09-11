@@ -27,13 +27,14 @@ This is all to say that you understand the risks associated with tracking an eve
 
 * Using
 
-If you are a Nix connaisseur, you will have very likely immediately know what to do and have no questions here.
+If you are a Nix connaisseur, you will very likely immediately know what to do and have no questions here.
 
 Otherwise, for convenience, I have written some Haskell code that automates my usage of these dotfiles. See [[file:Main.hs][Main.hs]] for more.
 This should be highly readable to everyone, even if you are not familiar with Haskell.
 
 An example of how to deploy this config in a fully automated fashion:
 #+begin_src bash
+  # optionally run `cabal update` first
   cabal run dotfiles -- rebuild-system
   # or using cabal and GHC from the flake
   nix develop -c cabal run dotfiles -- rebuild-system
