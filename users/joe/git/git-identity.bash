@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-# get each set of usernames from the git config (which will be generated from our `default.nix` above)
 IDENTITIES=$(git config --global --name-only --get-regexp "user.*..name" | sed -e 's/^user.//' -e 's/.name$//')
 # filter them with fzf
 ID=$(echo "${IDENTITIES}" | fzf -e -1 +m -q "$1")
