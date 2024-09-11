@@ -30,18 +30,19 @@ in {
     };
 
     extraConfig = {
+      commit = { gpgsign = true; };
       pull = { rebase = false; };
       user = {
         useConfigOnly = true;
         work = {
           name = "Josep Bigorra";
           email = "josepbigorraalgaba@vandebron.nl";
-          signingkey = "3B6D20502E380697!";
+          signingkey = "3B6D20502E380697";
         };
         personal = {
           name = "Josep Bigorra";
           email = "jjbigorra@gmail.com";
-          signingkey = "24F46738CE114AF6!";
+          signingkey = "24F46738CE114AF6";
         };
       };
     };

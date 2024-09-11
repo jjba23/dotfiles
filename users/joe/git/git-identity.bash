@@ -13,6 +13,8 @@ fi
 # set the ID locally in each repo (eg in the repo's .git/config)
 git config user.name "$(git config user.${ID}.name)"
 git config user.email "$(git config user.${ID}.email)"
+git config user.signingkey "$(git config user.${ID}.signingkey)"
 
 echo "Name: $(git config user.name)"
 echo "Email: $(git config user.email)"
+echo "Signing key: $(git config user.signingkey)"
