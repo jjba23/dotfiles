@@ -15,6 +15,11 @@ in [
     color = "overlay2";
   })
   (simpleMonoFace {
+    face = "font-lock-doc-face";
+    italic = true;
+    color = "overlay2";
+  })
+  (simpleMonoFace {
     face = "haskell-pragma-face";
     color = "subtext0";
   })
