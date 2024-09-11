@@ -23,6 +23,7 @@ in {
 
   programs.git = {
     enable = true;
+
     aliases = {
       identity = "! git-identity";
       id = "! git-identity";
