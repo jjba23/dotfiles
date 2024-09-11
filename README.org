@@ -123,12 +123,3 @@ You should have received a copy of the GNU General Public License along with thi
 ** Proper ELisp etiquette (follow the right way)
 ** WhiteSur GNOME for Manon
 ** Improve cheatsheet and export to org/markdown automatically
-
-* Cheatsheet
-
-All good software needs good documentation.
-
-
-
-
-
