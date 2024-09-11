@@ -104,5 +104,6 @@ in {
     XDG_PICTURES_DIR="$HOME/Afbeeldingen"
     XDG_VIDEOS_DIR="$HOME/Video's"
   '';
+
 }
 

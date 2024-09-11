@@ -120,8 +120,6 @@ let
     libreoffice
     gnome.gnome-calculator
     gnome.gnome-calendar
-    gnupg
-    pinentry-all
     brave
     caddy
   ];

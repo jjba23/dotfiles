@@ -34,10 +34,12 @@ in {
         work = {
           name = "Josep Bigorra";
           email = "josepbigorraalgaba@vandebron.nl";
+          signingkey = "3B6D20502E380697!";
         };
         personal = {
           name = "Josep Bigorra";
           email = "jjbigorra@gmail.com";
+          signingkey = "24F46738CE114AF6!";
         };
       };
 

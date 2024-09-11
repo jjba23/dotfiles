@@ -29,12 +29,6 @@
     sessionVariables = { MOZ_ENABLE_WAYLAND = 1; };
   };
 
-  services.gpg-agent = {
-    enable = true;
-    defaultCacheTtl = 1800;
-    enableSshSupport = true;
-  };
-
   programs = {
     home-manager.enable = true;
     git = {

@@ -19,7 +19,6 @@
     ./emacs
     ./fish.nix
     ./git
-    ./gpg.nix
     ./packages.nix
     ./ssh.nix
     ./gtk.nix
@@ -27,5 +26,6 @@
     ./dconf.nix
     ./gnome
     ./autostart
+
   ];
 }

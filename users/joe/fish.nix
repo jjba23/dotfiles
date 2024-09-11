@@ -24,20 +24,6 @@
   programs.nix-index.enableFishIntegration = true;
   programs.fish = {
     enable = true;
-    shellInit = ''
-      function git-reset-history --description 'Git Reset History helper'
-
-               rm -rf .git
-
-               git init
-               git add -A
-               git commit -m "In the beginning there was darkness"
-
-               # fish is 1-indexed
-               git remote add origin $argv[2]
-               git push -u --force origin $argv[1]
-      end
-    '';
     shellAliases = {
       gco = "git checkout";
       npu = "nix-prefetch-url";
@@ -69,6 +55,8 @@
       gfetch = "onefetch";
       scala-validate = "sbt scalafixAll && sbt scalafmt && sbt test";
       scala-fmt = "sbt scalafixAll && sbt scalafmt";
+      gpg-new = "gpg --expert --pinentry-mode=loopback --full-gen-key";
+      gpg-list = "gpg --list-secret-keys --keyid-format=long";
     };
   };
 }
