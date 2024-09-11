@@ -27,6 +27,7 @@ in {
       identity = "! git-identity";
       id = "! git-identity";
     };
+
     extraConfig = {
       pull = { rebase = false; };
       user = {
@@ -42,8 +43,8 @@ in {
           signingkey = "24F46738CE114AF6!";
         };
       };
-
     };
+
     ignores = [ "bloop/" ".metals" ".stack-work" "target" "metals.sbt" ];
   };
 }
