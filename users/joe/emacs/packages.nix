@@ -469,14 +469,6 @@ in {
   };
 
   org-contacts = { };
-  simple-modeline = {
-    hook = [
-      (mkHook {
-        mode = "after-init";
-        lambda = "simple-modeline-mode";
-      })
-    ];
-  };
 
   emacs = {
     after = [ "markdown-mode" "org" ];
