@@ -60,5 +60,4 @@
     };
   };
 
-  home.file.".config/fish/fish_variables".source = ./fish_variables;
 }
