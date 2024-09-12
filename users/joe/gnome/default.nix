@@ -18,7 +18,7 @@
 let
   favoriteApps = map favoriteApp [
     "emacsclient"
-    "org.gnome.Terminal"
+    "blackbox"
     "org.gnome.Nautilus"
     "org.gnome.Geary"
     "firefox"
@@ -249,7 +249,7 @@ in {
         withSuper = true;
         key = "t";
       };
-      command = "gnome-terminal";
+      command = "blackbox";
       name = "Open a terminal window";
     };
 

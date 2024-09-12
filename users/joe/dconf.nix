@@ -25,6 +25,14 @@
       hot-sensors =
         [ "_memory_usage_" "_processor_usage_" "_temperature_processor_0_" ];
     };
+
+    "com/raggesilver/BlackBox" = {
+      show-headerbar = true;
+      font = "Iosevka Comfy Wide Expanded 13";
+      terminal-bell = false;
+      opacity = 97;
+      theme-dark = "Dracula";
+    };
   };
 
 }

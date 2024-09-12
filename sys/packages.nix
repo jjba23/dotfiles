@@ -120,7 +120,7 @@ let
     gnome.gnome-calculator
     gnome.gnome-calendar
     brave
-    alacritty
+    blackbox-terminal
     caddy
     afetch
   ];
