@@ -28,6 +28,7 @@ let
     modelineFaces
     devFaces
     gitFaces
+    diredFaces
   ];
 
   myFaces = builtins.concatStringsSep " " (map mkSetFaceAttribute joeFaces);
@@ -39,6 +40,12 @@ let
   mkSetFaceAttribute = import ./mk-set-face-attribute.nix { inherit osConfig; };
   themeColor = import ./theme-color.nix;
   devFaces = import ./dev-faces.nix { inherit osConfig; };
+  diredFaces = [{
+    face = "dired-directory";
+    height = "1.0";
+    font = mono;
+    foregroundSexp = themeColor "mauve";
+  }];
   gitFaces = [
     {
       face = "git-commit-summary";
@@ -343,3 +350,4 @@ in ''
   (setq joe/palette light-palette)
 
 ''
+
