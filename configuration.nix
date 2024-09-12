@@ -64,10 +64,7 @@
   # Optional, hint electron apps to use wayland:
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  programs = {
-    fish.enable = true;
-    direnv.enable = true;
-  };
+  programs = { direnv.enable = true; };
 
   #
   # Users
@@ -88,7 +85,7 @@
         "lpadmin"
         "lp"
       ];
-      shell = pkgs.fish;
+      shell = pkgs.zsh;
     };
 
     manon = {
@@ -96,7 +93,7 @@
       description = "Manon";
       extraGroups =
         [ "networkmanager" "network" "audio" "wheel" "docker" "libvirtd" ];
-      shell = pkgs.fish;
+      shell = pkgs.zsh;
     };
 
     claudio = {
@@ -104,7 +101,7 @@
       description = "Claudio";
       extraGroups =
         [ "networkmanager" "network" "audio" "wheel" "docker" "libvirtd" ];
-      shell = pkgs.fish;
+      shell = pkgs.zsh;
     };
   };
 
@@ -171,4 +168,7 @@
     nssmdns4 = true;
     openFirewall = true;
   };
+
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
 }

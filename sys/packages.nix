@@ -77,7 +77,6 @@ let
     home-manager
     htop
     zsh
-    fish
     lm_sensors
     tlp
     acpi

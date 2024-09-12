@@ -23,13 +23,6 @@
 
     neofetch
 
-    fishPlugins.z
-    fishPlugins.done
-    fishPlugins.forgit
-    fishPlugins.hydro
-    fishPlugins.sponge
-    fishPlugins.colored-man-pages
-
     # Multimedia
     brave
     obs-studio

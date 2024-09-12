@@ -37,16 +37,8 @@
       userEmail = "";
     };
 
-    nix-index.enableFishIntegration = true;
+    nix-index.enableZshIntegration = true;
 
-    fish = {
-      enable = true;
-      shellAliases = {
-        ll = "eza -lAh --group-directories-first";
-        l = "eza -lAh --group-directories-first";
-        ls = "eza";
-      };
-    };
   };
 
   dconf.settings = {

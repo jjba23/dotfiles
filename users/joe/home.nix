@@ -50,7 +50,6 @@ in {
     stateVersion = "24.05";
     sessionVariables = {
       TERM = "xterm-256color";
-      fish_greeting = "";
       VISUAL = "emacsclient -c";
       EDITOR = "emacsclient -t";
       GDK_BACKEND = "wayland";
@@ -68,7 +67,7 @@ in {
 
   programs.nix-index = {
     enable = true;
-    enableFishIntegration = true;
+    enableZshIntegration = true;
   };
 
   home.file.".config/xsettingsd/xsettingsd.conf".text = ''

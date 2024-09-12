@@ -16,24 +16,23 @@
 
 #
 #
-# Fish shell customizations and settings 
+# ZSH shell customizations and settings 
 #
 #
-
-{
-  programs.nix-index.enableFishIntegration = true;
+{ config, ... }: {
+  programs.nix-index.enableZshIntegration = true;
   programs.zsh = {
     enable = true;
     enableCompletion = true;
 
-   autosuggestion.enable = true;
-   syntaxHighlighting.enable = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
 
-  history = {
-    size = 1000000;
-    path = "${config.xdg.dataHome}/zsh/history";
-  };
-    
+    history = {
+      size = 1000000;
+      path = "${config.xdg.dataHome}/zsh/history";
+    };
+
     shellAliases = {
       gco = "git checkout";
       npu = "nix-prefetch-url";
@@ -55,7 +54,7 @@
         "openvpn3 session-start --config ~/Documenten/work-vpn.ovpn && openvpn3 session-auth";
       nr =
         "cd ~/Ontwikkeling/Persoonlijk/dotfiles && nix develop -c cabal run dotfiles -- rebuild-system";
-      nr =
+      nrr =
         "cd ~/Ontwikkeling/Persoonlijk/dotfiles && nix develop -c cabal run dotfiles -- rebuild-system && systemctl --user --no-pager restart emacs";
       rr = "systemctl --user --no-pager restart emacs";
       aboutnix = "nix-info -m";

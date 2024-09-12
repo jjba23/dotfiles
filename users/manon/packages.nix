@@ -32,14 +32,6 @@
     btop
     eza
 
-    # fish shell
-    fishPlugins.z
-    fishPlugins.done
-    fishPlugins.forgit
-    fishPlugins.hydro
-    fishPlugins.sponge
-    fishPlugins.colored-man-pages
-
     # CLI
     tree
 

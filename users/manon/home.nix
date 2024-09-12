@@ -37,19 +37,9 @@
       userEmail = "manonvdbout@gmail.com";
     };
 
-    nix-index.enableFishIntegration = true;
-
-    fish = {
-      enable = true;
-      shellAliases = {
-        ll = "eza -lAh --group-directories-first";
-        l = "eza -lAh --group-directories-first";
-        ls = "eza";
-      };
-    };
+    nix-index.enableZshIntegration = true;
   };
   dconf.settings = {
-    # ...
     "org/gnome/shell" = {
       disable-user-extensions = false;
 

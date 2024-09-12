@@ -116,15 +116,6 @@ let
     pavucontrol
     qpwgraph
   ];
-  # Fish shell plugins
-  fishPackages = with pkgs; [
-    fishPlugins.z
-    fishPlugins.done
-    fishPlugins.forgit
-    fishPlugins.hydro
-    fishPlugins.sponge
-    fishPlugins.colored-man-pages
-  ];
 
   # Games
   gamePackages = with pkgs; [ wesnoth prismlauncher cartridges ];
@@ -179,7 +170,6 @@ in {
     officePackages
     emailPackages
     gamePackages
-    fishPackages
     multimediaPackages
     networkPackages
     languageServerPackages
