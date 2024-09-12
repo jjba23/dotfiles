@@ -373,10 +373,6 @@ in {
         mode = "python-ts-mode";
         lambda = "eglot-ensure";
       })
-      # (mkHook {
-      #   mode = "dart-mode";
-      #   lambda = "eglot-ensure";
-      # })
     ];
     config = builtins.readFile ./lisp/eglot.el;
     bind = bindings.eglot;
@@ -465,7 +461,7 @@ in {
   };
 
   direnv = { bind = bindings.direnv; };
-  dirvish = { config = builtins.readFile ./lisp/dirvish.el; };
+
   goto-line-preview = {
     config = ''
       (global-set-key [remap goto-line] 'goto-line-preview)
@@ -572,7 +568,7 @@ in {
           map))
     '';
   };
-  vterm = { config = builtins.readFile ./lisp/vterm.el; };
+  vterm = { };
   ob-nix = { };
   ob-http = { };
   spacious-padding = {
@@ -646,4 +642,16 @@ in {
     '';
   };
 
+  dired-subtree = { bindLocal = { dired-mode-map = bindings.dired-subtree; }; };
+  dired-open-with = { };
+  nerd-icons-dired = {
+    hook = [
+      (mkHook {
+        mode = "dired-mode";
+        lambda = "nerd-icons-dired-mode";
+      })
+    ];
+  };
+
 }
+

@@ -22,15 +22,6 @@
 (setq org-todo-keywords
       '((sequence "TODO" "WIP" "REVIEWING" "|" "DONE")))
 
-(defun dired-joe-show-hidden (value)
-  (interactive "p")
-  (setq dired-listing-switches "-lAh --group-directories-first")
-  )
-(defun dired-joe-hide-hidden (value)
-  (interactive "p")
-  (setq dired-listing-switches "-lh --group-directories-first")
-  )
-
 (savehist-mode 1)
 (set-frame-parameter nil 'alpha-background 90)
 (add-to-list 'default-frame-alist '(alpha-background . 90))

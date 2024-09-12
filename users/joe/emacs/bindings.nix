@@ -142,4 +142,8 @@
     "C-c ! p" = "flymake-goto-prev-error";
     "C-c ! f" = "flymake-mode";
   };
+  dired-subtree = {
+    "<TAB>" = "dired-subtree-toggle";
+    "C-<tab>" = "dired-subtree-toggle";
+  };
 }
