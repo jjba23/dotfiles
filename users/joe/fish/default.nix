@@ -59,4 +59,6 @@
       gpg-list = "gpg --list-secret-keys --keyid-format=long";
     };
   };
+
+  home.file.".config/fish/fish_variables".source = ./fish_variables;
 }

@@ -56,9 +56,7 @@ in {
       GDK_BACKEND = "wayland";
       SDL_VIDEODRIVER = "wayland";
       XDG_SESSION_TYPE = "wayland";
-      GTK_USE_PORTAL = "0";
       AWS_PROFILE = "read_only_user_ecr";
-
     };
   };
 

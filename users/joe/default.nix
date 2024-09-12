@@ -17,7 +17,7 @@
   imports = [
     ./btop.nix
     ./emacs
-    ./fish.nix
+    ./fish
     ./git
     ./packages.nix
     ./ssh.nix
