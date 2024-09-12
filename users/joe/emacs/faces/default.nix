@@ -27,6 +27,7 @@ let
     dashboardFaces
     modelineFaces
     devFaces
+    gitFaces
   ];
 
   myFaces = builtins.concatStringsSep " " (map mkSetFaceAttribute joeFaces);
@@ -38,6 +39,20 @@ let
   mkSetFaceAttribute = import ./mk-set-face-attribute.nix { inherit osConfig; };
   themeColor = import ./theme-color.nix;
   devFaces = import ./dev-faces.nix { inherit osConfig; };
+  gitFaces = [
+    {
+      face = "git-commit-summary";
+      height = "1.0";
+      font = mono;
+      foregroundSexp = themeColor "sky";
+    }
+    {
+      face = "magit-branch-remote";
+      height = "1.0";
+      font = mono;
+      foregroundSexp = themeColor "pink";
+    }
+  ];
   generalFaces = [
     {
       face = "line-number";
