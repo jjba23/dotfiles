@@ -315,21 +315,21 @@ let
     {
       face = "mode-line";
       font = sans;
-      height = "0.5";
+      height = "0.7";
       backgroundSexp = themeColor "surface0";
       foregroundSexp = themeColor "text";
     }
     {
       face = "mode-line-active";
       font = sans;
-      height = "0.5";
+      height = "0.7";
       backgroundSexp = themeColor "surface0";
       foregroundSexp = themeColor "text";
     }
     {
       face = "mode-line-inactive";
       font = sans;
-      height = "0.5";
+      height = "0.7";
       backgroundSexp = themeColor "mantle";
       foregroundSexp = themeColor "overlay1";
     }

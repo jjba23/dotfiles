@@ -22,8 +22,18 @@
 
 {
   programs.nix-index.enableFishIntegration = true;
-  programs.fish = {
+  programs.zsh = {
     enable = true;
+    enableCompletion = true;
+
+   autosuggestion.enable = true;
+   syntaxHighlighting.enable = true;
+
+  history = {
+    size = 1000000;
+    path = "${config.xdg.dataHome}/zsh/history";
+  };
+    
     shellAliases = {
       gco = "git checkout";
       npu = "nix-prefetch-url";
@@ -35,23 +45,22 @@
       gcm = "git commit";
       et = "emacsclient -t";
       e = "emacsclient -t";
-      wikimusic =
-        "/home/joe/Ontwikkeling/Persoonlijk/wikimusic-ui/build/linux/x64/release/bundle/wikimusic_ui";
       stress-cpu = "openssl speed -multi $(grep -ci processor /proc/cpuinfo)";
-      zd-opensearch-forward =
+      opensearch-forward =
         "kubectl -n local port-forward opensearch-cluster-master-0 9200:9200";
-      zd-kafka-forward = "kubectl -n local port-forward kafka-0 9092:9092";
-      zd-postgresql-forward =
+      kafka-forward = "kubectl -n local port-forward kafka-0 9092:9092";
+      postgresql-forward =
         "kubectl -n local port-forward postgresql-0 5432:5432";
-      zd-vpn =
-        "openvpn3 session-start --config ~/Documenten/bigorra-zorgdomein-vpn.ovpn && openvpn3 session-auth";
+      vpn =
+        "openvpn3 session-start --config ~/Documenten/work-vpn.ovpn && openvpn3 session-auth";
       nr =
         "cd ~/Ontwikkeling/Persoonlijk/dotfiles && nix develop -c cabal run dotfiles -- rebuild-system";
+      nr =
+        "cd ~/Ontwikkeling/Persoonlijk/dotfiles && nix develop -c cabal run dotfiles -- rebuild-system && systemctl --user --no-pager restart emacs";
       rr = "systemctl --user --no-pager restart emacs";
-      lock = "hyprlock";
       aboutnix = "nix-info -m";
-      fetch = "fastfetch";
-      neofetch = "fastfetch";
+      fetch = "afetch";
+      neofetch = "afetch";
       gfetch = "onefetch";
       scala-validate = "sbt scalafixAll && sbt scalafmt && sbt test";
       scala-fmt = "sbt scalafixAll && sbt scalafmt";

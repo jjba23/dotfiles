@@ -121,7 +121,9 @@ let
     gnome.gnome-calculator
     gnome.gnome-calendar
     brave
+    alacritty
     caddy
+    afetch
   ];
 in {
   environment.systemPackages =
