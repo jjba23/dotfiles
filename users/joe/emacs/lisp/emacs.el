@@ -44,6 +44,7 @@
 (add-hook 'text-mode-hook 'visual-line-mode)
 (setq dired-listing-switches "-lAh --group-directories-first")
 (setq dired-kill-when-opening-new-dired-buffer t)
+(add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode 1)))
 (setq delete-by-moving-to-trash t)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-c a h") 'highlight-compare-buffers)
@@ -233,3 +234,4 @@ the default is \"/\"."
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 
 (joe/set-faces)
+
