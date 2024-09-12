@@ -33,6 +33,13 @@
       path = "${config.xdg.dataHome}/zsh/history";
     };
 
+    oh-my-zsh = {
+      enable = true;
+      plugins =
+        [ "git" "thefuck" "zsh-syntax-highlighting" "zsh-auto-suggestions" ];
+      theme = "powerlevel10k";
+    };
+
     shellAliases = {
       gco = "git checkout";
       npu = "nix-prefetch-url";
