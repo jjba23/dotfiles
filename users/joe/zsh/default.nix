@@ -36,8 +36,8 @@
     oh-my-zsh = {
       enable = true;
       plugins =
-        [ "git" "thefuck" "zsh-syntax-highlighting" "zsh-auto-suggestions" ];
-      theme = "powerlevel10k";
+        [ "git" "thefuck" "zsh-syntax-highlighting" "zsh-autosuggestions" ];
+      theme = "powerlevel10k/powerlevel10k";
     };
 
     shellAliases = {

@@ -166,6 +166,7 @@ let
     zsh-powerlevel10k
     zsh-autosuggestions
     thefuck
+    zsh-syntax-highlighting
 
   ];
 in {
