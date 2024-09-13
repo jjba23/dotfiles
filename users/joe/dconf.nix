@@ -36,6 +36,7 @@ with lib.hm.gvariant; {
       scrollback-mode = 1; # unlimited scrollback
       terminal-padding =
         mkTuple [ (mkUint32 22) (mkUint32 22) (mkUint32 22) (mkUint32 22) ];
+      pretty = false;
     };
   };
 }

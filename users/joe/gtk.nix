@@ -36,6 +36,10 @@ in {
     };
     gtk3.extraConfig = gtkExtraConfig;
     gtk4.extraConfig = gtkExtraConfig;
+    theme.name = if osConfig.masterOptions.joe.lightMode.enable then
+      "adw-gtk3"
+    else
+      "adw-gtk3-dark";
   };
 }
 
