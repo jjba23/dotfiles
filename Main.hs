@@ -13,15 +13,11 @@ rebuildSystem :: (MonadIO m) => m ()
 rebuildSystem = do
   logInfo "🔨 begin rebuilding the NixOS + HomeManager configuration from JJBA dotfiles"
   logLicense
-  runCommand
-    (Description "🔨 formatting Nix files in the project")
-    (Command "find . -name '*.nix' -exec nixfmt {} \\;")
-  runCommand
-    (Description "🔨 linting Nix files in the project")
-    (Command "statix check")
-  runCommand
-    (Description "🔨 checking for dead code in Nix files in the project")
-    (Command "deadnix")
+  formatLint
+  collectGarbage
+  updateSystem
+  raiseTmpfs
+  raiseFD
   removePaths
     . map Path
     $ [ "/etc/nixos/users",
@@ -54,7 +50,37 @@ rebuildSystem = do
     (Command "systemctl --user --no-pager restart emacs")
   runCommand
     (Description "🔨 check Emacs daemon status")
-    (Command "systemctl --user --no-pager status emacs")    
+    (Command "systemctl --user --no-pager status emacs")
+
+raiseTmpfs :: (MonadIO m) => m ()
+raiseTmpfs = do
+  runCommand
+    (Description "🔨 raising the tmpfs size temporarily")
+    (Command "nix-shell -p mount --run \"sudo mount -o remount,size=50G tmpfs\"")
+
+raiseFD :: (MonadIO m) => m ()
+raiseFD = do
+  runCommand
+    (Description "🔨 raising the file descriptor size temporarily")
+    (Command "sudo sysctl -w fs.file-max=100000")
+
+collectGarbage :: (MonadIO m) => m ()
+collectGarbage = do
+  runCommand
+    (Description "🔨 cleaning the Nix store")
+    (Command "nix-collect-garbage")
+
+formatLint :: (MonadIO m) => m ()
+formatLint = do
+  runCommand
+    (Description "🔨 formatting Nix files in the project")
+    (Command "find . -name '*.nix' -exec nixfmt {} \\;")
+  runCommand
+    (Description "🔨 linting Nix files in the project")
+    (Command "statix check")
+  runCommand
+    (Description "🔨 checking for dead code in Nix files in the project")
+    (Command "deadnix")
 
 updateSystem :: (MonadIO m) => m ()
 updateSystem = do
@@ -77,4 +103,6 @@ main = do
 runTask :: (MonadIO m) => Text -> m ()
 runTask "rebuild-system" = rebuildSystem
 runTask "update-system" = updateSystem
+runTask "format-lint" = formatLint
+runTask "collect-garbage" = collectGarbage
 runTask _ = logError "❌ no suitable task has been found!"
