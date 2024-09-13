@@ -289,6 +289,10 @@ in {
       else
         "prefer-dark";
       clock-show-weekday = true;
+      theme = if osConfig.masterOptions.joe.lightMode.enable then
+        "adw-gtk3"
+      else
+        "adw-gtk3-dark";
     };
     "org/gnome/mutter" = {
       dynamic-workspaces = true;
