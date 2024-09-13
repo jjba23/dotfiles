@@ -38,7 +38,7 @@ rebuildSystem = do
       ]
   runCommand
     (Description "🔨 rebuilding NixOS system + HomeManager flake")
-    (Command "sudo nixos-rebuild switch -L --verbose --show-trace --impure --flake '/etc/nixos#nixos'")
+    (Command "sudo nixos-rebuild -j1 switch -L --verbose --show-trace --impure --flake '/etc/nixos#nixos'")
   runCommand
     (Description "🔨 list files in /etc/nixos")
     (Command "ls -lAh /etc/nixos")
@@ -62,7 +62,7 @@ raiseFD :: (MonadIO m) => m ()
 raiseFD = do
   runCommand
     (Description "🔨 raising the file descriptor size temporarily")
-    (Command "sudo sysctl -w fs.file-max=100000")
+    (Command "sudo sysctl -w fs.file-max=100000 && ulimit -n 65535")
 
 collectGarbage :: (MonadIO m) => m ()
 collectGarbage = do
