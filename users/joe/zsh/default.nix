@@ -63,7 +63,6 @@
         "systemadmin"
         "z"
       ];
-      theme = "powerlevel10k/powerlevel10k";
     };
 
     shellAliases = {
@@ -91,8 +90,8 @@
         "cd ~/Ontwikkeling/Persoonlijk/dotfiles && nix develop -c cabal run dotfiles -- rebuild-system && systemctl --user --no-pager restart emacs";
       rr = "systemctl --user --no-pager restart emacs";
       aboutnix = "nix-info -m";
-      fetch = "afetch";
-      neofetch = "afetch";
+      fetch = "pfetch";
+      neofetch = "pfetch";
       gfetch = "onefetch";
       scala-validate = "sbt scalafixAll && sbt scalafmt && sbt test";
       scala-fmt = "sbt scalafixAll && sbt scalafmt";

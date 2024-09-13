@@ -122,7 +122,7 @@ let
     brave
     blackbox-terminal
     caddy
-    afetch
+    pfetch-rs
   ];
 in {
   environment.systemPackages =

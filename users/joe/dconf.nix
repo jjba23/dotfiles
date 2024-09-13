@@ -14,7 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-{
+{ lib, ... }:
+with lib.hm.gvariant; {
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
       autoconnect = [ "qemu:///system" ];
@@ -32,8 +33,10 @@
       terminal-bell = false;
       opacity = 97;
       theme-dark = "Dracula";
+      scrollback-mode = 1; # unlimited scrollback
+      terminal-padding =
+        mkTuple [ (mkUint32 22) (mkUint32 22) (mkUint32 22) (mkUint32 22) ];
     };
   };
-
 }
 
