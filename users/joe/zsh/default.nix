@@ -44,11 +44,12 @@
       path = "${config.xdg.dataHome}/zsh/history";
     };
 
+    initExtra = "source ~/.p10k.zsh";
+
     oh-my-zsh = {
       enable = true;
       plugins = [
         "git"
-        "thefuck"
         "1password"
         "cabal"
         "colored-man-pages"
