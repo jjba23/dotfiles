@@ -36,20 +36,6 @@ in {
     };
     gtk3.extraConfig = gtkExtraConfig;
     gtk4.extraConfig = gtkExtraConfig;
-    theme = {
-      name = if osConfig.masterOptions.joe.lightMode.enable then
-        "Adw-gtk3"
-      else
-        "Adw-gtk3-dark";
-    };
   };
-  home.file.".config/gtk-3.0/gtk.css".text = ''
-    VteTerminal,
-    TerminalScreen,
-    vte-terminal {
-        padding: 12px 12px 12px 12px;
-        -VteTerminal-inner-border: 12px 12px 12px 12px;
-    }
-  '';
 }
 
