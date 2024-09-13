@@ -162,12 +162,6 @@ let
     warp
     wike
     sqlitebrowser
-
-    zsh-powerlevel10k
-    zsh-autosuggestions
-    thefuck
-    zsh-syntax-highlighting
-
   ];
 in {
   home.packages = lib.mkMerge [

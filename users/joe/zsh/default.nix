@@ -18,12 +18,23 @@
 #
 # ZSH shell customizations and settings 
 #
-#
-{ config, ... }: {
+{ config, pkgs, ... }: {
   programs.nix-index.enableZshIntegration = true;
   programs.zsh = {
     enable = true;
     enableCompletion = true;
+    plugins = [
+      {
+        name = "zsh-autosuggestions";
+        src = pkgs.zsh-autosuggestions;
+        file = "share/zsh-autosuggestions/zsh-autosuggestions";
+      }
+      {
+        name = "powerlevel10k";
+        src = pkgs.zsh-powerlevel10k;
+        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      }
+    ];
 
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
@@ -35,8 +46,22 @@
 
     oh-my-zsh = {
       enable = true;
-      plugins =
-        [ "git" "thefuck" "zsh-syntax-highlighting" "zsh-autosuggestions" ];
+      plugins = [
+        "git"
+        "thefuck"
+        "1password"
+        "cabal"
+        "colored-man-pages"
+        "command-not-found"
+        "direnv"
+        "docker-compose"
+        "httpie"
+        "scala"
+        "sbt"
+        "systemd"
+        "systemadmin"
+        "z"
+      ];
       theme = "powerlevel10k/powerlevel10k";
     };
 
@@ -75,4 +100,5 @@
     };
   };
 
+  home.file.".p10k.zsh".source = ./.p10k.zsh;
 }

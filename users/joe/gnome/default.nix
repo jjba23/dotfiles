@@ -18,7 +18,7 @@
 let
   favoriteApps = map favoriteApp [
     "emacsclient"
-    "blackbox"
+    "com.raggesilver.BlackBox"
     "org.gnome.Nautilus"
     "org.gnome.Geary"
     "firefox"

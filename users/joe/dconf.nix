@@ -28,7 +28,7 @@
 
     "com/raggesilver/BlackBox" = {
       show-headerbar = true;
-      font = "Iosevka Comfy Wide Expanded 13";
+      font = "Iosevka Comfy Wide Expanded 11";
       terminal-bell = false;
       opacity = 97;
       theme-dark = "Dracula";
