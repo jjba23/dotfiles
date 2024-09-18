@@ -31,9 +31,10 @@ with lib.hm.gvariant; {
       show-headerbar = true;
       font = "Iosevka Comfy Wide Expanded 11";
       terminal-bell = false;
-      opacity = 97;
+      opacity = 100;
       theme-dark = "Dracula";
-      scrollback-mode = 1; # unlimited scrollback
+      scrollback-mode = 0;
+      scrollback-lines = 1000000;
       terminal-padding =
         mkTuple [ (mkUint32 22) (mkUint32 22) (mkUint32 22) (mkUint32 22) ];
       pretty = false;
