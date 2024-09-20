@@ -1,13 +1,13 @@
 cabal-version: 1.12
 name: dotfiles
-version: 1.0.0.2
+version: 1.0.0.3
 maintainer:     Josep Bigorra <jjbigorra@gmail.com>
 build-type:     Simple
 license:        GPL-3
 license-file: COPYING
 synopsis: Dotfiles
 description: Dotfiles
-homepage: https://gitlab.com/jjba-projects/dotfiles
+homepage: https://github.com/jjba23/dotfiles
                                          
 executable dotfiles
   main-is: Main.hs     

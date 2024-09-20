@@ -69,8 +69,20 @@
       };
       devShells = forAllSystems ({ pkgs }: {
         default = pkgs.mkShell {
-          nativeBuildInputs =
-            [ pkgs.cabal-install pkgs.ghc pkgs.haskell-language-server ];
+          nativeBuildInputs = with pkgs; [
+            stack
+            cabal-install
+            haskell-language-server
+            gnumake
+            cachix
+            ormolu
+            nixfmt
+            ghcid
+            statix
+            deadnix
+            jq
+            awscli2
+          ];
         };
       });
     };
