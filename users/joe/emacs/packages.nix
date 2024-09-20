@@ -53,8 +53,8 @@ in {
         lambda = "flymake-stylelint-enable";
       })
       (mkHook {
-        mode = "css-mode";
-        lambda = "flymake-stylelint-enable";
+        mode = "emacs-lisp-mode";
+        lambda = "flymake-mode";
       })
     ];
     init = ''
@@ -429,6 +429,7 @@ in {
     bind = bindings.org;
   };
 
+  # TODO check leading stars
   org-modern = {
     hook = [ "(org-agenda-finalize . org-modern-agenda)" ];
     config = ''
