@@ -250,7 +250,7 @@ let
         mkBindKeyMap = mkBindHelper "bind-keymap" "";
         mkChords = mkBindHelper "chords" "";
         mkHook = map (v: ":hook ${v}");
-        mkVc = branch: url:
+        mkVc = { branch, url }:
           if url != "" && branch != "" then
             [ '':vc (:url "${url}" :branch "${branch}" )'' ]
           else
@@ -265,10 +265,12 @@ let
         ++ mkAfter config.after ++ mkBind config.bind
         ++ mkBindKeyMap config.bindKeyMap ++ mkBindLocal config.bindLocal
         ++ mkChords config.chords ++ mkCommand config.command
-        ++ mkDefer config.defer ++ mkDefines config.defines
-        ++ (mkVc config.vcBranch config.vcUrl) ++ mkFunctions config.functions
-        ++ mkDemand config.demand ++ mkDiminish config.diminish
-        ++ mkHook config.hook ++ mkMode config.mode
+        ++ mkDefer config.defer ++ mkDefines config.defines ++ (mkVc {
+          branch = config.vcBranch;
+          url = config.vcUrl;
+        }) ++ mkFunctions config.functions ++ mkDemand config.demand
+        ++ mkDiminish config.diminish ++ mkHook config.hook
+        ++ mkMode config.mode
         ++ optionals (config.init != "") [ ":init" config.init ]
         ++ optionals (config.config != "") [ ":config" config.config ]
         ++ optional (config.extraConfig != "") config.extraConfig) + ")";
