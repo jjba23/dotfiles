@@ -72,6 +72,7 @@
           nativeBuildInputs = with pkgs; [
             stack
             cabal-install
+            ghc
             haskell-language-server
             gnumake
             cachix
