@@ -646,5 +646,10 @@ in {
     ];
   };
 
+  git-riddance = {
+    vcBranch = "trunk";
+    vcUrl = "https://github.com/jjba23/git-riddance.el.git";
+  };
+
 }
 

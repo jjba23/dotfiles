@@ -178,35 +178,6 @@ the default is \"/\"."
 
 
 
-
-(defun git-riddance ()
-  "Completely rewrite Git history of the specified directory with a new commit and branch"
-  (interactive)
-  (let* (
-         (dir (read-directory-name "[git-riddance] Directory of target repo:" "." ))
-         (default-directory dir)
-         (remote (read-string "[git-riddance] Origin to force push to:"))
-         (remote-name (read-string "[git-riddance] Name of origin to force push to:" "github"))
-         (branch (read-string "[git-riddance] Name of the new branch:"  "trunk"))
-         (commit-message (read-string "[git-riddance] New commit message:"  "Proprietary software is an injustice!"))
-         )
-        ;;Checkout/create orphan branch (this branch won't show in git branch command):        
-        (shell-command "git checkout --orphan latest_branch")
-        ;;Add all the files to the newly created branch:
-        (shell-command "git add -A")
-        ;;Commit the changes:
-        (shell-command (format "git commit -am \"%s\"" commit-message))
-        ;;Delete main (default) branch (this step is permanent):
-        (shell-command (format "git branch -D %s || true" branch))
-        ;;Rename the current branch to main:
-        (shell-command (format "git branch -m %s" branch))
-        ;;Finally, all changes are completed on your local repository,
-        ;; and force update your remote repository:
-        (shell-command (format "git remote add %s %s" remote-name remote))
-        (shell-command (format "git push -uf %s %s" remote-name branch))
-    )
-  )
-
 (defun nixos-rebuild ()
   "Rebuild NixOS Joe's dotfiles"
   (interactive)

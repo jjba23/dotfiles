@@ -207,6 +207,21 @@ let
         '';
       };
 
+      vcBranch = mkOption {
+        type = types.str;
+        default = "trunk";
+        description = ''
+          Version Control branch to checkout Emacs package straight from Git
+        '';
+      };
+      vcUrl = mkOption {
+        type = types.str;
+        default = "";
+        description = ''
+          Version Control URL to checkout Emacs package straight from Git
+        '';
+      };
+
       assembly = mkOption {
         type = types.lines;
         readOnly = true;
@@ -235,6 +250,11 @@ let
         mkBindKeyMap = mkBindHelper "bind-keymap" "";
         mkChords = mkBindHelper "chords" "";
         mkHook = map (v: ":hook ${v}");
+        mkVc = branch: url:
+          if url != "" && branch != "" then
+            [ '':vc (:url "${url}" :branch "${branch}" )'' ]
+          else
+            [ ];
         mkDefer = v:
           if isBool v then
             optional v ":defer t"
@@ -246,9 +266,9 @@ let
         ++ mkBindKeyMap config.bindKeyMap ++ mkBindLocal config.bindLocal
         ++ mkChords config.chords ++ mkCommand config.command
         ++ mkDefer config.defer ++ mkDefines config.defines
-        ++ mkFunctions config.functions ++ mkDemand config.demand
-        ++ mkDiminish config.diminish ++ mkHook config.hook
-        ++ mkMode config.mode
+        ++ (mkVc config.vcBranch config.vcUrl) ++ mkFunctions config.functions
+        ++ mkDemand config.demand ++ mkDiminish config.diminish
+        ++ mkHook config.hook ++ mkMode config.mode
         ++ optionals (config.init != "") [ ":init" config.init ]
         ++ optionals (config.config != "") [ ":config" config.config ]
         ++ optional (config.extraConfig != "") config.extraConfig) + ")";
