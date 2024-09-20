@@ -78,7 +78,7 @@ let
       face = "default";
       # the default face must be an integer value (imagine *100)
       # so we scale it just the same as with "altitude" sizing for Emacs and round
-      heightSexp = "(round (mk-font-size 114))";
+      heightSexp = "(round (tkngt 114))";
       font = mono;
       foregroundSexp = themeColor "text";
       backgroundSexp = themeColor "mantle";
@@ -133,13 +133,13 @@ let
       face = "flymake-error";
       underlineSexp = themeColor "red";
       font = mono;
-      heightSexp = "(round (mk-font-size 114))";
+      heightSexp = "(round (tkngt 114))";
     }
     {
       face = "flymake-warning";
       underlineSexp = themeColor "yellow";
       font = mono;
-      heightSexp = "(round (mk-font-size 114))";
+      heightSexp = "(round (tkngt 114))";
     }
     {
       face = "window-divider";

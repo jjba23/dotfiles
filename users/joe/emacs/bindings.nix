@@ -15,12 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  origami = {
-    "C-c o o" = "origami-mode";
-    "C-c o x" = "origami-open-node";
-    "C-c o c" = "origami-close-node";
-    "C-c o a" = "origami-toggle-all-nodes";
-  };
   org-roam = {
     "C-c n l" = "org-roam-buffer-toggle";
     "C-c n f" = "org-roam-node-find";
@@ -116,12 +110,13 @@
     "C-h C" = "helpful-command";
   };
   joe = {
-    "C-c f j" = "set-font-scale-jumbo";
-    "C-c f x" = "set-font-scale-larger";
-    "C-c f l" = "set-font-scale-large";
-    "C-c f r" = "set-font-scale-regular";
-    "C-c f s" = "set-font-scale-small";
-    "C-c f t" = "set-font-scale-tiny";
+    "C-c f c" = "tekengrootte-set-scale-colossal";
+    "C-c f j" = "tekengrootte-set-scale-jumbo";
+    "C-c f x" = "tekengrootte-set-scale-larger";
+    "C-c f l" = "tekengrootte-set-scale-large";
+    "C-c f r" = "tekengrootte-set-scale-regular";
+    "C-c f s" = "tekengrootte-set-scale-small";
+    "C-c f t" = "tekengrootte-set-scale-tiny";
     "C-c v l" = "global-display-line-numbers-mode";
     "C-c t t" = "make-eshell-next-number";
     "C-c t l" = "eshell/clear";

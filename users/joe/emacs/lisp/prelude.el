@@ -34,3 +34,5 @@
 (defun joe/get-color (color)
   (alist-get color joe/palette "#FFFFFF")
 )
+
+

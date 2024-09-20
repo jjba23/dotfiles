@@ -207,20 +207,20 @@ let
         '';
       };
 
-      vcBranch = mkOption {
-        type = types.str;
-        default = "trunk";
-        description = ''
-          Version Control branch to checkout Emacs package straight from Git
-        '';
-      };
-      vcUrl = mkOption {
-        type = types.str;
-        default = "";
-        description = ''
-          Version Control URL to checkout Emacs package straight from Git
-        '';
-      };
+      # vcBranch = mkOption {
+      #   type = types.str;
+      #   default = "trunk";
+      #   description = ''
+      #     Version Control branch to checkout Emacs package straight from Git
+      #   '';
+      # };
+      # vcUrl = mkOption {
+      #   type = types.str;
+      #   default = "";
+      #   description = ''
+      #     Version Control URL to checkout Emacs package straight from Git
+      #   '';
+      # };
 
       assembly = mkOption {
         type = types.lines;
@@ -250,11 +250,11 @@ let
         mkBindKeyMap = mkBindHelper "bind-keymap" "";
         mkChords = mkBindHelper "chords" "";
         mkHook = map (v: ":hook ${v}");
-        mkVc = { branch, url }:
-          if url != "" && branch != "" then
-            [ '':vc (:url "${url}" :branch "${branch}" )'' ]
-          else
-            [ ];
+        # mkVc = { branch, url }:
+        #   if url != "" && branch != "" then
+        #     [ '':vc (${name} :url "${url}" :branch "${branch}" )'' ]
+        #   else
+        #     [ ];
         mkDefer = v:
           if isBool v then
             optional v ":defer t"
@@ -265,10 +265,8 @@ let
         ++ mkAfter config.after ++ mkBind config.bind
         ++ mkBindKeyMap config.bindKeyMap ++ mkBindLocal config.bindLocal
         ++ mkChords config.chords ++ mkCommand config.command
-        ++ mkDefer config.defer ++ mkDefines config.defines ++ (mkVc {
-          branch = config.vcBranch;
-          url = config.vcUrl;
-        }) ++ mkFunctions config.functions ++ mkDemand config.demand
+        ++ mkDefer config.defer ++ mkDefines config.defines
+        ++ mkFunctions config.functions ++ mkDemand config.demand
         ++ mkDiminish config.diminish ++ mkHook config.hook
         ++ mkMode config.mode
         ++ optionals (config.init != "") [ ":init" config.init ]

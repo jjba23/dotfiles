@@ -24,7 +24,7 @@
   let
     ifNullEmptyElse = x: tpl: if x == null then "" else tpl;
     height_ = if heightSexp == null then
-      (ifNullEmptyElse height ":height (mk-font-size ${height})")
+      (ifNullEmptyElse height ":height (tkngt ${height})")
     else
       ":height ${heightSexp}";
     inherits_ = ifNullEmptyElse inherits

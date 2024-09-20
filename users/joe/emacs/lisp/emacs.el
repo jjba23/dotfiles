@@ -63,58 +63,6 @@
 
 (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
 
-(setq font-scale 1.1)
-(defun mk-font-size (x)
-  "Adapt a font size to a scaled Emacs compatible one"
-  (interactive)
-  (* font-scale x)
-  )
-
-(defun set-font-scale-jumbo ()
-  "Set font size to jumbo globally"
-  (interactive)
-  (setq font-scale 1.3)
-  (joe/set-faces)
-  )
-
-(defun set-font-scale-larger ()
-  "Set font size to larger globally"
-  (interactive)
-  (setq font-scale 1.2)
-  (joe/set-faces)
-  )
-
-(defun set-font-scale-large ()
-  "Set font size to large globally"
-  (interactive)
-  (setq font-scale 1.1)
-  (joe/set-faces)
-  )
-
-(defun set-font-scale-regular ()
-  "Set font size to regular globally"
-  (interactive)
-  (setq font-scale 0.9)
-  (joe/set-faces)
-  )
-
-(defun set-font-scale-small ()
-  "Set font size to small globally"
-  (interactive)
-  (setq font-scale 0.8)
-  (joe/set-faces)
-  )
-
-(defun set-font-scale-tiny ()
-  "Set font size to tiny globally"
-  (interactive)
-  (setq font-scale 0.7)
-  (joe/set-faces)
-  )
-
-
-;; Set font to regular at startup
-(set-font-scale-regular)
 
 (setq-default line-spacing 2)
 

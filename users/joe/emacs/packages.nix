@@ -216,7 +216,7 @@ in {
 
   dash = { };
 
-  origami = { bind = bindings.origami; };
+  # origami = { bind = bindings.origami; };
 
   rg = {
     config = ''
@@ -418,8 +418,10 @@ in {
 
   cape = {
     init = ''
-      (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+      (add-hook 'completion-at-point-functions #'cape-history)
       (add-to-list 'completion-at-point-functions #'cape-file)
+      (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+      (add-hook 'completion-at-point-functions #'cape-elisp-block)
     '';
     bind = bindings.cape;
   };
@@ -475,6 +477,7 @@ in {
     after = [ "markdown-mode" "org" ];
     config = ''
       ${builtins.readFile ./lisp/emacs.el}
+
     '';
     bind = lib.mkMerge [ bindings.joe bindings.flymake ];
   };
@@ -644,11 +647,6 @@ in {
         lambda = "nerd-icons-dired-mode";
       })
     ];
-  };
-
-  git-riddance = {
-    vcBranch = "trunk";
-    vcUrl = "https://github.com/jjba23/git-riddance.el.git";
   };
 
 }
