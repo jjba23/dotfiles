@@ -58,12 +58,16 @@ in {
 
     prelude = ''
       ${prelude}  
-      (setq ob-mermaid-cli-path "${pkgs.mermaid-cli}/bin/mmdc")      
-      ${joe-faces}
-      ${git-riddance-package}
+      (setq ob-mermaid-cli-path "${pkgs.mermaid-cli}/bin/mmdc")
       ${tekengrootte-pkg}
+      ${joe-faces}
+      (setq tekengrootte-set-scale-hook '(joe/set-faces))
+    '';
+    postlude = ''
+
+      ;; 
+      ${git-riddance-package}
     '';
   };
 
 }
-

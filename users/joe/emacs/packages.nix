@@ -583,7 +583,6 @@ in {
       (add-to-list 'auto-mode-alist '("\\.dart\\'" . dart-mode))
     '';
   };
-  flutter = { after = [ "eglot" "dart-mode" ]; };
   eshell = { config = builtins.readFile ./lisp/eshell.el; };
   transmission = { };
   bug-hunter = { };
