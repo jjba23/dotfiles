@@ -20,25 +20,9 @@
 #
 #
 
-{ pkgs, lib, osConfig, ... }:
+{ pkgs, ... }:
 
-let
-  joe-faces = import ./faces { inherit osConfig lib; };
-  prelude = builtins.readFile ./lisp/prelude.el;
-  usePackage = import ./packages.nix { inherit lib pkgs; };
-  git-riddance = builtins.fetchGit {
-    url = "https://github.com/jjba23/git-riddance.el";
-    ref = "trunk";
-  };
-  git-riddance-package = builtins.readFile (git-riddance + "/git-riddance.el");
-  tekengrootte = builtins.fetchGit {
-    url = "https://github.com/jjba23/tekengrootte.el.git";
-    ref = "trunk";
-  };
-  tekengrootte-pkg = builtins.readFile (tekengrootte + "/tekengrootte.el");
-in {
-  imports = [ ./init-maker-emacs ];
-
+{
   services.emacs.enable = true;
 
   programs.emacs = {
@@ -49,25 +33,4 @@ in {
       epkgs.treesit-grammars.with-all-grammars
     ];
   };
-
-  programs.emacs.init = {
-    enable = true;
-    recommendedGcSettings = true;
-    usePackageVerbose = true;
-    inherit usePackage;
-
-    prelude = ''
-      ${prelude}  
-      (setq ob-mermaid-cli-path "${pkgs.mermaid-cli}/bin/mmdc")
-      ${tekengrootte-pkg}
-      ${joe-faces}
-      (setq tekengrootte-set-scale-hook '(joe/set-faces))
-    '';
-    postlude = ''
-
-      ;; 
-      ${git-riddance-package}
-    '';
-  };
-
 }
