@@ -42,13 +42,30 @@
   (elpaca-use-package-mode))
 
 
+;; Declare Joe's customizations
+
+(defcustom joe-font-mono "Iosevka Comfy Wide"
+  ""
+  :type 'string)
+
 ;; Declare Joe's packages
+
+
 
 (use-package git-riddance
   :ensure (:host github :repo "jjba23/git-riddance.el" :branch "trunk"))
 
 (use-package tekengrootte
-  :ensure (:host github :repo "jjba23/tekengrootte.el" :branch "trunk"))  
+  :ensure (:host github :repo "jjba23/tekengrootte.el" :branch "trunk")
+  :config
+  (defun gezichten-apply ()
+    ;; (set-face-attribute 'default
+    ;; 			:height (round (tkngt 114))
+    ;; 			:font joe-font-mono
+    ;; 			)
+    )
+  (gezichten-apply)
+  )  
 
 (use-package ef-themes
   :ensure t
@@ -73,6 +90,116 @@
   (auto-dark-mode t)
   )
 
+(use-package vertico
+  :ensure t
+  :demand t
+  :init
+  (setq vertico-cycle t
+	vertico-resize t)
+  :config
+  (vertico-mode)
+  )
+
+(use-package marginalia
+  :ensure t
+  :demand t
+  :after (vertico)
+  :config
+  (marginalia-mode)
+  )
+
+(use-package nerd-icons
+  :ensure t
+  :demand t)
+
+(use-package magit
+  :ensure t
+  :demand t)
+
+(use-package which-key
+  :ensure t
+  :demand t)
+
+(use-package rainbow-mode
+  :ensure t
+  :demand t)
+
+(use-package org-tempo
+  :ensure t
+  :demand t)
+
+(use-package ob-nix
+  :ensure t
+  :demand t)
+
+(use-package ob-http
+  :ensure t
+  :demand t)
+
+(use-package ob-mermaid
+  :ensure t
+  :demand t)
+
+(use-package bug-hunter
+  :ensure t
+  :demand t)
+
+(use-package sly
+  :ensure t
+  :demand t
+  :config
+  (setq inferior-lisp-program "sbcl"))
+
+(use-package eshell-prompt-extras
+  :ensure t
+  :demand t
+  :config
+  (autoload 'epe-theme-lambda "eshell-prompt-extras")
+  (set-face-attribute 'epe-pipeline-delimiter-face nil :foreground "#7f849c")
+  (set-face-attribute 'epe-pipeline-user-face nil :foreground "#cba6f7")
+  (set-face-attribute 'epe-pipeline-host-face nil :foreground "#cba6f7")
+  (set-face-attribute 'epe-pipeline-time-face nil :foreground "#7f849c")    	
+  (setq eshell-highlight-prompt nil
+        eshell-prompt-function 'epe-theme-pipeline)
+  )
+
+(use-package f :ensure t :demand t)
+
+(use-package speed-type :ensure t :demand t)
+
+(use-package dape
+  :ensure t
+  :demand t
+  :init
+  (setq dape-buffer-window-arrangement 'gud)
+  )
+
+(use-package dired-hacks-utils
+  :ensure t
+  :demand t)
+
+(use-package dired-subtree
+  :ensure t
+  :demand t
+  :bind ( :map dired-mode-map (
+			       ("<TAB>" . dired-subtree-toggle)
+			       ("C-<tab>" . dired-subtree-toggle)
+			       ("C-<TAB>" . dired-subtree-toggle)
+			       ) ) 
+  )
+
+(use-package dired-open-with :ensure t :demand t)
+
+(use-package nerd-icons-dired
+  :ensure t
+  :demand t
+  :hook ((dired-mode . nerd-icons-dired-mode))
+  )
+
 ;; Configure Emacs native features
 
-(use-package emacs :ensure nil :config (setq ring-bell-function #'ignore))
+(use-package emacs
+  :ensure nil
+  :config
+  (setq ring-bell-function #'ignore)
+  )
