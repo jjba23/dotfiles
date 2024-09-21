@@ -16,7 +16,7 @@
 {
   imports = [
     ./btop.nix
-    ./emacs
+    ./emacs.nix
     ./zsh
     ./git
     ./packages.nix

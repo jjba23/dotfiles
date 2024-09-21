@@ -34,8 +34,6 @@
     ];
   };
 
-  home.file.".emacs.d" = {
-    recursive = true;
-    source = ./.emacs.d;
-  };
+  home.file.".emacs.d/init.el" = { source = ./emacs/init.el; };
+  home.file.".emacs.d/early-init.el" = { source = ./emacs/early-init.el; };
 }

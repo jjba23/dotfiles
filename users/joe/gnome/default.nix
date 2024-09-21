@@ -258,7 +258,7 @@ in {
         withSuper = true;
         key = "e";
       };
-      command = "emacsclient -c -e '(joe/set-faces)'";
+      command = "emacsclient -c";
       name = "Open a new Emacs session";
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/gnome-characters" =
