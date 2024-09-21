@@ -33,4 +33,9 @@
       epkgs.treesit-grammars.with-all-grammars
     ];
   };
+
+  home.file.".emacs.d" = {
+    recursive = true;
+    source = ./.emacs.d;
+  };
 }
