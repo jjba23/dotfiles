@@ -52,21 +52,21 @@
   "Adjust the base Emacs faces to my preferences
 according to size, color and font family"
   (set-face-attribute 'default nil
-    				  :height (round (tkngt 114))
-    				  :font joe-font-mono
-    				  )
+    		      :height (round (tkngt 114))
+    		      :font joe-font-mono
+    		      )
   (set-face-attribute 'mode-line nil
-    				  :height (tkngt 0.7)
-    				  :font joe-font-mono
-    				  )
+    		      :height (tkngt 0.7)
+    		      :font joe-font-mono
+    		      )
   (set-face-attribute 'mode-line-active nil
-    				  :height (tkngt 0.7)
-    				  :font joe-font-mono
-    				  )
+    		      :height (tkngt 0.7)
+    		      :font joe-font-mono
+    		      )
   (set-face-attribute 'mode-line-inactive nil
-    				  :height (tkngt 0.7)
-    				  :font joe-font-mono
-    				  )
+    		      :height (tkngt 0.7)
+    		      :font joe-font-mono
+    		      )
   )
 
 ;; Declare Joe's packages
@@ -76,18 +76,19 @@ according to size, color and font family"
 
 (use-package tekengrootte
   :ensure (:host github :repo "jjba23/tekengrootte.el" :branch "trunk")
+  :after (auto-dark)
   :bind (
-		 ("C-c f c" . tekengrootte-set-scale-colossal)
-		 ("C-c f j" . tekengrootte-set-scale-jumbo)
-		 ("C-c f x" . tekengrootte-set-scale-larger)
-		 ("C-c f l" . tekengrootte-set-scale-large)
-		 ("C-c f r" . tekengrootte-set-scale-regular)
-		 ("C-c f s" . tekengrootte-set-scale-small)
-		 ("C-c f t" . tekengrootte-set-scale-tiny)
-		 )
+	 ("C-c f c" . tekengrootte-set-scale-colossal)
+	 ("C-c f j" . tekengrootte-set-scale-jumbo)
+	 ("C-c f x" . tekengrootte-set-scale-larger)
+	 ("C-c f l" . tekengrootte-set-scale-large)
+	 ("C-c f r" . tekengrootte-set-scale-regular)
+	 ("C-c f s" . tekengrootte-set-scale-small)
+	 ("C-c f t" . tekengrootte-set-scale-tiny)
+	 )
   :hook (
-		 (tekengrootte-set-scale-hook . joe-set-base-faces)
-		 )
+	 (tekengrootte-set-scale . (lambda () (joe-set-base-faces)))
+	 )
   :config
   (joe-set-base-faces)
   )  
@@ -101,8 +102,8 @@ according to size, color and font family"
   :demand t
   :init
   (setq auto-dark-polling-interval-seconds 4
-		auto-dark-allow-osascript nil
-		auto-dark-allow-powershell nil)
+	auto-dark-allow-osascript nil
+	auto-dark-allow-powershell nil)
   :config
   (add-hook 'auto-dark-dark-mode-hook
             (lambda ()
@@ -110,7 +111,7 @@ according to size, color and font family"
               ))
   (add-hook 'auto-dark-light-mode-hook
             (lambda ()
-			  (load-theme 'ef-day t)
+	      (load-theme 'ef-day t)
               ))
   (auto-dark-mode t)
   )
@@ -120,7 +121,7 @@ according to size, color and font family"
   :demand t
   :init
   (setq vertico-cycle t
-		vertico-resize t)
+	vertico-resize t)
   :config
   (vertico-mode)
   )
@@ -137,16 +138,21 @@ according to size, color and font family"
   :ensure t
   :demand t)
 
-(use-package magit
+(use-package transient
   :ensure t
   :demand t)
+
+(use-package magit
+  :ensure t
+  :demand t
+  :after (transient))
 
 (use-package spacious-padding
   :ensure t
   :demand t
   :init
   (setq spacious-padding-widths
-		'( :internal-border-width 18
+	'( :internal-border-width 18
            :header-line-width 2
            :mode-line-width 2
            :tab-width 4
@@ -154,9 +160,9 @@ according to size, color and font family"
            :scroll-bar-width 8
            :left-fringe-width 16
            :right-fringe-width 16))
-
-
   (setq spacious-padding-subtle-mode-line nil)
+  :config
+  (spacious-padding-mode)
   )
 
 (use-package which-key
@@ -225,10 +231,10 @@ according to size, color and font family"
   :ensure t
   :demand t
   :bind ( :map dired-mode-map (
-							   ("<TAB>" . dired-subtree-toggle)
-							   ("C-<tab>" . dired-subtree-toggle)
-							   ("C-<TAB>" . dired-subtree-toggle)
-							   ) ) 
+			       ("<TAB>" . dired-subtree-toggle)
+			       ("C-<tab>" . dired-subtree-toggle)
+			       ("C-<TAB>" . dired-subtree-toggle)
+			       ) ) 
   )
 
 (use-package dired-open-with :ensure t :demand t)
@@ -239,41 +245,47 @@ according to size, color and font family"
   :hook ((dired-mode . nerd-icons-dired-mode))
   )
 
+(defun joe-bookmark-emacs-config ()
+  (interactive)
+  (find-file "/home/joe/Ontwikkeling/Persoonlijk/dotfiles/users/joe/emacs/init.el")
+  )
+
 ;; Configure Emacs native features
 
 (use-package emacs
   :ensure nil
   :bind (("C-x C-b" . ibuffer)
-		 ("C-c a h" . highlight-compare-buffers)
-		 )
+	 ("C-c a h" . highlight-compare-buffers)
+	 ("C-c b e" . joe-bookmark-emacs-config)
+	 )
   :hook (
-		 (text-mode . visual-line-mode)
-		 )
+	 (text-mode . visual-line-mode)
+	 )
   :config
   (setq-default user-personal-name "Joe"
-				user-personal-full-name "Josep Jesus Bigorra Algaba"
-				user-personal-email "jjbigorra@gmail.com"
-				user-personal-initials "JJBA")
+		user-personal-full-name "Josep Jesus Bigorra Algaba"
+		user-personal-email "jjbigorra@gmail.com"
+		user-personal-initials "JJBA")
 
   (setq org-todo-keywords
-		'((sequence "TODO" "WIP" "REVIEWING" "|" "DONE")))
+	'((sequence "TODO" "WIP" "REVIEWING" "|" "DONE")))
 
   (setq-default line-spacing 2
-				pgtk-wait-for-event-timeout 0
-				electric-indent-inhibit t)
+		pgtk-wait-for-event-timeout 0
+		electric-indent-inhibit t)
   
   (setq treesit-font-lock-level 4
-		ring-bell-function #'ignore
-		frame-resize-pixelwise t
-		inhibit-startup-message t
-		backward-delete-char-untabify-method 'hungry
-		completion-cycle-threshold 3
-		tab-always-indent 'complete
-		text-mode-ispell-word-completion nil
-		read-extended-command-predicate #'command-completion-default-include-p
-		vc-follow-symlinks t
-		delete-by-moving-to-trash t
-		tab-width 4)
+	ring-bell-function #'ignore
+	frame-resize-pixelwise t
+	inhibit-startup-message t
+	backward-delete-char-untabify-method 'hungry
+	completion-cycle-threshold 3
+	tab-always-indent 'complete
+	text-mode-ispell-word-completion nil
+	read-extended-command-predicate #'command-completion-default-include-p
+	vc-follow-symlinks t
+	delete-by-moving-to-trash t
+	tab-width 4)
   
   (savehist-mode 1)
   (tool-bar-mode -1)
@@ -289,7 +301,7 @@ according to size, color and font family"
   (defalias 'yes-or-no-p 'y-or-n-p)
   
   (setq dired-listing-switches "-lAh --group-directories-first"
-		dired-kill-when-opening-new-dired-buffer t)
+	dired-kill-when-opening-new-dired-buffer t)
 
   (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode 1)))
 
