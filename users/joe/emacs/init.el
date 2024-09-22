@@ -97,6 +97,7 @@ According to size, color and font family"
 													 :height (tkngt 0.7) 
 													 :font jjba-font-mono))
 
+
 ;; Declare jjba packages
 
 (use-package git-riddance 
@@ -189,11 +190,13 @@ According to size, color and font family"
 
 (use-package nix-ts-mode 
   :ensure t 
-  :demand t)
+  :demand t
+  :mode "\\.nix\\'")
 
 (use-package markdown-mode 
   :ensure t 
-  :demand t)
+  :demand t
+  :mode "\\.md\\'")
 
 (use-package ripgrep 
   :ensure t 
@@ -318,17 +321,20 @@ According to size, color and font family"
 	(add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
 	)
 
-(use-package haskell-mode
+(use-package haskell-ts-mode
 	:ensure t
-	:demand t)
+	:demand t
+	:mode "\\.hs\\'")
 
-(use-package scala-mode
+(use-package scala-ts-mode
 	:ensure t
-	:demand t)
+	:demand t
+	:mode "\\.scala\\'")
 
 (use-package typescript-mode
 	:ensure t
-	:demand t)
+	:demand t
+	:mode "\\.ts\\'")
 
 (use-package smartparens
 	:ensure t
@@ -417,7 +423,7 @@ According to size, color and font family"
          ("C-c a h" . highlight-compare-buffers) 
          ("C-c b e" . jjba-bookmark-emacs-config)) 
   :hook ((text-mode . visual-line-mode) 
-         (dired-mode . (lambda () (dired-hide-details-mode 1))))
+	 )
   (after-make-frame-functions . new-frame-setup)
   :config (setq-default user-personal-name "Joe"
 												user-personal-full-name "Josep Jesus Bigorra Algaba"
@@ -451,6 +457,7 @@ According to size, color and font family"
     (windmove-default-keybindings))
   (defalias 'yes-or-no-p 'y-or-n-p)
   (setq dired-listing-switches "-lAh --group-directories-first" dired-kill-when-opening-new-dired-buffer t)
+  (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode 1)))
 
   
   )
