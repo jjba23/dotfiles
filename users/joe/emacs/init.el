@@ -137,7 +137,8 @@ According to size, color and font family"
          ("C-c f l" . tekengrootte-set-scale-large) 
          ("C-c f r" . tekengrootte-set-scale-regular) 
          ("C-c f s" . tekengrootte-set-scale-small) 
-         ("C-c f t" . tekengrootte-set-scale-tiny)) 
+         ("C-c f t" . tekengrootte-set-scale-tiny)
+	 ("C-c f n" . tekengrootte-set-scale-nano)) 
   :hook ((tekengrootte-set-scale . (lambda () 
                                      (jjba-set-base-faces)))) 
   :config (jjba-set-base-faces))
@@ -148,12 +149,16 @@ According to size, color and font family"
 
 (use-package auto-dark 
   :ensure t 
-  :demand t 
-  :init (setq auto-dark-polling-interval-seconds 4 auto-dark-allow-osascript nil auto-dark-allow-powershell nil) 
-  :config (add-hook 'auto-dark-dark-mode-hook (lambda () 
-                                                (load-theme 'ef-dream t))) 
-  (add-hook 'auto-dark-light-mode-hook (lambda () 
-                                         (load-theme 'ef-day t))) 
+  :demand t
+  :hook(
+	(auto-dark-dark-mode . (lambda () (load-theme 'ef-dream t)))
+	(auto-dark-light-mode . (lambda () (load-theme 'ef-day t))) 
+	)
+  :init
+  (setq auto-dark-polling-interval-seconds 4
+	auto-dark-allow-osascript nil
+	auto-dark-allow-powershell nil) 
+  :config  
   (auto-dark-mode t))
 
 (use-package vertico 
