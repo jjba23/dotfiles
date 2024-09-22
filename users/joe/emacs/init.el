@@ -144,12 +144,10 @@ According to size, color and font family"
   :config (jjba-set-base-faces))
 
 (use-package ef-themes 
-  :ensure t 
-  :demand t)
+  :ensure t)
 
 (use-package auto-dark 
   :ensure t 
-  :demand t
   :init
   (setq auto-dark-polling-interval-seconds 4
 	auto-dark-allow-osascript nil
@@ -161,23 +159,19 @@ According to size, color and font family"
 
 (use-package vertico 
   :ensure t 
-  :demand t 
   :init (setq vertico-cycle t vertico-resize t) 
   :config (vertico-mode))
 
 (use-package marginalia 
   :ensure t 
-  :demand t 
   :after (vertico) 
   :config (marginalia-mode))
 
 (use-package nerd-icons 
-  :ensure t 
-  :demand t)
+  :ensure t)
 
 (use-package nerd-icons-completion 
-  :ensure t 
-  :demand t 
+  :ensure t  
   :after (nerd-icons marginalia) 
   :hook ((marginalia-mode . nerd-icons-completion-marginalia-setup)) 
   :config (nerd-icons-completion-mode))
@@ -185,41 +179,34 @@ According to size, color and font family"
 
 (use-package flymake-collection 
   :ensure t 
-  :demand t 
   :hook ((after-init . flymake-collection-hook-setup) 
          (emacs-lisp-mode . flymake-mode)))
 
 (use-package transient 
-  :ensure t 
-  :demand t)
+  :ensure t)
 
 (use-package magit 
-  :ensure t 
-  :demand t 
+  :ensure t  
   :after (transient))
 
 ;; (use-package java-ts-mode
 ;;   :ensure t
-;;   :demand t
 ;;   :config
 ;;   (add-to-list 'major-mode-remap-alist '(java-mode . java-ts-mode))
 ;;   )
 
 ;; (use-package json-ts-mode
 ;;   :ensure t
-;;   :demand t
 ;;   :config
 ;;   (add-to-list 'major-mode-remap-alist '(js-json-mode . json-ts-mode))
 ;;   )
 
 (use-package nix-ts-mode 
   :ensure t 
-  :demand t
   :mode "\\.nix\\'")
 
 (use-package markdown-mode 
   :ensure t 
-  :demand t
   :mode "\\.md\\'"
   :hook ((markdown-mode . jjba-markdown-mode))
   :config
@@ -230,19 +217,16 @@ According to size, color and font family"
   )
 
 (use-package ripgrep 
-  :ensure t 
-  :demand t)
+  :ensure t)
 
 (use-package super-save 
-  :ensure t 
-  :demand t 
+  :ensure t  
   :init (setq super-save-auto-save-when-idle t auto-save-default nil make-backup-files nil) 
   :config (super-save-mode +1) 
   (add-to-list 'super-save-hook-triggers 'find-file-hook))
 
 (use-package spacious-padding 
   :ensure t 
-  :demand t 
   :init (setq spacious-padding-widths '( :internal-border-width 18 
                                          :header-line-width 2 
                                          :mode-line-width 2 
@@ -265,74 +249,59 @@ According to size, color and font family"
   )
 
 (use-package rainbow-mode 
-  :ensure t 
-  :demand t)
+  :ensure t)
 
 (use-package ob-nix 
-  :ensure t 
-  :demand t)
+  :ensure t)
 
 (use-package ob-http 
-  :ensure t 
-  :demand t)
+  :ensure t)
 
 (use-package ob-mermaid 
-  :ensure t 
-  :demand t)
+  :ensure t)
 
 (use-package orderless
   :ensure t
-  :demand t
   :custom
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
 
 (use-package bug-hunter 
-  :ensure t 
-  :demand t)
+  :ensure t)
 
 (use-package sly 
-  :ensure t 
-  :demand t 
+  :ensure t  
   :config (setq inferior-lisp-program "sbcl"))
 
 (use-package f 
-  :ensure t 
-  :demand t)
+  :ensure t)
 
 (use-package speed-type 
-  :ensure t 
-  :demand t)
+  :ensure t)
 
 (use-package dape 
-  :ensure t 
-  :demand t 
+  :ensure t  
   :init (setq dape-buffer-window-arrangement 'gud))
 
 (use-package dired-hacks-utils 
-  :ensure t 
-  :demand t)
+  :ensure t)
 
 (use-package dired-subtree 
-  :ensure t 
-  :demand t 
+  :ensure t  
   :bind ( :map dired-mode-map (("<TAB>" . dired-subtree-toggle) 
                                ("C-<tab>" . dired-subtree-toggle) 
                                ("C-<TAB>" . dired-subtree-toggle))))
 
 (use-package dired-open-with 
-  :ensure t 
-  :demand t)
+  :ensure t)
 
 (use-package move-text 
-  :ensure t 
-  :demand t 
+  :ensure t  
   :config (move-text-default-bindings))
 
 (use-package corfu
   :ensure t 
-  :demand t
   :init
   (setq corfu-cycle t
         corfu-auto t
@@ -352,7 +321,6 @@ According to size, color and font family"
 
 (use-package nerd-icons-corfu
   :ensure t
-  :demand t
   :after (corfu nerd-icons)
   :config
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
@@ -360,30 +328,25 @@ According to size, color and font family"
 
 (use-package haskell-mode
   :ensure t
-  :demand t
   :mode "\\.hs\\'")
 
 (use-package scala-ts-mode
   :ensure t
-  :demand t
   :mode "\\.scala\\'")
 
 (use-package typescript-mode
   :ensure t
-  :demand t
   :mode "\\.ts\\'")
 
 (use-package smartparens
   :ensure t
-  :demand t
   :hook ((prog-mode . smartparens-mode))
   :config
   (require 'smartparens-config)	
   )
 
 (use-package consult 
-  :ensure t 
-  :demand t 
+  :ensure t  
   :bind (("C-c h" . consult-history) 
          ("C-c m" . consult-mode-command) 
          ("C-c k" . consult-kmacro) 
@@ -430,14 +393,12 @@ According to size, color and font family"
 
 (use-package direnv
   :ensure t 
-  :demand t
   :bind (  ("C-c d d" . direnv-mode)
            ("C-c d a" . direnv-allow)
 	   ))
 
 (use-package org-modern
   :ensure t
-  :demand t
   :config
   (setq org-modern-star 'replace))
 
@@ -454,12 +415,10 @@ According to size, color and font family"
   )
 
 (use-package elisp-format 
-  :ensure t 
-  :demand t)
+  :ensure t)
 
 (use-package nerd-icons-dired 
-  :ensure t 
-  :demand t 
+  :ensure t  
   :hook ((dired-mode . nerd-icons-dired-mode)))
 
 (use-package eglot
@@ -536,7 +495,6 @@ According to size, color and font family"
 
 (use-package helpful
   :ensure t
-  :demand t
   :bind (
 	 ("C-h f" . helpful-callable)
 	 ("C-h v" . helpful-variable)
