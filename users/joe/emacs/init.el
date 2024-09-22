@@ -88,7 +88,31 @@
   "My personal choice for sans font family." 
   :type 'string)
 
-(defun jjba-set-base-faces ()
+
+;; Declare jjba packages
+
+(use-package git-riddance 
+  :ensure (:host github 
+                 :repo "jjba23/git-riddance.el" 
+                 :branch "trunk"))
+
+(use-package tekengrootte 
+  :ensure (:host github 
+                 :repo "jjba23/tekengrootte.el" 
+                 :branch "trunk") 
+  :after (auto-dark) 
+  :bind (("C-c f c" . tekengrootte-set-scale-colossal) 
+         ("C-c f j" . tekengrootte-set-scale-jumbo) 
+         ("C-c f x" . tekengrootte-set-scale-larger) 
+         ("C-c f l" . tekengrootte-set-scale-large) 
+         ("C-c f r" . tekengrootte-set-scale-regular) 
+         ("C-c f s" . tekengrootte-set-scale-small) 
+         ("C-c f t" . tekengrootte-set-scale-tiny)
+	 ("C-c f n" . tekengrootte-set-scale-nano)) 
+  :hook ((tekengrootte-set-scale . (lambda () 
+                                     (jjba-set-base-faces)))) 
+  :config
+  (defun jjba-set-base-faces ()
   "Adjust the base Emacs faces to my preferences.
 According to size, color and font family"
   (set-face-attribute 'default nil 
@@ -117,31 +141,118 @@ According to size, color and font family"
   (set-face-attribute 'org-level-5 nil 
 		      :height (tkngt 1.2))
   )
+  
+  (jjba-set-base-faces)
+  )
+
+;; Dev
+
+(use-package elisp-format 
+  :ensure t)
+
+(use-package eglot
+  :ensure nil
+  :hook (
+	 (scala-ts-mode . eglot-ensure)
+	 (sh-mode . eglot-ensure)
+	 (haskell-mode . eglot-ensure)
+	 (nix-ts-mode . eglot-ensure)
+	 (markdown-mode . eglot-ensure)
+	 )
+  :bind (
+	 ("C-c i i" . eglot-find-implementation)
+	 ("C-c i e" . eglot)
+	 ("C-c i k" . eglot-shutdown-all)
+	 ("C-c i r" . eglot-rename)
+	 ("C-c i x" . eglot-reconnect)
+	 ("C-c i a" . eglot-code-actions)
+	 ("C-c i m" . eglot-menu)
+	 ("C-c i f" . eglot-format-buffer)
+	 ("C-c i h" . eglot-inlay-hints-mode)
+	 )
+  :config
+  
+  (add-to-list 'eglot-server-programs '(nix-ts-mode . ("nil")))
+  (add-to-list 'eglot-server-programs '(scala-ts-mode . ("metals")))
+  (add-to-list 'eglot-server-programs '(markdown-mode . ("marksman")))
+
+  (add-hook 'before-save-hook #'eglot-format-buffer)
 
 
-;; Declare jjba packages
+  (setq-default eglot-workspace-configuration
+    '(
+      :metals (
+        :autoImportBuild t
+        :superMethodLensesEnabled t
+        :showInferredType t
+        :enableSemanticHighlighting t
+        :inlayHints (
+          :inferredTypes (:enable t )
+          :implicitArguments (:enable nil)
+          :implicitConversions (:enable nil )
+          :typeParameters (:enable t )
+          :hintsInPatternMatch (:enable nil )
+          )
+        )
+      :haskell (
+        :formattingProvider "ormolu"
+        )
+      :nil (
+        :formatting (:command ["nixfmt"])
+       )
+      )
+    )
+  (setq eglot-autoshutdown t)
+  (setq eglot-confirm-server-edits nil)
+  (setq eglot-report-progress t)
+  (setq eglot-extend-to-xref t)
+  (setq eglot-autoreconnect t)
 
-(use-package git-riddance 
-  :ensure (:host github 
-                 :repo "jjba23/git-riddance.el" 
-                 :branch "trunk"))
 
-(use-package tekengrootte 
-  :ensure (:host github 
-                 :repo "jjba23/tekengrootte.el" 
-                 :branch "trunk") 
-  :after (auto-dark) 
-  :bind (("C-c f c" . tekengrootte-set-scale-colossal) 
-         ("C-c f j" . tekengrootte-set-scale-jumbo) 
-         ("C-c f x" . tekengrootte-set-scale-larger) 
-         ("C-c f l" . tekengrootte-set-scale-large) 
-         ("C-c f r" . tekengrootte-set-scale-regular) 
-         ("C-c f s" . tekengrootte-set-scale-small) 
-         ("C-c f t" . tekengrootte-set-scale-tiny)
-	 ("C-c f n" . tekengrootte-set-scale-nano)) 
-  :hook ((tekengrootte-set-scale . (lambda () 
-                                     (jjba-set-base-faces)))) 
-  :config (jjba-set-base-faces))
+  (add-hook 'eglot-managed-mode-hook
+    (lambda ()
+      ;; Show flymake diagnostics first.
+      (setq eldoc-documentation-functions
+            (cons #'flymake-eldoc-function
+                  (remove #'flymake-eldoc-function eldoc-documentation-functions)))
+      ;; Show all eldoc feedback.
+      (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
+
+  )
+
+
+
+(use-package nix-ts-mode 
+  :ensure t 
+  :mode "\\.nix\\'")
+
+(use-package markdown-mode 
+  :ensure t 
+  :mode "\\.md\\'"
+  :hook ((markdown-mode . jjba-markdown-mode))
+  :config
+  (defun jjba-markdown-mode ()
+    (variable-pitch-mode 1)
+    (auto-fill-mode 0)
+    (visual-line-mode 1))
+  )
+
+(use-package haskell-mode
+  :ensure t
+  :mode "\\.hs\\'")
+
+(use-package scala-ts-mode
+  :ensure t
+  :mode "\\.scala\\'")
+
+(use-package typescript-mode
+  :ensure t
+  :mode "\\.ts\\'")
+
+
+;; Dev ends here
+
+;; Emacs UI/UX/DX
 
 (use-package ef-themes 
   :ensure t)
@@ -159,7 +270,9 @@ According to size, color and font family"
 
 (use-package vertico 
   :ensure t 
-  :init (setq vertico-cycle t vertico-resize t) 
+  :init
+  (setq vertico-cycle t
+        vertico-resize t) 
   :config (vertico-mode))
 
 (use-package marginalia 
@@ -189,32 +302,6 @@ According to size, color and font family"
   :ensure t  
   :after (transient))
 
-;; (use-package java-ts-mode
-;;   :ensure t
-;;   :config
-;;   (add-to-list 'major-mode-remap-alist '(java-mode . java-ts-mode))
-;;   )
-
-;; (use-package json-ts-mode
-;;   :ensure t
-;;   :config
-;;   (add-to-list 'major-mode-remap-alist '(js-json-mode . json-ts-mode))
-;;   )
-
-(use-package nix-ts-mode 
-  :ensure t 
-  :mode "\\.nix\\'")
-
-(use-package markdown-mode 
-  :ensure t 
-  :mode "\\.md\\'"
-  :hook ((markdown-mode . jjba-markdown-mode))
-  :config
-  (defun jjba-markdown-mode ()
-    (variable-pitch-mode 1)
-    (auto-fill-mode 0)
-    (visual-line-mode 1))
-  )
 
 (use-package ripgrep 
   :ensure t)
@@ -326,17 +413,6 @@ According to size, color and font family"
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
   )
 
-(use-package haskell-mode
-  :ensure t
-  :mode "\\.hs\\'")
-
-(use-package scala-ts-mode
-  :ensure t
-  :mode "\\.scala\\'")
-
-(use-package typescript-mode
-  :ensure t
-  :mode "\\.ts\\'")
 
 (use-package smartparens
   :ensure t
@@ -414,84 +490,12 @@ According to size, color and font family"
     (auto-fill-mode 0))
   )
 
-(use-package elisp-format 
-  :ensure t)
+
 
 (use-package nerd-icons-dired 
   :ensure t  
   :hook ((dired-mode . nerd-icons-dired-mode)))
 
-(use-package eglot
-  :ensure nil
-  :hook (
-	 (scala-ts-mode . eglot-ensure)
-	 (sh-mode . eglot-ensure)
-	 (haskell-mode . eglot-ensure)
-	 (nix-ts-mode . eglot-ensure)
-	 (markdown-mode . eglot-ensure)
-	 )
-  :bind (
-	 ("C-c i i" . eglot-find-implementation)
-	 ("C-c i e" . eglot)
-	 ("C-c i k" . eglot-shutdown-all)
-	 ("C-c i r" . eglot-rename)
-	 ("C-c i x" . eglot-reconnect)
-	 ("C-c i a" . eglot-code-actions)
-	 ("C-c i m" . eglot-menu)
-	 ("C-c i f" . eglot-format-buffer)
-	 ("C-c i h" . eglot-inlay-hints-mode)
-	 )
-  :config
-  
-  (add-to-list 'eglot-server-programs '(nix-ts-mode . ("nil")))
-  (add-to-list 'eglot-server-programs '(scala-ts-mode . ("metals")))
-  (add-to-list 'eglot-server-programs '(markdown-mode . ("marksman")))
-
-  (add-hook 'before-save-hook #'eglot-format-buffer)
-
-
-  (setq-default eglot-workspace-configuration
-		'(
-                  :metals (
-                           :autoImportBuild t
-                           :superMethodLensesEnabled t
-			   :showInferredType t
-                           :enableSemanticHighlighting t
-                           :inlayHints (
-					:inferredTypes (:enable t )
-					:implicitArguments (:enable nil)
-					:implicitConversions (:enable nil )
-					:typeParameters (:enable t )
-					:hintsInPatternMatch (:enable nil )
-					)
-			   )
-                  :haskell (
-			    :formattingProvider "ormolu"
-			    )
-                  :nil (
-			:formatting (
-                                     :command ["nixfmt"]
-                                     ) 
-			)
-                  )
-		)
-  (setq eglot-autoshutdown t)
-  (setq eglot-confirm-server-initiated-edits nil)
-  (setq eglot-report-progress t)
-  (setq eglot-extend-to-xref t)
-  (setq eglot-autoreconnect t)
-
-
-  (add-hook 'eglot-managed-mode-hook
-            (lambda ()
-              ;; Show flymake diagnostics first.
-              (setq eldoc-documentation-functions
-                    (cons #'flymake-eldoc-function
-                          (remove #'flymake-eldoc-function eldoc-documentation-functions)))
-              ;; Show all eldoc feedback.
-              (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
-
-  )
 
 (use-package helpful
   :ensure t
@@ -531,6 +535,15 @@ According to size, color and font family"
   (async-shell-command "systemctl --user --no-pager restart emacs")
   )
 
+(use-package flymake
+  :ensure nil
+  :bind(
+        ("C-c ! d" . flymake-show-buffer-diagnostics)
+	("C-c ! n" . flymake-goto-next-error)
+	("C-c ! p" . flymake-goto-prev-error)
+	("C-c ! f" . flymake-mode)
+        ))
+
 ;; Configure Emacs native features
 
 (use-package emacs 
@@ -538,20 +551,17 @@ According to size, color and font family"
   :bind (("C-x C-b" . ibuffer) 
          ("C-c a h" . highlight-compare-buffers) 
          ("C-c b e" . jjba-bookmark-emacs-config)
-	 ("C-c ! d" . flymake-show-buffer-diagnostics)
-	 ("C-c ! n" . flymake-goto-next-error)
-	 ("C-c ! p" . flymake-goto-prev-error)
-	 ("C-c ! f" . flymake-mode)
 	 ("C-c # b" . jjba-nixos-rebuild)
 	 ("C-c # r" . jjba-restart-emacs)
 	 )
-  :hook ((text-mode . visual-line-mode) 
+  :hook ((text-mode . visual-line-mode)
+         (after-make-frame-functions . new-frame-setup)
 	 )
-  (after-make-frame-functions . new-frame-setup)
-  :config (setq-default user-personal-name "Joe"
-			user-personal-full-name "Josep Jesus Bigorra Algaba"
-			user-personal-email "jjbigorra@gmail.com"
-			user-personal-initials "JJBA")
+  :config
+  (setq-default user-personal-name "Joe"
+		user-personal-full-name "Josep Jesus Bigorra Algaba"
+		user-personal-email "jjbigorra@gmail.com"
+		user-personal-initials "JJBA")
   
   (setq org-todo-keywords '((sequence "TODO" "WIP" "REVIEWING" "|" "DONE")))
   (setq-default line-spacing 2 pgtk-wait-for-event-timeout 0 electric-indent-inhibit t)
@@ -581,6 +591,8 @@ According to size, color and font family"
   (defalias 'yes-or-no-p 'y-or-n-p)
   (setq dired-listing-switches "-lAh --group-directories-first" dired-kill-when-opening-new-dired-buffer t)
   (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode 1)))
+  (setq-default indent-tabs-mode nil)
+  (global-prettify-symbols-mode +1)
 
   
   )
