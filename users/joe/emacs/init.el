@@ -257,7 +257,7 @@ According to size, color and font family"
   (setq which-key-sort-order 'which-key-key-order-alpha	
 	which-key-max-description-length 35)
   (setq-default which-key-idle-delay 0.4) 
-  (which-key-setup-side-window-right-bottom)
+  (which-key-setup-minibuffer)
   (which-key-mode)
   )
 
