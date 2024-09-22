@@ -108,7 +108,4 @@ notSameDay :: (MonadIO m) => Maybe UTCTime -> m Bool
 notSameDay Nothing = pure True
 notSameDay (Just utcTime) = do
   now <- liftIO getCurrentTime
-  pure $ day utcTime /= day now
-  where
-    day :: UTCTime -> Day
-    day = day
+  pure $ utctDay utcTime /= utctDay now
