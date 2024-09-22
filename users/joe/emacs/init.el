@@ -46,10 +46,10 @@
     (when (< emacs-major-version 28) 
       (require 'subr-x)) 
     (condition-case-unless-debug err (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*")) 
-																							((zerop (apply #'call-process `("git" nil ,buffer t "clone" ,@(when-let ((depth (plist-get order :depth))) 
-																																																							(list (format "--depth=%d" depth) "--no-single-branch")) 
-																																							,(plist-get order 
-																																													:repo) ,repo)))) 
+					      ((zerop (apply #'call-process `("git" nil ,buffer t "clone" ,@(when-let ((depth (plist-get order :depth))) 
+													      (list (format "--depth=%d" depth) "--no-single-branch")) 
+									      ,(plist-get order 
+											  :repo) ,repo)))) 
                                               ((zerop (call-process "git" nil buffer t "checkout" (or (plist-get order 
                                                                                                                  :ref) "--")))) 
                                               (emacs (concat invocation-directory invocation-name)) 
@@ -84,18 +84,18 @@
 
 (defun jjba-set-base-faces () "Adjust the base Emacs faces to my preferences.
 According to size, color and font family"
-			 (set-face-attribute 'default nil 
-													 :height (round (tkngt 114)) 
+       (set-face-attribute 'default nil 
+			   :height (round (tkngt 114)) 
                            :font jjba-font-mono) 
-			 (set-face-attribute 'mode-line nil 
-													 :height (tkngt 0.7) 
-													 :font jjba-font-mono) 
-			 (set-face-attribute 'mode-line-active nil 
-													 :height (tkngt 0.7) 
-													 :font jjba-font-mono) 
-			 (set-face-attribute 'mode-line-inactive nil 
-													 :height (tkngt 0.7) 
-													 :font jjba-font-mono))
+       (set-face-attribute 'mode-line nil 
+			   :height (tkngt 0.7) 
+			   :font jjba-font-mono) 
+       (set-face-attribute 'mode-line-active nil 
+			   :height (tkngt 0.7) 
+			   :font jjba-font-mono) 
+       (set-face-attribute 'mode-line-inactive nil 
+			   :height (tkngt 0.7) 
+			   :font jjba-font-mono))
 
 
 ;; Declare jjba packages
@@ -245,7 +245,7 @@ According to size, color and font family"
 
 (use-package orderless
   :ensure t
-	:demand t
+  :demand t
   :custom
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
@@ -296,8 +296,8 @@ According to size, color and font family"
 (use-package corfu
   :ensure t 
   :demand t
-	:init
-	(setq corfu-cycle t
+  :init
+  (setq corfu-cycle t
         corfu-auto t
         corfu-auto-prefix 2
         corfu-auto-delay 0.2
@@ -308,41 +308,41 @@ According to size, color and font family"
         corfu-preselect-first nil
         corfu-popupinfo-delay '(0.8 . 0.8))
   :config
-	(global-corfu-mode)
+  (global-corfu-mode)
   (corfu-history-mode)
   (corfu-popupinfo-mode 1)
-	)
+  )
 
 (use-package nerd-icons-corfu
-	:ensure t
-	:demand t
-	:after (corfu nerd-icons)
-	:config
-	(add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
-	)
+  :ensure t
+  :demand t
+  :after (corfu nerd-icons)
+  :config
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
+  )
 
 (use-package haskell-ts-mode
-	:ensure t
-	:demand t
-	:mode "\\.hs\\'")
+  :ensure t
+  :demand t
+  :mode "\\.hs\\'")
 
 (use-package scala-ts-mode
-	:ensure t
-	:demand t
-	:mode "\\.scala\\'")
+  :ensure t
+  :demand t
+  :mode "\\.scala\\'")
 
 (use-package typescript-mode
-	:ensure t
-	:demand t
-	:mode "\\.ts\\'")
+  :ensure t
+  :demand t
+  :mode "\\.ts\\'")
 
 (use-package smartparens
-	:ensure t
-	:demand t
-	:hook ((prog-mode . smartparens-mode))
-	:config
-	(require 'smartparens-config)	
-	)
+  :ensure t
+  :demand t
+  :hook ((prog-mode . smartparens-mode))
+  :config
+  (require 'smartparens-config)	
+  )
 
 (use-package consult 
   :ensure t 
@@ -391,6 +391,13 @@ According to size, color and font family"
   (global-set-key [f6] 'consult-recent-file)
   )
 
+(use-package direnv
+  :ensure t 
+  :demand t
+  :bind (  ("C-c d d" . direnv-mode)
+           ("C-c d a" . direnv-allow)
+	   ))
+
 (use-package elisp-format 
   :ensure t 
   :demand t)
@@ -400,19 +407,101 @@ According to size, color and font family"
   :demand t 
   :hook ((dired-mode . nerd-icons-dired-mode)))
 
+(use-package eglot
+  :ensure nil
+  :hook (
+	 (scala-ts-mode . eglot-ensure)
+	 (sh-mode . eglot-ensure)
+	 (haskell-ts-mode . eglot-ensure)
+	 (nix-ts-mode . eglot-ensure)
+	 (markdown-mode . eglot-ensure)
+	 )
+  :bind (
+	 ("C-c i i" . eglot-find-implementation)
+	 ("C-c i e" . eglot)
+	 ("C-c i k" . eglot-shutdown-all)
+	 ("C-c i r" . eglot-rename)
+	 ("C-c i x" . eglot-reconnect)
+	 ("C-c i a" . eglot-code-actions)
+	 ("C-c i m" . eglot-menu)
+	 ("C-c i f" . eglot-format-buffer)
+	 ("C-c i h" . eglot-inlay-hints-mode)
+	 )
+  :config
+  
+  (add-to-list 'eglot-server-programs '(nix-ts-mode . ("nil")))
+  (add-to-list 'eglot-server-programs '(scala-ts-mode . ("metals")))
+  (add-to-list 'eglot-server-programs '(markdown-mode . ("marksman")))
 
+  (add-hook 'before-save-hook #'eglot-format-buffer)
+
+
+  (setq-default eglot-workspace-configuration
+		'(
+                  :metals (
+                           :autoImportBuild t
+                           :superMethodLensesEnabled t
+			   :showInferredType t
+                           :enableSemanticHighlighting t
+                           :inlayHints (
+					:inferredTypes (:enable t )
+					:implicitArguments (:enable nil)
+					:implicitConversions (:enable nil )
+					:typeParameters (:enable t )
+					:hintsInPatternMatch (:enable nil )
+					)
+			   )
+                  :haskell (
+			    :formattingProvider "ormolu"
+			    )
+                  :nil (
+			:formatting (
+                                     :command ["nixfmt"]
+                                     ) 
+			)
+                  )
+		)
+  (setq eglot-autoshutdown t)
+  (setq eglot-confirm-server-initiated-edits nil)
+  (setq eglot-report-progress t)
+  (setq eglot-extend-to-xref t)
+  (setq eglot-autoreconnect t)
+
+
+  (add-hook 'eglot-managed-mode-hook
+            (lambda ()
+              ;; Show flymake diagnostics first.
+              (setq eldoc-documentation-functions
+                    (cons #'flymake-eldoc-function
+                          (remove #'flymake-eldoc-function eldoc-documentation-functions)))
+              ;; Show all eldoc feedback.
+              (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
+
+  )
+
+(use-package helpful
+  :ensure t
+  :demand t
+  :bind (
+	 ("C-h f" . helpful-callable)
+	 ("C-h v" . helpful-variable)
+	 ("C-h k" . helpful-key)
+	 ("C-c C-d" . helpful-at-point)
+	 ("C-h F" . helpful-function)
+	 ("C-h C" . helpful-command)
+	 ))
 
 (defun jjba-bookmark-emacs-config ()
   "Visit jjba bookmark: Emacs main init.el config file."
   (interactive) 
-	(find-file "/home/joe/Ontwikkeling/Persoonlijk/dotfiles/users/joe/emacs/init.el"))
+  (find-file "/home/joe/Ontwikkeling/Persoonlijk/dotfiles/users/joe/emacs/init.el"))
 
 (defun new-frame-setup (frame)
   (if (display-graphic-p frame)
       (progn
-				(message "window system")
-				(tekengrootte-set-scale-regular)
-				)
+	(message "window system")
+	(tekengrootte-set-scale-regular)
+	)
     (message "not a window system")))
 
 ;; Configure Emacs native features
@@ -421,14 +510,18 @@ According to size, color and font family"
   :ensure nil 
   :bind (("C-x C-b" . ibuffer) 
          ("C-c a h" . highlight-compare-buffers) 
-         ("C-c b e" . jjba-bookmark-emacs-config)) 
+         ("C-c b e" . jjba-bookmark-emacs-config))
+  ("C-c ! d" . flymake-show-buffer-diagnostics)
+  ("C-c ! n" . flymake-goto-next-error)
+  ("C-c ! p" . flymake-goto-prev-error)
+  ("C-c ! f" . flymake-mode)
   :hook ((text-mode . visual-line-mode) 
 	 )
   (after-make-frame-functions . new-frame-setup)
   :config (setq-default user-personal-name "Joe"
-												user-personal-full-name "Josep Jesus Bigorra Algaba"
-												user-personal-email "jjbigorra@gmail.com"
-												user-personal-initials "JJBA")
+			user-personal-full-name "Josep Jesus Bigorra Algaba"
+			user-personal-email "jjbigorra@gmail.com"
+			user-personal-initials "JJBA")
   
   (setq org-todo-keywords '((sequence "TODO" "WIP" "REVIEWING" "|" "DONE")))
   (setq-default line-spacing 2 pgtk-wait-for-event-timeout 0 electric-indent-inhibit t)
@@ -436,15 +529,15 @@ According to size, color and font family"
   (setq backward-delete-char-untabify-method 'hungry)
   
   (setq treesit-font-lock-level 4
-				ring-bell-function #'ignore
-				frame-resize-pixelwise t
-				inhibit-startup-message t
+	ring-bell-function #'ignore
+	frame-resize-pixelwise t
+	inhibit-startup-message t
         completion-cycle-threshold 3
-				tab-always-indent 'complete
-				text-mode-ispell-word-completion nil
+	tab-always-indent 'complete
+	text-mode-ispell-word-completion nil
         vc-follow-symlinks t
-				delete-by-moving-to-trash t
-				tab-width 2)
+	delete-by-moving-to-trash t
+	tab-width 2)
   
   (savehist-mode 1) 
   (tool-bar-mode -1) 
