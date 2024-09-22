@@ -225,7 +225,15 @@ According to size, color and font family"
 
 (use-package which-key 
   :ensure t 
-  :demand t)
+  :demand t
+  :config
+  (setq which-key-sort-order 'which-key-key-order-alpha
+	which-key-idle-delay 0.4
+	which-key-max-description-length 35)
+  (which-key-mode)
+  (which-key-setup-side-window-right-bottom)
+  (which-key-enable-god-mode-support)
+  )
 
 (use-package rainbow-mode 
   :ensure t 
@@ -321,7 +329,7 @@ According to size, color and font family"
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
   )
 
-(use-package haskell-ts-mode
+(use-package haskell-mode
   :ensure t
   :demand t
   :mode "\\.hs\\'")
@@ -412,7 +420,7 @@ According to size, color and font family"
   :hook (
 	 (scala-ts-mode . eglot-ensure)
 	 (sh-mode . eglot-ensure)
-	 (haskell-ts-mode . eglot-ensure)
+	 (haskell-mode . eglot-ensure)
 	 (nix-ts-mode . eglot-ensure)
 	 (markdown-mode . eglot-ensure)
 	 )
@@ -511,10 +519,10 @@ According to size, color and font family"
   :bind (("C-x C-b" . ibuffer) 
          ("C-c a h" . highlight-compare-buffers) 
          ("C-c b e" . jjba-bookmark-emacs-config))
-  ("C-c ! d" . flymake-show-buffer-diagnostics)
-  ("C-c ! n" . flymake-goto-next-error)
-  ("C-c ! p" . flymake-goto-prev-error)
-  ("C-c ! f" . flymake-mode)
+	 ("C-c ! d" . flymake-show-buffer-diagnostics)
+	 ("C-c ! n" . flymake-goto-next-error)
+	 ("C-c ! p" . flymake-goto-prev-error)
+	 ("C-c ! f" . flymake-mode)
   :hook ((text-mode . visual-line-mode) 
 	 )
   (after-make-frame-functions . new-frame-setup)
