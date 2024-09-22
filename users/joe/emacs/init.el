@@ -46,10 +46,10 @@
     (when (< emacs-major-version 28) 
       (require 'subr-x)) 
     (condition-case-unless-debug err (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*")) 
-					      ((zerop (apply #'call-process `("git" nil ,buffer t "clone" ,@(when-let ((depth (plist-get order :depth))) 
-													      (list (format "--depth=%d" depth) "--no-single-branch")) 
-									      ,(plist-get order 
-											  :repo) ,repo)))) 
+																							((zerop (apply #'call-process `("git" nil ,buffer t "clone" ,@(when-let ((depth (plist-get order :depth))) 
+																																																							(list (format "--depth=%d" depth) "--no-single-branch")) 
+																																							,(plist-get order 
+																																													:repo) ,repo)))) 
                                               ((zerop (call-process "git" nil buffer t "checkout" (or (plist-get order 
                                                                                                                  :ref) "--")))) 
                                               (emacs (concat invocation-directory invocation-name)) 
@@ -79,23 +79,44 @@
   "JJBA customization group."
   :group 'tools
   )
-(defcustom jjba-font-mono "Iosevka Comfy Wide" "My personal choice for monospaced font family." 
+
+(defcustom jjba-font-mono "Iosevka Comfy Wide"
+	"My personal choice for monospaced font family." 
   :type 'string)
 
-(defun jjba-set-base-faces () "Adjust the base Emacs faces to my preferences.
+(defcustom jjba-font-sans "Inter"
+	"My personal choice for sans font family." 
+  :type 'string)
+
+(defun jjba-set-base-faces ()
+	"Adjust the base Emacs faces to my preferences.
 According to size, color and font family"
-       (set-face-attribute 'default nil 
-			   :height (round (tkngt 114)) 
-                           :font jjba-font-mono) 
-       (set-face-attribute 'mode-line nil 
-			   :height (tkngt 0.7) 
-			   :font jjba-font-mono) 
-       (set-face-attribute 'mode-line-active nil 
-			   :height (tkngt 0.7) 
-			   :font jjba-font-mono) 
-       (set-face-attribute 'mode-line-inactive nil 
-			   :height (tkngt 0.7) 
-			   :font jjba-font-mono))
+	(set-face-attribute 'default nil 
+											:height (round (tkngt 114)) 
+											:font jjba-font-mono)
+	(set-face-attribute 'mode-line nil 
+											:height (tkngt 0.7)
+											:font jjba-font-mono) 
+	(set-face-attribute 'mode-line-active nil 
+											:height (tkngt 0.7) 
+											:font jjba-font-mono) 
+	(set-face-attribute 'mode-line-inactive nil 
+											:height (tkngt 0.7) 
+											:font jjba-font-mono)
+	(set-face-attribute 'variable-pitch nil 
+											:height (tkngt 1.2) 
+											:font jjba-font-sans)
+	(set-face-attribute 'org-level-1 nil 
+											:height (tkngt 1.3))
+	(set-face-attribute 'org-level-2 nil 
+											:height (tkngt 1.3))
+	(set-face-attribute 'org-level-3 nil 
+											:height (tkngt 1.2))
+	(set-face-attribute 'org-level-4 nil 
+											:height (tkngt 1.2))
+	(set-face-attribute 'org-level-5 nil 
+											:height (tkngt 1.2))
+	)
 
 
 ;; Declare jjba packages
@@ -196,7 +217,14 @@ According to size, color and font family"
 (use-package markdown-mode 
   :ensure t 
   :demand t
-  :mode "\\.md\\'")
+  :mode "\\.md\\'"
+	:hook ((markdown-mode . jjba-markdown-mode))
+	:config
+	(defun jjba-markdown-mode ()
+		(variable-pitch-mode 1)
+		(auto-fill-mode 0)
+		(visual-line-mode 1))
+	)
 
 (use-package ripgrep 
   :ensure t 
@@ -228,8 +256,8 @@ According to size, color and font family"
   :demand t
   :config
   (setq which-key-sort-order 'which-key-key-order-alpha
-	which-key-idle-delay 0.4
-	which-key-max-description-length 35)
+				which-key-idle-delay 0.4
+				which-key-max-description-length 35)
   (which-key-mode)
   (which-key-setup-side-window-right-bottom)
   (which-key-enable-god-mode-support)
@@ -404,7 +432,25 @@ According to size, color and font family"
   :demand t
   :bind (  ("C-c d d" . direnv-mode)
            ("C-c d a" . direnv-allow)
-	   ))
+					 ))
+
+(use-package org-modern
+	:ensure t
+	:demand t
+	:config
+	(setq org-modern-star 'replace))
+
+(use-package org
+	:ensure nil
+	:after (org-modern)
+	:hook ((org-mode . jjba-org-mode))
+	:config
+	(defun jjba-org-mode ()
+		(variable-pitch-mode 1)
+		(org-modern-mode)
+		(org-indent-mode)
+		(auto-fill-mode 0))
+	)
 
 (use-package elisp-format 
   :ensure t 
@@ -418,23 +464,23 @@ According to size, color and font family"
 (use-package eglot
   :ensure nil
   :hook (
-	 (scala-ts-mode . eglot-ensure)
-	 (sh-mode . eglot-ensure)
-	 (haskell-mode . eglot-ensure)
-	 (nix-ts-mode . eglot-ensure)
-	 (markdown-mode . eglot-ensure)
-	 )
+				 (scala-ts-mode . eglot-ensure)
+				 (sh-mode . eglot-ensure)
+				 (haskell-mode . eglot-ensure)
+				 (nix-ts-mode . eglot-ensure)
+				 (markdown-mode . eglot-ensure)
+				 )
   :bind (
-	 ("C-c i i" . eglot-find-implementation)
-	 ("C-c i e" . eglot)
-	 ("C-c i k" . eglot-shutdown-all)
-	 ("C-c i r" . eglot-rename)
-	 ("C-c i x" . eglot-reconnect)
-	 ("C-c i a" . eglot-code-actions)
-	 ("C-c i m" . eglot-menu)
-	 ("C-c i f" . eglot-format-buffer)
-	 ("C-c i h" . eglot-inlay-hints-mode)
-	 )
+				 ("C-c i i" . eglot-find-implementation)
+				 ("C-c i e" . eglot)
+				 ("C-c i k" . eglot-shutdown-all)
+				 ("C-c i r" . eglot-rename)
+				 ("C-c i x" . eglot-reconnect)
+				 ("C-c i a" . eglot-code-actions)
+				 ("C-c i m" . eglot-menu)
+				 ("C-c i f" . eglot-format-buffer)
+				 ("C-c i h" . eglot-inlay-hints-mode)
+				 )
   :config
   
   (add-to-list 'eglot-server-programs '(nix-ts-mode . ("nil")))
@@ -445,30 +491,30 @@ According to size, color and font family"
 
 
   (setq-default eglot-workspace-configuration
-		'(
+								'(
                   :metals (
                            :autoImportBuild t
                            :superMethodLensesEnabled t
-			   :showInferredType t
+													 :showInferredType t
                            :enableSemanticHighlighting t
                            :inlayHints (
-					:inferredTypes (:enable t )
-					:implicitArguments (:enable nil)
-					:implicitConversions (:enable nil )
-					:typeParameters (:enable t )
-					:hintsInPatternMatch (:enable nil )
-					)
-			   )
+																				:inferredTypes (:enable t )
+																				:implicitArguments (:enable nil)
+																				:implicitConversions (:enable nil )
+																				:typeParameters (:enable t )
+																				:hintsInPatternMatch (:enable nil )
+																				)
+													 )
                   :haskell (
-			    :formattingProvider "ormolu"
-			    )
+														:formattingProvider "ormolu"
+														)
                   :nil (
-			:formatting (
+												:formatting (
                                      :command ["nixfmt"]
                                      ) 
-			)
+												)
                   )
-		)
+								)
   (setq eglot-autoshutdown t)
   (setq eglot-confirm-server-initiated-edits nil)
   (setq eglot-report-progress t)
@@ -491,13 +537,13 @@ According to size, color and font family"
   :ensure t
   :demand t
   :bind (
-	 ("C-h f" . helpful-callable)
-	 ("C-h v" . helpful-variable)
-	 ("C-h k" . helpful-key)
-	 ("C-c C-d" . helpful-at-point)
-	 ("C-h F" . helpful-function)
-	 ("C-h C" . helpful-command)
-	 ))
+				 ("C-h f" . helpful-callable)
+				 ("C-h v" . helpful-variable)
+				 ("C-h k" . helpful-key)
+				 ("C-c C-d" . helpful-at-point)
+				 ("C-h F" . helpful-function)
+				 ("C-h C" . helpful-command)
+				 ))
 
 (defun jjba-bookmark-emacs-config ()
   "Visit jjba bookmark: Emacs main init.el config file."
@@ -507,9 +553,9 @@ According to size, color and font family"
 (defun new-frame-setup (frame)
   (if (display-graphic-p frame)
       (progn
-	(message "window system")
-	(tekengrootte-set-scale-regular)
-	)
+				(message "window system")
+				(tekengrootte-set-scale-regular)
+				)
     (message "not a window system")))
 
 ;; Configure Emacs native features
@@ -519,17 +565,17 @@ According to size, color and font family"
   :bind (("C-x C-b" . ibuffer) 
          ("C-c a h" . highlight-compare-buffers) 
          ("C-c b e" . jjba-bookmark-emacs-config))
-	 ("C-c ! d" . flymake-show-buffer-diagnostics)
-	 ("C-c ! n" . flymake-goto-next-error)
-	 ("C-c ! p" . flymake-goto-prev-error)
-	 ("C-c ! f" . flymake-mode)
+	("C-c ! d" . flymake-show-buffer-diagnostics)
+	("C-c ! n" . flymake-goto-next-error)
+	("C-c ! p" . flymake-goto-prev-error)
+	("C-c ! f" . flymake-mode)
   :hook ((text-mode . visual-line-mode) 
-	 )
+				 )
   (after-make-frame-functions . new-frame-setup)
   :config (setq-default user-personal-name "Joe"
-			user-personal-full-name "Josep Jesus Bigorra Algaba"
-			user-personal-email "jjbigorra@gmail.com"
-			user-personal-initials "JJBA")
+												user-personal-full-name "Josep Jesus Bigorra Algaba"
+												user-personal-email "jjbigorra@gmail.com"
+												user-personal-initials "JJBA")
   
   (setq org-todo-keywords '((sequence "TODO" "WIP" "REVIEWING" "|" "DONE")))
   (setq-default line-spacing 2 pgtk-wait-for-event-timeout 0 electric-indent-inhibit t)
@@ -537,15 +583,15 @@ According to size, color and font family"
   (setq backward-delete-char-untabify-method 'hungry)
   
   (setq treesit-font-lock-level 4
-	ring-bell-function #'ignore
-	frame-resize-pixelwise t
-	inhibit-startup-message t
+				ring-bell-function #'ignore
+				frame-resize-pixelwise t
+				inhibit-startup-message t
         completion-cycle-threshold 3
-	tab-always-indent 'complete
-	text-mode-ispell-word-completion nil
+				tab-always-indent 'complete
+				text-mode-ispell-word-completion nil
         vc-follow-symlinks t
-	delete-by-moving-to-trash t
-	tab-width 2)
+				delete-by-moving-to-trash t
+				tab-width 2)
   
   (savehist-mode 1) 
   (tool-bar-mode -1) 
