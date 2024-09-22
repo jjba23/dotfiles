@@ -79,30 +79,30 @@ copyPaths xs = mapM_ runCopyCommand $ Map.assocs xs
 addToUpdateMoments :: (MonadIO m) => m ()
 addToUpdateMoments = do
   now <- liftIO getCurrentTime
-  appendFileText "./buildscript/update-dates" (T.pack . show $ now)
+  appendFileText "./buildscript/state/update-dates" (T.pack . show $ now)
   pure ()
 
 addToGarbageCollectedMoments :: (MonadIO m) => m ()
 addToGarbageCollectedMoments = do
   now <- liftIO getCurrentTime
-  appendFileText "./buildscript/garbage-collect-dates" (T.pack . show $ now)
+  appendFileText "./buildscript/state/garbage-collect-dates" (T.pack . show $ now)
   pure ()
 
 getLatestUpdateMoment :: (MonadIO m) => m (Maybe UTCTime)
-getLatestUpdateMoment = do
-  fc <- readFileBS "./buildscript/update-dates"
-  let fc' = decodeUtf8' fc
-  case fc' of
-    Left e -> (liftIO . putTextLn . T.pack . show $ e) >> pure Nothing
-    Right c -> pure . readMaybe . T.unpack $ c
+getLatestUpdateMoment = latestDateFromFile "./buildscript/state/update-dates"
 
 getLatestGarbageCollectedMoment :: (MonadIO m) => m (Maybe UTCTime)
-getLatestGarbageCollectedMoment = do
-  fc <- readFileBS "./buildscript/garbage-collect-dates"
+getLatestGarbageCollectedMoment = latestDateFromFile "./buildscript/state/garbage-collect-dates"
+
+latestDateFromFile :: (MonadIO m) => FilePath -> m (Maybe UTCTime)
+latestDateFromFile f = do
+  fc <- readFileBS f
   let fc' = decodeUtf8' fc
   case fc' of
     Left e -> (liftIO . putTextLn . T.pack . show $ e) >> pure Nothing
-    Right c -> pure . readMaybe . T.unpack $ c
+    Right c -> do
+      let maybeLastLine = fmap head . nonEmpty . reverse . T.split (== '\n') $ c
+      pure (readMaybe . T.unpack =<< maybeLastLine)
 
 notSameDay :: (MonadIO m) => Maybe UTCTime -> m Bool
 notSameDay Nothing = pure True
