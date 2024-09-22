@@ -28,10 +28,7 @@
   programs.emacs = {
     enable = true;
     package = pkgs.emacs30-pgtk;
-    extraPackages = epkgs: [
-      epkgs.vterm
-      epkgs.treesit-grammars.with-all-grammars
-    ];
+    extraPackages = epkgs: [ epkgs.treesit-grammars.with-all-grammars ];
   };
 
   home.file.".emacs.d/init.el" = { source = ./emacs/init.el; };
