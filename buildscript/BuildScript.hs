@@ -75,3 +75,40 @@ copyPaths xs = mapM_ runCopyCommand $ Map.assocs xs
       runCommand
         (Description $ "🔨 copying path " <> k ^. #value <> " to " <> v ^. #value)
         (Command $ "sudo cp -rf " <> k ^. #value <> " " <> v ^. #value)
+
+addToUpdateMoments :: (MonadIO m) => m ()
+addToUpdateMoments = do
+  now <- liftIO getCurrentTime
+  appendFileText "./buildscript/update-dates" (T.pack . show $ now)
+  pure ()
+
+addToGarbageCollectedMoments :: (MonadIO m) => m ()
+addToGarbageCollectedMoments = do
+  now <- liftIO getCurrentTime
+  appendFileText "./buildscript/garbage-collect-dates" (T.pack . show $ now)
+  pure ()
+
+getLatestUpdateMoment :: (MonadIO m) => m (Maybe UTCTime)
+getLatestUpdateMoment = do
+  fc <- readFileBS "./buildscript/update-dates"
+  let fc' = decodeUtf8' fc
+  case fc' of
+    Left e -> (liftIO . putTextLn . T.pack . show $ e) >> pure Nothing
+    Right c -> pure . readMaybe . T.unpack $ c
+
+getLatestGarbageCollectedMoment :: (MonadIO m) => m (Maybe UTCTime)
+getLatestGarbageCollectedMoment = do
+  fc <- readFileBS "./buildscript/garbage-collect-dates"
+  let fc' = decodeUtf8' fc
+  case fc' of
+    Left e -> (liftIO . putTextLn . T.pack . show $ e) >> pure Nothing
+    Right c -> pure . readMaybe . T.unpack $ c
+
+notSameDay :: (MonadIO m) => Maybe UTCTime -> m Bool
+notSameDay Nothing = pure True
+notSameDay (Just utcTime) = do
+  now <- liftIO getCurrentTime
+  pure $ day utcTime /= day now
+  where
+    day :: UTCTime -> Day
+    day = day
