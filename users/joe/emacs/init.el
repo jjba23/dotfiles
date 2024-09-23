@@ -103,8 +103,7 @@
                  :repo "jjba23/modusregel" 
                  :branch "trunk")
   :config
-  (setq-default mode-line-format modusregel-format)
-  )
+  (setq-default mode-line-format modusregel-format))
 
 (use-package tekengrootte 
   :ensure (:host github 
@@ -126,40 +125,35 @@
     "Adjust the base Emacs faces to my preferences.
 According to size, color and font family"
     (set-face-attribute 'default nil 
-		        :height (round (tkngt 114)) 
+		        :height (round (tekengrootte-mk-font-size 114)) 
 		        :font jjba-font-mono)
     (set-face-attribute 'mode-line nil 
-		        :height (tkngt 0.7)
+		        :height (tekengrootte-mk-font-size 0.7)
 		        :font jjba-font-mono) 
     (set-face-attribute 'mode-line-active nil 
-		        :height (tkngt 0.7) 
+		        :height (tekengrootte-mk-font-size 0.7) 
 		        :font jjba-font-mono) 
     (set-face-attribute 'mode-line-inactive nil 
-		        :height (tkngt 0.7) 
+		        :height (tekengrootte-mk-font-size 0.7) 
 		        :font jjba-font-mono)
     (set-face-attribute 'variable-pitch nil 
-		        :height (tkngt 1.2) 
+		        :height (tekengrootte-mk-font-size 1.2) 
 		        :font jjba-font-sans)
     (set-face-attribute 'org-level-1 nil 
-		        :height (tkngt 1.3))
+		        :height (tekengrootte-mk-font-size 1.3))
     (set-face-attribute 'org-level-2 nil 
-		        :height (tkngt 1.3))
+		        :height (tekengrootte-mk-font-size 1.3))
     (set-face-attribute 'org-level-3 nil 
-		        :height (tkngt 1.2))
+		        :height (tekengrootte-mk-font-size 1.2))
     (set-face-attribute 'org-level-4 nil 
-		        :height (tkngt 1.2))
+		        :height (tekengrootte-mk-font-size 1.2))
     (set-face-attribute 'org-level-5 nil 
-		        :height (tkngt 1.2))
+		        :height (tekengrootte-mk-font-size 1.2))
     )
   
-  (jjba-set-base-faces)
-  )
+  (jjba-set-base-faces))
 
 ;; Dev
-
-;; (use-package elisp-autofmt
-;;   :commands (elisp-autofmt-mode elisp-autofmt-buffer)
-;;   :hook (emacs-lisp-mode . elisp-autofmt-mode))
 
 (use-package eglot
   :ensure nil
