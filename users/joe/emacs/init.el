@@ -656,24 +656,18 @@ According to size, color and font family"
   (setq-default indent-tabs-mode nil)
   (global-prettify-symbols-mode +1)
 
-  ;; (setq mode-line-format
-  ;;   '("%e"
-  ;;     mode-line-front-space
-  ;;     (:propertize
-  ;;     ("" mode-line-mule-info mode-line-client mode-line-modified
-  ;;      mode-line-remote mode-line-window-dedicated)      
-  ;;     display (min-width (6.0)))
-      
-  ;;     mode-line-frame-identification
-  ;;     mode-line-buffer-identification
-  ;;     "   "
-  ;;     mode-line-position
-  ;;     (project-mode-line project-mode-line-format)
-  ;;     (vc-mode vc-mode)
-  ;;     "  "
-  ;;     mode-line-modes
-  ;;     mode-line-misc-info
-  ;;     mode-line-end-spaces))
+  (defun jjba-major-mode-name (raw-name)
+    "Convert a RAW-NAME of a major mode into a prettier more readable version."
+    (interactive)
+    (cond
+     ((string-equal raw-name "emacs-lisp-mode") "ELisp")
+     ((string-equal raw-name "lisp-interaction-mode") "ELisp")
+     ((string-equal raw-name "shell-command-mode") "Shell-cmd")     
+     ((string-equal raw-name "haskell-mode") "Haskell")
+     ((string-equal raw-name "scala-ts-mode") "Scala")
+     ((string-equal raw-name "nix-ts-mode") "Nix")
+     (t raw-name)
+     ))
 
   ;; remember that mode-line-format is window-local
   ;; this means that to persist changes and set it globally
@@ -689,10 +683,18 @@ According to size, color and font family"
            "%l"
            "  "
            "%o"
+           "  "
+           '(:eval (when-let (vc vc-mode)
+                     (list
+                      (substring vc 5)
+                      "  ")
+                     ))
+           (jjba-major-mode-name (format "%s" major-mode))
+           "  "
+           '(:eval (flymake--mode-line-counters))
        ))))
 
   )
-
 
 
 ;;; init.el ends here
