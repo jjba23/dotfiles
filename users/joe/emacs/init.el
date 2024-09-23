@@ -264,6 +264,13 @@ According to size, color and font family"
 	auto-dark-allow-osascript nil
 	auto-dark-allow-powershell nil) 
   :config
+  (setq ef-dream-palette-overrides
+      '(        
+        (variable fg-main)))
+  (setq ef-day-palette-overrides
+      '(        
+        (variable fg-main)))
+
   (add-hook 'auto-dark-dark-mode-hook (lambda () (load-theme 'ef-dream t))) 
   (add-hook 'auto-dark-light-mode-hook (lambda () (load-theme 'ef-day t))) 
   (auto-dark-mode t))
