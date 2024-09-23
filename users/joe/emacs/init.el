@@ -656,7 +656,41 @@ According to size, color and font family"
   (setq-default indent-tabs-mode nil)
   (global-prettify-symbols-mode +1)
 
-  
+  ;; (setq mode-line-format
+  ;;   '("%e"
+  ;;     mode-line-front-space
+  ;;     (:propertize
+  ;;     ("" mode-line-mule-info mode-line-client mode-line-modified
+  ;;      mode-line-remote mode-line-window-dedicated)      
+  ;;     display (min-width (6.0)))
+      
+  ;;     mode-line-frame-identification
+  ;;     mode-line-buffer-identification
+  ;;     "   "
+  ;;     mode-line-position
+  ;;     (project-mode-line project-mode-line-format)
+  ;;     (vc-mode vc-mode)
+  ;;     "  "
+  ;;     mode-line-modes
+  ;;     mode-line-misc-info
+  ;;     mode-line-end-spaces))
+
+  ;; remember that mode-line-format is window-local
+  ;; this means that to persist changes and set it globally
+  ;; one must use setq-default
+  ;; and for tweaking change it temporarily to setq
+  (setq-default mode-line-format (list
+    '(:eval
+      (list
+           " 𝝺  "
+           (propertize "%b" 'help-echo (buffer-file-name))
+           (when (buffer-modified-p) "++")
+           "  "
+           "%l"
+           "  "
+           "%o"
+       ))))
+
   )
 
 
