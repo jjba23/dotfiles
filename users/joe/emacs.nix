@@ -14,5 +14,33 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-x:
-"(joe/get-color '${x})"
+#
+#
+# Joe's Emacs vanilla setup from scratch, with Nix and Emacs Lisp
+#
+#
+
+{ pkgs, ... }:
+
+{
+  services.emacs.enable = true;
+
+  programs.emacs = {
+    enable = true;
+    package = pkgs.emacs30-pgtk;
+    extraPackages = epkgs: [ epkgs.treesit-grammars.with-all-grammars ];
+  };
+
+  home.file = {
+    ".emacs.d/init.el".source = ./emacs/init.el;
+    ".emacs.d/early-init.el".source = ./emacs/early-init.el;
+    ".emacs.d/nix-bridge.el".text = ''
+      (setq emacsql-sqlite3-executable "${pkgs.sqlite}/bin/sqlite3"
+            org-roam-graph-executable "${pkgs.graphviz}/bin/dot"
+            pandoc-binary "${pkgs.pandoc}/bin/pandoc"
+            ripgrep-executable "${pkgs.ripgrep}/bin/rg"
+      )
+    '';
+  };
+
+}

@@ -14,7 +14,7 @@ rebuildSystem = do
   logInfo "🔨 begin rebuilding the NixOS + HomeManager configuration from JJBA dotfiles"
   logLicense
   formatLint
-  -- collectGarbage
+  collectGarbage
   updateSystem
   raiseTmpfs
   raiseFD
@@ -66,9 +66,15 @@ raiseFD = do
 
 collectGarbage :: (MonadIO m) => m ()
 collectGarbage = do
-  runCommand
-    (Description "🔨 cleaning the Nix store")
-    (Command "nix-collect-garbage")
+  maybeLatest <- getLatestUpdateMoment
+  logInfo ("🔨 latest garbage collection: " <> show maybeLatest)
+  shouldGarbageCollect <- notSameDay maybeLatest
+  logInfo ("🔨 shouldGarbageCollect: " <> show shouldGarbageCollect)
+  when shouldGarbageCollect $ do
+    runCommand
+      (Description "🔨 cleaning the Nix store")
+      (Command "nix-collect-garbage")
+    addToGarbageCollectedMoments
 
 formatLint :: (MonadIO m) => m ()
 formatLint = do
@@ -84,14 +90,20 @@ formatLint = do
 
 updateSystem :: (MonadIO m) => m ()
 updateSystem = do
-  logInfo "🔨 begin updating the NixOS + HomeManager configuration from JJBA dotfiles"
-  logLicense
-  runCommand
-    (Description "🔨 updating flake inputs")
-    (Command "nix flake update")
-  runCommand
-    (Description "🔨 fetching archive for flake inputs")
-    (Command "nix flake archive")
+  maybeLatest <- getLatestUpdateMoment
+  logInfo ("🔨 latest flake update: " <> show maybeLatest)
+  shouldUpdate <- notSameDay maybeLatest
+  logInfo ("🔨 shouldUpdate: " <> show shouldUpdate)
+  when shouldUpdate $ do
+    logInfo "🔨 begin updating the NixOS + HomeManager configuration from JJBA dotfiles"
+    logLicense
+    runCommand
+      (Description "🔨 updating flake inputs")
+      (Command "nix flake update")
+    runCommand
+      (Description "🔨 fetching archive for flake inputs")
+      (Command "nix flake archive")
+    addToUpdateMoments
 
 main :: IO ()
 main = do

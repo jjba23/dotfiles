@@ -123,7 +123,6 @@ let
     blackbox-terminal
     caddy
     pfetch-rs
-    jitsi
   ];
 in {
   environment.systemPackages =

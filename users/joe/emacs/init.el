@@ -1,0 +1,701 @@
+;;; init.el --- jjba Emacs configuration -*- lexical-binding: t -*-
+
+;; Copyright (C) 2024 Josep Bigorra
+
+;; Version: 0.1.0
+;; Author: Josep Bigorra <jjbigorra@gmail.com>
+;; Maintainer: Josep Bigorra <jjbigorra@gmail.com>
+;; Keywords: emacs, configuration, dotfiles
+;; Package: emacs
+
+;; init.el is free software: you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; init.el is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs.  If not, see <https://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; TODO
+
+;;; Code:
+
+(defvar elpaca-installer-version 0.7)
+(defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
+(defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
+(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
+(defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
+                              :ref nil 
+                              :depth 1 
+                              :files (:defaults "elpaca-test.el" (:exclude "extensions")) 
+                              :build (:not elpaca--activate-package)))
+(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory)) 
+       (build (expand-file-name "elpaca/" elpaca-builds-directory)) 
+       (order (cdr elpaca-order)) 
+       (default-directory repo)) 
+  (add-to-list 'load-path (if (file-exists-p build) build repo)) 
+  (unless (file-exists-p repo) 
+    (make-directory repo t) 
+    (when (< emacs-major-version 28) 
+      (require 'subr-x)) 
+    (condition-case-unless-debug err (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*")) 
+					      ((zerop (apply #'call-process `("git" nil ,buffer t "clone" ,@(when-let ((depth (plist-get order :depth))) 
+													      (list (format "--depth=%d" depth) "--no-single-branch")) 
+									      ,(plist-get order 
+											  :repo) ,repo)))) 
+                                              ((zerop (call-process "git" nil buffer t "checkout" (or (plist-get order 
+                                                                                                                 :ref) "--")))) 
+                                              (emacs (concat invocation-directory invocation-name)) 
+                                              ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch" "--eval" "(byte-recompile-directory \".\" 0 'force)"))) 
+                                              ((require 'elpaca)) 
+                                              ((elpaca-generate-autoloads "elpaca" repo))) 
+                                         (progn (message "%s" (buffer-string)) 
+                                                (kill-buffer buffer)) 
+                                       (error "%s" (with-current-buffer buffer (buffer-string)))) 
+      ((error) 
+       (warn "%s" err) 
+       (delete-directory repo 'recursive)))) 
+  (unless (require 'elpaca-autoloads nil t) 
+    (require 'elpaca) 
+    (elpaca-generate-autoloads "elpaca" repo) 
+    (load "./elpaca-autoloads")))
+(add-hook 'after-init-hook #'elpaca-process-queues)
+(elpaca `(,@elpaca-order))
+
+(elpaca elpaca-use-package
+  ;; Enable use-package :ensure support for Elpaca.
+  (elpaca-use-package-mode))
+
+;; Nix bridge
+(load-file "~/.emacs.d/nix-bridge.el")
+
+;; Declare jjba customizations
+(defgroup jjba ()
+  "JJBA customization group."
+  :group 'tools
+  )
+
+(defcustom jjba-font-mono "Iosevka Comfy Wide"
+  "My personal choice for monospaced font family." 
+  :type 'string)
+
+(defcustom jjba-font-sans "Inter"
+  "My personal choice for sans font family." 
+  :type 'string)
+
+
+;; Declare jjba packages
+
+(use-package git-riddance 
+  :ensure (:host github 
+                 :repo "jjba23/git-riddance.el" 
+                 :branch "trunk"))
+
+(use-package tekengrootte 
+  :ensure (:host github 
+                 :repo "jjba23/tekengrootte.el" 
+                 :branch "trunk") 
+  :after (auto-dark) 
+  :bind (("C-c f c" . tekengrootte-set-scale-colossal) 
+         ("C-c f j" . tekengrootte-set-scale-jumbo) 
+         ("C-c f x" . tekengrootte-set-scale-larger) 
+         ("C-c f l" . tekengrootte-set-scale-large) 
+         ("C-c f r" . tekengrootte-set-scale-regular) 
+         ("C-c f s" . tekengrootte-set-scale-small) 
+         ("C-c f t" . tekengrootte-set-scale-tiny)
+	 ("C-c f n" . tekengrootte-set-scale-nano)) 
+  :hook ((tekengrootte-set-scale . (lambda () 
+                                     (jjba-set-base-faces)))) 
+  :config
+  (defun jjba-set-base-faces ()
+    "Adjust the base Emacs faces to my preferences.
+According to size, color and font family"
+    (set-face-attribute 'default nil 
+		        :height (round (tkngt 114)) 
+		        :font jjba-font-mono)
+    (set-face-attribute 'mode-line nil 
+		        :height (tkngt 0.7)
+		        :font jjba-font-mono) 
+    (set-face-attribute 'mode-line-active nil 
+		        :height (tkngt 0.7) 
+		        :font jjba-font-mono) 
+    (set-face-attribute 'mode-line-inactive nil 
+		        :height (tkngt 0.7) 
+		        :font jjba-font-mono)
+    (set-face-attribute 'variable-pitch nil 
+		        :height (tkngt 1.2) 
+		        :font jjba-font-sans)
+    (set-face-attribute 'org-level-1 nil 
+		        :height (tkngt 1.3))
+    (set-face-attribute 'org-level-2 nil 
+		        :height (tkngt 1.3))
+    (set-face-attribute 'org-level-3 nil 
+		        :height (tkngt 1.2))
+    (set-face-attribute 'org-level-4 nil 
+		        :height (tkngt 1.2))
+    (set-face-attribute 'org-level-5 nil 
+		        :height (tkngt 1.2))
+    )
+  
+  (jjba-set-base-faces)
+  )
+
+;; Dev
+
+(use-package elisp-format 
+  :ensure t)
+
+(use-package eglot
+  :ensure nil
+  :hook (
+	 (scala-ts-mode . eglot-ensure)
+	 (sh-mode . eglot-ensure)
+	 (haskell-mode . eglot-ensure)
+	 (nix-ts-mode . eglot-ensure)
+	 (markdown-mode . eglot-ensure)
+	 )
+  :bind (
+	 ("C-c i i" . eglot-find-implementation)
+	 ("C-c i e" . eglot)
+	 ("C-c i k" . eglot-shutdown-all)
+	 ("C-c i r" . eglot-rename)
+	 ("C-c i x" . eglot-reconnect)
+	 ("C-c i a" . eglot-code-actions)
+	 ("C-c i m" . eglot-menu)
+	 ("C-c i f" . eglot-format-buffer)
+	 ("C-c i h" . eglot-inlay-hints-mode)
+	 )
+  :config
+  
+  (add-to-list 'eglot-server-programs '(nix-ts-mode . ("nil")))
+  (add-to-list 'eglot-server-programs '(scala-ts-mode . ("metals")))
+  (add-to-list 'eglot-server-programs '(markdown-mode . ("marksman")))
+
+  (add-hook 'before-save-hook #'eglot-format-buffer)
+
+
+  (setq-default eglot-workspace-configuration
+                '(
+                  :metals (
+                           :autoImportBuild t
+                           :superMethodLensesEnabled t
+                           :showInferredType t
+                           :enableSemanticHighlighting t
+                           :inlayHints (
+                                        :inferredTypes (:enable t )
+                                        :implicitArguments (:enable nil)
+                                        :implicitConversions (:enable nil )
+                                        :typeParameters (:enable t )
+                                        :hintsInPatternMatch (:enable nil )
+                                        )
+                           )
+                  :haskell (
+                            :formattingProvider "ormolu"
+                            )
+                  :nil (
+                        :formatting (:command ["nixfmt"])
+                        )
+                  )
+                )
+  (setq eglot-autoshutdown t)
+  (setq eglot-confirm-server-edits nil)
+  (setq eglot-report-progress t)
+  (setq eglot-extend-to-xref t)
+  (setq eglot-autoreconnect t)
+
+
+  (add-hook 'eglot-managed-mode-hook
+            (lambda ()
+              ;; Show flymake diagnostics first.
+              (setq eldoc-documentation-functions
+                    (cons #'flymake-eldoc-function
+                          (remove #'flymake-eldoc-function eldoc-documentation-functions)))
+              ;; Show all eldoc feedback.
+              (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
+
+  )
+
+
+
+(use-package nix-ts-mode 
+  :ensure t 
+  :mode "\\.nix\\'")
+
+(use-package markdown-mode 
+  :ensure t 
+  :mode "\\.md\\'"
+  :hook ((markdown-mode . jjba-markdown-mode))
+  :config
+  (defun jjba-markdown-mode ()
+    (variable-pitch-mode 1)
+    (auto-fill-mode 0)
+    (visual-line-mode 1))
+  )
+
+(use-package haskell-mode
+  :ensure t
+  :mode "\\.hs\\'")
+
+(use-package scala-ts-mode
+  :ensure t
+  :mode "\\.scala\\'")
+
+(use-package typescript-mode
+  :ensure t
+  :mode "\\.ts\\'")
+
+
+;; Dev ends here
+
+;; Emacs UI/UX/DX
+
+(use-package ef-themes 
+  :ensure t)
+
+(use-package auto-dark 
+  :ensure t 
+  :init
+  (setq auto-dark-polling-interval-seconds 4
+	auto-dark-allow-osascript nil
+	auto-dark-allow-powershell nil) 
+  :config
+  (setq ef-dream-palette-overrides
+        '(        
+          (variable fg-main)))
+  (setq ef-day-palette-overrides
+        '(        
+          (variable fg-main)))
+
+  (add-hook 'auto-dark-dark-mode-hook (lambda () (load-theme 'ef-dream t))) 
+  (add-hook 'auto-dark-light-mode-hook (lambda () (load-theme 'ef-day t))) 
+  (auto-dark-mode t))
+
+(use-package vertico 
+  :ensure t 
+  :init
+  (setq vertico-cycle t
+        vertico-resize t) 
+  :config (vertico-mode))
+
+(use-package marginalia 
+  :ensure t 
+  :after (vertico) 
+  :config (marginalia-mode))
+
+(use-package nerd-icons 
+  :ensure t)
+
+(use-package nerd-icons-completion 
+  :ensure t  
+  :after (nerd-icons marginalia) 
+  :hook ((marginalia-mode . nerd-icons-completion-marginalia-setup)) 
+  :config (nerd-icons-completion-mode))
+
+
+(use-package flymake-collection 
+  :ensure t 
+  :hook ((after-init . flymake-collection-hook-setup) 
+         (emacs-lisp-mode . flymake-mode)))
+
+(use-package transient 
+  :ensure t)
+
+(use-package magit 
+  :ensure t  
+  :after (transient))
+
+
+(use-package ripgrep 
+  :ensure t)
+
+(use-package toml-mode
+  :ensure t
+  :mode "\\.toml\\'"
+  )
+
+(use-package yaml-mode
+  :ensure t
+  :mode "\\.\\(e?ya?\\|ra\\)ml\\'"
+  )
+
+(use-package org-contrib
+  :ensure t)
+
+(use-package org-present
+  :ensure t)
+
+(use-package org-auto-tangle
+  :ensure t
+  :after (org org-contrib)
+  :hook ((org-mode . org-auto-tangle-mode)
+         )  
+  )
+
+(use-package org-roam
+  :ensure t
+  :bind (
+         ("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+         ("C-c n j" . org-roam-dailies-capture-today)
+         )
+  :init
+  (setq org-roam-directory (file-truename "~/Ontwikkeling/Persoonlijk/private-notes/Roam")
+        org-roam-v2-ack t
+        org-roam-node-display-template (concat "$\{title:*} " (propertize "$\{tags:10}" 'face 'org-tag)))
+  :config
+  (org-roam-db-autosync-mode)
+  (org-roam-setup)  
+  )
+
+(use-package org-roam-ui
+  :ensure t
+  :after (org-roam)
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t)  
+  )
+
+(use-package super-save 
+  :ensure t  
+  :init (setq super-save-auto-save-when-idle t auto-save-default nil make-backup-files nil) 
+  :config (super-save-mode +1) 
+  (add-to-list 'super-save-hook-triggers 'find-file-hook))
+
+(use-package spacious-padding 
+  :ensure t 
+  :init (setq spacious-padding-widths '( :internal-border-width 18 
+                                         :header-line-width 2 
+                                         :mode-line-width 2 
+                                         :tab-width 4 
+                                         :right-divider-width 2 
+                                         :scroll-bar-width 8 
+                                         :left-fringe-width 16 
+                                         :right-fringe-width 16)) 
+  (setq spacious-padding-subtle-mode-line nil) 
+  :config (spacious-padding-mode))
+
+(use-package which-key 
+  :ensure nil
+  :config
+  (setq which-key-sort-order 'which-key-key-order-alpha	
+	which-key-max-description-length 35)
+  (setq-default which-key-idle-delay 0.4) 
+  (which-key-setup-minibuffer)
+  (which-key-mode)
+  )
+
+(use-package rainbow-mode 
+  :ensure t)
+
+(use-package ob-nix 
+  :ensure t)
+
+(use-package ob-http 
+  :ensure t)
+
+(use-package ob-mermaid 
+  :ensure t)
+
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
+
+(use-package bug-hunter 
+  :ensure t)
+
+(use-package sly 
+  :ensure t  
+  :config (setq inferior-lisp-program "sbcl"))
+
+(use-package f 
+  :ensure t)
+
+(use-package speed-type 
+  :ensure t)
+
+(use-package dape 
+  :ensure t  
+  :init (setq dape-buffer-window-arrangement 'gud))
+
+(use-package dired-hacks-utils 
+  :ensure t)
+
+(use-package dired-subtree 
+  :ensure t  
+  :bind ( :map dired-mode-map (("<TAB>" . dired-subtree-toggle) 
+                               ("C-<tab>" . dired-subtree-toggle) 
+                               ("C-<TAB>" . dired-subtree-toggle))))
+
+(use-package dired-open-with 
+  :ensure t)
+
+(use-package move-text 
+  :ensure t  
+  :config (move-text-default-bindings))
+
+(use-package corfu
+  :ensure t 
+  :init
+  (setq corfu-cycle t
+        corfu-auto t
+        corfu-auto-prefix 2
+        corfu-auto-delay 0.2
+        corfu-quit-at-boundary 'separator
+        corfu-quit-no-match 'separator
+        corfu-echo-documentation 0.25
+        corfu-preview-current 'insert
+        corfu-preselect-first nil
+        corfu-popupinfo-delay '(0.8 . 0.8))
+  :config
+  (global-corfu-mode)
+  (corfu-history-mode)
+  (corfu-popupinfo-mode 1)
+  )
+
+(use-package nerd-icons-corfu
+  :ensure t
+  :after (corfu nerd-icons)
+  :config
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
+  )
+
+
+(use-package smartparens
+  :ensure t
+  :hook ((prog-mode . smartparens-mode))
+  :config
+  (require 'smartparens-config)	
+  )
+
+(use-package consult 
+  :ensure t  
+  :bind (("C-c h" . consult-history) 
+         ("C-c m" . consult-mode-command) 
+         ("C-c k" . consult-kmacro) 
+         ("C-x M-:" . consult-complex-command) 
+         ("C-x b" . consult-buffer) 
+         ("C-x 4 b" . consult-buffer-other-window) 
+         ("C-x 5 b" . consult-buffer-other-frame) 
+         ("C-x r b" . consult-bookmark) 
+         ("C-x p b" . consult-project-buffer) 
+         ("M-#" . consult-register-load) 
+         ("M-'" . consult-register-store) 
+         ("C-M-#" . consult-register) 
+         ("M-y" . consult-yank-pop) 
+         ("M-g e" . consult-compile-error) 
+         ("M-g f" . consult-flymake) 
+         ("M-g g" . consult-goto-line) 
+         ("M-g M-g" . consult-goto-line) 
+         ("M-g o" . consult-outline) 
+         ("M-g m" . consult-mark) 
+         ("M-g k" . consult-global-mark) 
+         ("M-g i" . consult-imenu) 
+         ("M-g I" . consult-imenu-multi) 
+         ("M-s d" . consult-find) 
+         ("M-s D" . consult-locate) 
+         ("M-s g" . consult-grep) 
+         ("M-s G" . consult-git-grep) 
+         ("M-s r" . consult-ripgrep) 
+         ("M-s l" . consult-line) 
+         ("M-s L" . consult-line-multi) 
+         ("M-s k" . consult-keep-lines) 
+         ("M-s u" . consult-focus-lines) 
+         ("M-s e" . consult-isearch-history)) 
+  :hook ((completion-list-mode . consult-preview-at-point-mode)) 
+  :init (setq register-preview-delay 0.5 register-preview-function #'consult-register-format xref-show-xrefs-function #'consult-xref xref-show-definitions-function #'consult-xref)
+  (advice-add #'register-preview 
+              :override #'consult-register-window) 
+  :config (consult-customize consult-theme 
+                             :preview-key '(:debounce 0.2 any) 
+                             consult-ripgrep consult-git-grep consult-grep consult-bookmark consult-recent-file consult-xref consult--source-bookmark consult--source-file-register consult--source-recent-file consult--source-project-recent-file 
+                             :preview-key '(:debounce 0.4 any))
+  (setq consult-narrow-key "<") 
+  (global-set-key [f6] 'consult-recent-file)
+  )
+
+(use-package direnv
+  :ensure t 
+  :bind (  ("C-c d d" . direnv-mode)
+           ("C-c d a" . direnv-allow)
+	   ))
+
+(use-package org-modern
+  :ensure t
+  :config
+  (setq org-modern-star 'replace))
+
+(use-package org
+  :ensure nil
+  :after (org-modern)
+  :hook ((org-mode . jjba-org-mode))
+  :config
+  (defun jjba-org-mode ()
+    (variable-pitch-mode 1)
+    (org-modern-mode)
+    (org-indent-mode)
+    (auto-fill-mode 0))
+  )
+
+(use-package pandoc-mode
+  :ensure t)
+
+(use-package nerd-icons-dired 
+  :ensure t  
+  :hook ((dired-mode . nerd-icons-dired-mode)))
+
+
+(use-package helpful
+  :ensure t
+  :bind (
+	 ("C-h f" . helpful-callable)
+	 ("C-h v" . helpful-variable)
+	 ("C-h k" . helpful-key)
+	 ("C-c C-d" . helpful-at-point)
+	 ("C-h F" . helpful-function)
+	 ("C-h C" . helpful-command)
+	 ))
+
+(defun jjba-bookmark-emacs-config ()
+  "Visit jjba bookmark: Emacs main init.el config file."
+  (interactive) 
+  (find-file "/home/joe/Ontwikkeling/Persoonlijk/dotfiles/users/joe/emacs/init.el"))
+
+(defun new-frame-setup (frame)
+  (if (display-graphic-p frame)
+      (progn
+	(message "window system")
+	(tekengrootte-set-scale-regular)
+	)
+    (message "not a window system")))
+
+(defun jjba-nixos-rebuild ()
+  "Rebuild NixOS Joe's dotfiles."
+  (interactive)
+  (let ((default-directory "~/Ontwikkeling/Persoonlijk/dotfiles"))
+    (async-shell-command "nix develop -c cabal run dotfiles -- rebuild-system")
+    ))
+
+
+(defun jjba-restart-emacs ()
+  "Restart the Emacs session and server."
+  (interactive)
+  (async-shell-command "systemctl --user --no-pager restart emacs")
+  )
+
+(use-package flymake
+  :ensure nil
+  :bind(
+        ("C-c ! d" . flymake-show-buffer-diagnostics)
+	("C-c ! n" . flymake-goto-next-error)
+	("C-c ! p" . flymake-goto-prev-error)
+	("C-c ! f" . flymake-mode)
+        ))
+
+;; Configure Emacs native features
+
+(use-package emacs 
+  :ensure nil 
+  :bind (("C-x C-b" . ibuffer) 
+         ("C-c a h" . highlight-compare-buffers) 
+         ("C-c b e" . jjba-bookmark-emacs-config)
+	 ("C-c # b" . jjba-nixos-rebuild)
+	 ("C-c # r" . jjba-restart-emacs)
+	 )
+  :hook ((text-mode . visual-line-mode)
+         (after-make-frame-functions . new-frame-setup)
+	 )
+  :config
+  (setq-default user-personal-name "Joe"
+		user-personal-full-name "Josep Jesus Bigorra Algaba"
+		user-personal-email "jjbigorra@gmail.com"
+		user-personal-initials "JJBA")
+  
+  (setq org-todo-keywords '((sequence "TODO" "WIP" "REVIEWING" "|" "DONE")))
+  (setq-default line-spacing 2 pgtk-wait-for-event-timeout 0 electric-indent-inhibit t)
+  (setq read-extended-command-predicate #'command-completion-default-include-p)
+  (setq backward-delete-char-untabify-method 'hungry)
+  
+  (setq treesit-font-lock-level 4
+	ring-bell-function #'ignore
+	frame-resize-pixelwise t
+	inhibit-startup-message t
+        completion-cycle-threshold 3
+	tab-always-indent 'complete
+	text-mode-ispell-word-completion nil
+        vc-follow-symlinks t
+	delete-by-moving-to-trash t
+	tab-width 2)
+  
+  (savehist-mode 1) 
+  (tool-bar-mode -1) 
+  (scroll-bar-mode -1) 
+  (menu-bar-mode -1) 
+  (delete-selection-mode +1)
+  (set-frame-parameter nil 'alpha-background 90) 
+  (add-to-list 'default-frame-alist '(alpha-background . 90))
+  (when (fboundp 'windmove-default-keybindings) 
+    (windmove-default-keybindings))
+  (defalias 'yes-or-no-p 'y-or-n-p)
+  (setq dired-listing-switches "-lAh --group-directories-first" dired-kill-when-opening-new-dired-buffer t)
+  (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode 1)))
+  (setq-default indent-tabs-mode nil)
+  (global-prettify-symbols-mode +1)
+
+  (defun jjba-major-mode-name (raw-name)
+    "Convert a RAW-NAME of a major mode into a prettier more readable version."
+    (interactive)
+    (cond
+     ((string-equal raw-name "emacs-lisp-mode") "ELisp")
+     ((string-equal raw-name "lisp-interaction-mode") "ELisp")
+     ((string-equal raw-name "shell-command-mode") "Shell-cmd")     
+     ((string-equal raw-name "haskell-mode") "Haskell")
+     ((string-equal raw-name "scala-ts-mode") "Scala")
+     ((string-equal raw-name "nix-ts-mode") "Nix")
+     (t raw-name)
+     ))
+
+  ;; remember that mode-line-format is window-local
+  ;; this means that to persist changes and set it globally
+  ;; one must use setq-default
+  ;; and for tweaking change it temporarily to setq
+  (setq-default mode-line-format (list
+    '(:eval
+      (list
+           " 𝝺  "
+           (propertize "%b" 'help-echo (buffer-file-name))
+           (when (buffer-modified-p) "++")
+           "  "
+           "%l"
+           "  "
+           "%o"
+           "  "
+           '(:eval (when-let (vc vc-mode)
+                     (list
+                      (substring vc 5)
+                      "  ")
+                     ))
+           (jjba-major-mode-name (format "%s" major-mode))
+           "  "
+           '(:eval (flymake--mode-line-counters))
+       ))))
+
+  )
+
+
+;;; init.el ends here
+
