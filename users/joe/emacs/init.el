@@ -98,6 +98,14 @@
                  :repo "jjba23/git-riddance.el" 
                  :branch "trunk"))
 
+(use-package modusreg.el
+  :ensure (:host github 
+                 :repo "jjba23/modusreg.el" 
+                 :branch "trunk")
+  :config
+  (setq-default mode-line-format modusregel-format)
+  )
+
 (use-package tekengrootte 
   :ensure (:host github 
                  :repo "jjba23/tekengrootte.el" 
@@ -655,44 +663,6 @@ According to size, color and font family"
   (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode 1)))
   (setq-default indent-tabs-mode nil)
   (global-prettify-symbols-mode +1)
-
-  (defun jjba-major-mode-name (raw-name)
-    "Convert a RAW-NAME of a major mode into a prettier more readable version."
-    (interactive)
-    (cond
-     ((string-equal raw-name "emacs-lisp-mode") "ELisp")
-     ((string-equal raw-name "lisp-interaction-mode") "ELisp")
-     ((string-equal raw-name "shell-command-mode") "Shell-cmd")     
-     ((string-equal raw-name "haskell-mode") "Haskell")
-     ((string-equal raw-name "scala-ts-mode") "Scala")
-     ((string-equal raw-name "nix-ts-mode") "Nix")
-     (t raw-name)
-     ))
-
-  ;; remember that mode-line-format is window-local
-  ;; this means that to persist changes and set it globally
-  ;; one must use setq-default
-  ;; and for tweaking change it temporarily to setq
-  (setq-default mode-line-format (list
-    '(:eval
-      (list
-           " 𝝺  "
-           (propertize "%b" 'help-echo (buffer-file-name))
-           (when (buffer-modified-p) "++")
-           "  "
-           "%l"
-           "  "
-           "%o"
-           "  "
-           '(:eval (when-let (vc vc-mode)
-                     (list
-                      (substring vc 5)
-                      "  ")
-                     ))
-           (jjba-major-mode-name (format "%s" major-mode))
-           "  "
-           '(:eval (flymake--mode-line-counters))
-       ))))
 
   )
 
