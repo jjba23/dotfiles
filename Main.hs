@@ -14,8 +14,8 @@ rebuildSystem = do
   logInfo "🔨 begin rebuilding the NixOS + HomeManager configuration from JJBA dotfiles"
   logLicense
   formatLint
-  --collectGarbage
-  --updateSystem
+  collectGarbage
+  updateSystem
   raiseTmpfs
   raiseFD
   removePaths

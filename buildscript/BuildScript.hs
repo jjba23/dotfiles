@@ -101,7 +101,7 @@ latestDateFromFile f = do
   case fc' of
     Left e -> (liftIO . putTextLn . T.pack . show $ e) >> pure Nothing
     Right c -> do
-      let maybeLastLine = fmap head . nonEmpty . reverse . T.split (== '\n') $ c
+      let maybeLastLine = fmap head . nonEmpty . reverse . filter (/= "") . T.split (== '\n') $ c
       pure (readMaybe . T.unpack =<< maybeLastLine)
 
 notSameDay :: (MonadIO m) => Maybe UTCTime -> m Bool
