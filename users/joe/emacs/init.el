@@ -98,9 +98,9 @@
                  :repo "jjba23/git-riddance.el" 
                  :branch "trunk"))
 
-(use-package modusreg.el
+(use-package modusregel
   :ensure (:host github 
-                 :repo "jjba23/modusreg.el" 
+                 :repo "jjba23/modusregel" 
                  :branch "trunk")
   :config
   (setq-default mode-line-format modusregel-format)
@@ -157,8 +157,9 @@ According to size, color and font family"
 
 ;; Dev
 
-(use-package elisp-format 
-  :ensure t)
+;; (use-package elisp-autofmt
+;;   :commands (elisp-autofmt-mode elisp-autofmt-buffer)
+;;   :hook (emacs-lisp-mode . elisp-autofmt-mode))
 
 (use-package eglot
   :ensure nil
@@ -231,6 +232,8 @@ According to size, color and font family"
   )
 
 
+(use-package package-lint
+  :ensure t)
 
 (use-package nix-ts-mode 
   :ensure t 
