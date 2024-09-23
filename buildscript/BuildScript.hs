@@ -79,13 +79,13 @@ copyPaths xs = mapM_ runCopyCommand $ Map.assocs xs
 addToUpdateMoments :: (MonadIO m) => m ()
 addToUpdateMoments = do
   now <- liftIO getCurrentTime
-  appendFileText "./buildscript/state/update-dates" (T.pack . show $ now)
+  appendFileText "./buildscript/state/update-dates" ("\n" <> (T.pack . show $ now))
   pure ()
 
 addToGarbageCollectedMoments :: (MonadIO m) => m ()
 addToGarbageCollectedMoments = do
   now <- liftIO getCurrentTime
-  appendFileText "./buildscript/state/garbage-collect-dates" (T.pack . show $ now)
+  appendFileText "./buildscript/state/garbage-collect-dates" ("\n" <> (T.pack . show $ now))
   pure ()
 
 getLatestUpdateMoment :: (MonadIO m) => m (Maybe UTCTime)

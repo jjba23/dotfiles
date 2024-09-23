@@ -73,6 +73,8 @@
   ;; Enable use-package :ensure support for Elpaca.
   (elpaca-use-package-mode))
 
+;; Nix bridge
+(load-file "~/.emacs.d/nix-bridge.el")
 
 ;; Declare jjba customizations
 (defgroup jjba ()
@@ -113,34 +115,34 @@
                                      (jjba-set-base-faces)))) 
   :config
   (defun jjba-set-base-faces ()
-  "Adjust the base Emacs faces to my preferences.
+    "Adjust the base Emacs faces to my preferences.
 According to size, color and font family"
-  (set-face-attribute 'default nil 
-		      :height (round (tkngt 114)) 
-		      :font jjba-font-mono)
-  (set-face-attribute 'mode-line nil 
-		      :height (tkngt 0.7)
-		      :font jjba-font-mono) 
-  (set-face-attribute 'mode-line-active nil 
-		      :height (tkngt 0.7) 
-		      :font jjba-font-mono) 
-  (set-face-attribute 'mode-line-inactive nil 
-		      :height (tkngt 0.7) 
-		      :font jjba-font-mono)
-  (set-face-attribute 'variable-pitch nil 
-		      :height (tkngt 1.2) 
-		      :font jjba-font-sans)
-  (set-face-attribute 'org-level-1 nil 
-		      :height (tkngt 1.3))
-  (set-face-attribute 'org-level-2 nil 
-		      :height (tkngt 1.3))
-  (set-face-attribute 'org-level-3 nil 
-		      :height (tkngt 1.2))
-  (set-face-attribute 'org-level-4 nil 
-		      :height (tkngt 1.2))
-  (set-face-attribute 'org-level-5 nil 
-		      :height (tkngt 1.2))
-  )
+    (set-face-attribute 'default nil 
+		        :height (round (tkngt 114)) 
+		        :font jjba-font-mono)
+    (set-face-attribute 'mode-line nil 
+		        :height (tkngt 0.7)
+		        :font jjba-font-mono) 
+    (set-face-attribute 'mode-line-active nil 
+		        :height (tkngt 0.7) 
+		        :font jjba-font-mono) 
+    (set-face-attribute 'mode-line-inactive nil 
+		        :height (tkngt 0.7) 
+		        :font jjba-font-mono)
+    (set-face-attribute 'variable-pitch nil 
+		        :height (tkngt 1.2) 
+		        :font jjba-font-sans)
+    (set-face-attribute 'org-level-1 nil 
+		        :height (tkngt 1.3))
+    (set-face-attribute 'org-level-2 nil 
+		        :height (tkngt 1.3))
+    (set-face-attribute 'org-level-3 nil 
+		        :height (tkngt 1.2))
+    (set-face-attribute 'org-level-4 nil 
+		        :height (tkngt 1.2))
+    (set-face-attribute 'org-level-5 nil 
+		        :height (tkngt 1.2))
+    )
   
   (jjba-set-base-faces)
   )
@@ -180,28 +182,28 @@ According to size, color and font family"
 
 
   (setq-default eglot-workspace-configuration
-    '(
-      :metals (
-        :autoImportBuild t
-        :superMethodLensesEnabled t
-        :showInferredType t
-        :enableSemanticHighlighting t
-        :inlayHints (
-          :inferredTypes (:enable t )
-          :implicitArguments (:enable nil)
-          :implicitConversions (:enable nil )
-          :typeParameters (:enable t )
-          :hintsInPatternMatch (:enable nil )
-          )
-        )
-      :haskell (
-        :formattingProvider "ormolu"
-        )
-      :nil (
-        :formatting (:command ["nixfmt"])
-       )
-      )
-    )
+                '(
+                  :metals (
+                           :autoImportBuild t
+                           :superMethodLensesEnabled t
+                           :showInferredType t
+                           :enableSemanticHighlighting t
+                           :inlayHints (
+                                        :inferredTypes (:enable t )
+                                        :implicitArguments (:enable nil)
+                                        :implicitConversions (:enable nil )
+                                        :typeParameters (:enable t )
+                                        :hintsInPatternMatch (:enable nil )
+                                        )
+                           )
+                  :haskell (
+                            :formattingProvider "ormolu"
+                            )
+                  :nil (
+                        :formatting (:command ["nixfmt"])
+                        )
+                  )
+                )
   (setq eglot-autoshutdown t)
   (setq eglot-confirm-server-edits nil)
   (setq eglot-report-progress t)
@@ -210,13 +212,13 @@ According to size, color and font family"
 
 
   (add-hook 'eglot-managed-mode-hook
-    (lambda ()
-      ;; Show flymake diagnostics first.
-      (setq eldoc-documentation-functions
-            (cons #'flymake-eldoc-function
-                  (remove #'flymake-eldoc-function eldoc-documentation-functions)))
-      ;; Show all eldoc feedback.
-      (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
+            (lambda ()
+              ;; Show flymake diagnostics first.
+              (setq eldoc-documentation-functions
+                    (cons #'flymake-eldoc-function
+                          (remove #'flymake-eldoc-function eldoc-documentation-functions)))
+              ;; Show all eldoc feedback.
+              (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
 
   )
 
@@ -265,11 +267,11 @@ According to size, color and font family"
 	auto-dark-allow-powershell nil) 
   :config
   (setq ef-dream-palette-overrides
-      '(        
-        (variable fg-main)))
+        '(        
+          (variable fg-main)))
   (setq ef-day-palette-overrides
-      '(        
-        (variable fg-main)))
+        '(        
+          (variable fg-main)))
 
   (add-hook 'auto-dark-dark-mode-hook (lambda () (load-theme 'ef-dream t))) 
   (add-hook 'auto-dark-light-mode-hook (lambda () (load-theme 'ef-day t))) 
@@ -312,6 +314,58 @@ According to size, color and font family"
 
 (use-package ripgrep 
   :ensure t)
+
+(use-package toml-mode
+  :ensure t
+  :mode "\\.toml\\'"
+  )
+
+(use-package yaml-mode
+  :ensure t
+  :mode "\\.\\(e?ya?\\|ra\\)ml\\'"
+  )
+
+(use-package org-contrib
+  :ensure t)
+
+(use-package org-present
+  :ensure t)
+
+(use-package org-auto-tangle
+  :ensure t
+  :after (org org-contrib)
+  :hook ((org-mode . org-auto-tangle-mode)
+         )  
+  )
+
+(use-package org-roam
+  :ensure t
+  :bind (
+         ("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+         ("C-c n j" . org-roam-dailies-capture-today)
+         )
+  :init
+  (setq org-roam-directory (file-truename "~/Ontwikkeling/Persoonlijk/private-notes/Roam")
+        org-roam-v2-ack t
+        org-roam-node-display-template (concat "$\{title:*} " (propertize "$\{tags:10}" 'face 'org-tag)))
+  :config
+  (org-roam-db-autosync-mode)
+  (org-roam-setup)  
+  )
+
+(use-package org-roam-ui
+  :ensure t
+  :after (org-roam)
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t)  
+  )
 
 (use-package super-save 
   :ensure t  
@@ -497,7 +551,8 @@ According to size, color and font family"
     (auto-fill-mode 0))
   )
 
-
+(use-package pandoc-mode
+  :ensure t)
 
 (use-package nerd-icons-dired 
   :ensure t  

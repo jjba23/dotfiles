@@ -31,6 +31,16 @@
     extraPackages = epkgs: [ epkgs.treesit-grammars.with-all-grammars ];
   };
 
-  home.file.".emacs.d/init.el" = { source = ./emacs/init.el; };
-  home.file.".emacs.d/early-init.el" = { source = ./emacs/early-init.el; };
+  home.file = {
+    ".emacs.d/init.el".source = ./emacs/init.el;
+    ".emacs.d/early-init.el".source = ./emacs/early-init.el;
+    ".emacs.d/nix-bridge.el".text = ''
+      (setq emacsql-sqlite3-executable "${pkgs.sqlite}/bin/sqlite3"
+            org-roam-graph-executable "${pkgs.graphviz}/bin/dot"
+            pandoc-binary "${pkgs.pandoc}/bin/pandoc"
+            ripgrep-executable "${pkgs.ripgrep}/bin/rg"
+      )
+    '';
+  };
+
 }
