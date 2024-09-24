@@ -525,6 +525,21 @@ According to size, color and font family"
   (add-hook 'completion-at-point-functions #'cape-history)
   (add-hook 'completion-at-point-functions #'cape-elisp-block))
 
+;; TODO create my own welcome screen - welkomscherm
+;;
+;; (let ((buf (get-buffer-create "dash")))
+;;   (with-current-buffer "dash"    
+;;     (insert "----------------")
+;;     (insert "welkomscherm")
+;;     (insert "----------------")
+;;     (insert "\n")
+
+;;     )
+;;   (switch-to-buffer "dash")
+;;   )
+
+
+
 (defun jjba-bookmark-emacs-config ()
   "Visit jjba bookmark: Emacs main init.el config file."
   (interactive) 
@@ -556,6 +571,7 @@ According to size, color and font family"
 	("C-c ! n" . flymake-goto-next-error)
 	("C-c ! p" . flymake-goto-prev-error)
 	("C-c ! f" . flymake-mode)))
+
 
 ;; Configure Emacs native features
 
