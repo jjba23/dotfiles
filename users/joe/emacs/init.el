@@ -1,12 +1,13 @@
-;;; init.el --- jjba Emacs configuration -*- lexical-binding: t -*-
+;;; init.el --- Custom editor configuration for JJBA -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2024 Josep Bigorra
 
-;; Version: 0.1.0
+;; Version: 0.6.0
 ;; Author: Josep Bigorra <jjbigorra@gmail.com>
 ;; Maintainer: Josep Bigorra <jjbigorra@gmail.com>
-;; Keywords: emacs, configuration, dotfiles
+;; URL: https://github.com/jjba23/
 ;; Package: emacs
+;; Package-Requires: ((emacs "29.1"))
 
 ;; init.el is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -69,18 +70,15 @@
 (add-hook 'after-init-hook #'elpaca-process-queues)
 (elpaca `(,@elpaca-order))
 
-(elpaca elpaca-use-package
-  ;; Enable use-package :ensure support for Elpaca.
-  (elpaca-use-package-mode))
+(elpaca elpaca-use-package (elpaca-use-package-mode))
 
 ;; Nix bridge
-(load-file "~/.emacs.d/nix-bridge.el")
+(load-file (format "%snix-bridge.el" user-emacs-directory))
 
 ;; Declare jjba customizations
 (defgroup jjba ()
   "JJBA customization group."
-  :group 'tools
-  )
+  :group 'tools)
 
 (defcustom jjba-font-mono "Iosevka Comfy Wide"
   "My personal choice for monospaced font family." 
@@ -94,22 +92,16 @@
 ;; Declare jjba packages
 
 (use-package git-riddance 
-  :ensure (:host github 
-                 :repo "jjba23/git-riddance.el" 
-                 :branch "trunk"))
+  :ensure (:host github :repo "jjba23/git-riddance.el" :branch "trunk"))
 
 (use-package modusregel
-  :ensure (:host github 
-                 :repo "jjba23/modusregel" 
-                 :branch "trunk")
+  :ensure (:host github :repo "jjba23/modusregel" :branch "trunk")
   :config
   (setq-default mode-line-format modusregel-format))
 
 (use-package tekengrootte 
-  :ensure (:host github 
-                 :repo "jjba23/tekengrootte.el" 
-                 :branch "trunk") 
-  :after (auto-dark) 
+  :ensure (:host github :repo "jjba23/tekengrootte.el" :branch "trunk") 
+  :after (auto-dark)  
   :bind (("C-c f c" . tekengrootte-set-scale-colossal) 
          ("C-c f j" . tekengrootte-set-scale-jumbo) 
          ("C-c f x" . tekengrootte-set-scale-larger) 
@@ -148,8 +140,7 @@ According to size, color and font family"
     (set-face-attribute 'org-level-4 nil 
 		        :height (tekengrootte-mk-font-size 1.2))
     (set-face-attribute 'org-level-5 nil 
-		        :height (tekengrootte-mk-font-size 1.2))
-    )
+		        :height (tekengrootte-mk-font-size 1.2)))
   
   (jjba-set-base-faces))
 
@@ -157,15 +148,13 @@ According to size, color and font family"
 
 (use-package eglot
   :ensure nil
-  :hook (
-	 (scala-ts-mode . eglot-ensure)
+  :hook ((scala-ts-mode . eglot-ensure)
 	 (sh-mode . eglot-ensure)
 	 (haskell-mode . eglot-ensure)
 	 (nix-ts-mode . eglot-ensure)
 	 (markdown-mode . eglot-ensure)
-	 )
-  :bind (
-	 ("C-c i i" . eglot-find-implementation)
+         (before-save . eglot-format-buffer))
+  :bind (("C-c i i" . eglot-find-implementation)
 	 ("C-c i e" . eglot)
 	 ("C-c i k" . eglot-shutdown-all)
 	 ("C-c i r" . eglot-rename)
@@ -173,16 +162,11 @@ According to size, color and font family"
 	 ("C-c i a" . eglot-code-actions)
 	 ("C-c i m" . eglot-menu)
 	 ("C-c i f" . eglot-format-buffer)
-	 ("C-c i h" . eglot-inlay-hints-mode)
-	 )
-  :config
-  
+	 ("C-c i h" . eglot-inlay-hints-mode))
+  :config  
   (add-to-list 'eglot-server-programs '(nix-ts-mode . ("nil")))
   (add-to-list 'eglot-server-programs '(scala-ts-mode . ("metals")))
   (add-to-list 'eglot-server-programs '(markdown-mode . ("marksman")))
-
-  (add-hook 'before-save-hook #'eglot-format-buffer)
-
 
   (setq-default eglot-workspace-configuration
                 '(
@@ -191,28 +175,19 @@ According to size, color and font family"
                            :superMethodLensesEnabled t
                            :showInferredType t
                            :enableSemanticHighlighting t
-                           :inlayHints (
-                                        :inferredTypes (:enable t )
-                                        :implicitArguments (:enable nil)
-                                        :implicitConversions (:enable nil )
-                                        :typeParameters (:enable t )
-                                        :hintsInPatternMatch (:enable nil )
-                                        )
-                           )
-                  :haskell (
-                            :formattingProvider "ormolu"
-                            )
-                  :nil (
-                        :formatting (:command ["nixfmt"])
-                        )
-                  )
-                )
-  (setq eglot-autoshutdown t)
-  (setq eglot-confirm-server-edits nil)
-  (setq eglot-report-progress t)
-  (setq eglot-extend-to-xref t)
-  (setq eglot-autoreconnect t)
+                           :inlayHints (:inferredTypes (:enable t )
+                                                       :implicitArguments (:enable nil)
+                                                       :implicitConversions (:enable nil )
+                                                       :typeParameters (:enable t )
+                                                       :hintsInPatternMatch (:enable nil )))
+                  :haskell (:formattingProvider "ormolu")
+                  :nil (:formatting (:command ["nixfmt"]))))
 
+  (setq eglot-autoshutdown t
+        eglot-confirm-server-edits nil
+        eglot-report-progress t
+        eglot-extend-to-xref t
+        eglot-autoreconnect t)
 
   (add-hook 'eglot-managed-mode-hook
             (lambda ()
@@ -221,13 +196,10 @@ According to size, color and font family"
                     (cons #'flymake-eldoc-function
                           (remove #'flymake-eldoc-function eldoc-documentation-functions)))
               ;; Show all eldoc feedback.
-              (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
-
-  )
+              (setq eldoc-documentation-strategy #'eldoc-documentation-compose))))
 
 
-(use-package package-lint
-  :ensure t)
+(use-package package-lint :ensure t)
 
 (use-package nix-ts-mode 
   :ensure t 
@@ -241,28 +213,19 @@ According to size, color and font family"
   (defun jjba-markdown-mode ()
     (variable-pitch-mode 1)
     (auto-fill-mode 0)
-    (visual-line-mode 1))
-  )
+    (visual-line-mode 1)))
 
-(use-package haskell-mode
-  :ensure t
-  :mode "\\.hs\\'")
+(use-package haskell-mode :ensure t :mode "\\.hs\\'")
 
-(use-package scala-ts-mode
-  :ensure t
-  :mode "\\.scala\\'")
+(use-package scala-ts-mode :ensure t :mode "\\.scala\\'")
 
-(use-package typescript-mode
-  :ensure t
-  :mode "\\.ts\\'")
-
+(use-package typescript-mode :ensure t :mode "\\.ts\\'")
 
 ;; Dev ends here
 
 ;; Emacs UI/UX/DX
 
-(use-package ef-themes 
-  :ensure t)
+(use-package ef-themes :ensure t)
 
 (use-package auto-dark 
   :ensure t 
@@ -271,12 +234,8 @@ According to size, color and font family"
 	auto-dark-allow-osascript nil
 	auto-dark-allow-powershell nil) 
   :config
-  (setq ef-dream-palette-overrides
-        '(        
-          (variable fg-main)))
-  (setq ef-day-palette-overrides
-        '(        
-          (variable fg-main)))
+  (setq ef-dream-palette-overrides '((variable fg-main)))
+  (setq ef-day-palette-overrides '((variable fg-main)))
 
   (add-hook 'auto-dark-dark-mode-hook (lambda () (load-theme 'ef-dream t))) 
   (add-hook 'auto-dark-light-mode-hook (lambda () (load-theme 'ef-day t))) 
@@ -294,8 +253,7 @@ According to size, color and font family"
   :after (vertico) 
   :config (marginalia-mode))
 
-(use-package nerd-icons 
-  :ensure t)
+(use-package nerd-icons :ensure t)
 
 (use-package nerd-icons-completion 
   :ensure t  
@@ -303,64 +261,45 @@ According to size, color and font family"
   :hook ((marginalia-mode . nerd-icons-completion-marginalia-setup)) 
   :config (nerd-icons-completion-mode))
 
-
 (use-package flymake-collection 
   :ensure t 
   :hook ((after-init . flymake-collection-hook-setup) 
          (emacs-lisp-mode . flymake-mode)))
 
-(use-package transient 
-  :ensure t)
+(use-package transient :ensure t)
 
-(use-package magit 
-  :ensure t  
-  :after (transient))
+(use-package magit :ensure t :after (transient))
 
+(use-package ripgrep :ensure t)
 
-(use-package ripgrep 
-  :ensure t)
+(use-package toml-mode :ensure t :mode "\\.toml\\'")
 
-(use-package toml-mode
-  :ensure t
-  :mode "\\.toml\\'"
-  )
+(use-package yaml-mode :ensure t :mode "\\.\\(e?ya?\\|ra\\)ml\\'")
 
-(use-package yaml-mode
-  :ensure t
-  :mode "\\.\\(e?ya?\\|ra\\)ml\\'"
-  )
+(use-package org-contrib :ensure t)
 
-(use-package org-contrib
-  :ensure t)
-
-(use-package org-present
-  :ensure t)
+(use-package org-present :ensure t)
 
 (use-package org-auto-tangle
   :ensure t
   :after (org org-contrib)
-  :hook ((org-mode . org-auto-tangle-mode)
-         )  
-  )
+  :hook ((org-mode . org-auto-tangle-mode)))
 
 (use-package org-roam
   :ensure t
-  :bind (
-         ("C-c n l" . org-roam-buffer-toggle)
+  :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
          ("C-c n g" . org-roam-graph)
          ("C-c n i" . org-roam-node-insert)
          ("C-c n c" . org-roam-capture)
-         ("C-c n j" . org-roam-dailies-capture-today)
-         )
+         ("C-c n j" . org-roam-dailies-capture-today))
   :init
   (setq org-roam-directory (file-truename "~/Ontwikkeling/Persoonlijk/private-notes/Roam")
         org-roam-v2-ack t
         org-roam-node-display-template (concat "$\{title:*} " (propertize "$\{tags:10}" 'face 'org-tag)))
   :config
   (org-roam-db-autosync-mode)
-  (org-roam-setup)  
-  )
+  (org-roam-setup))
 
 (use-package org-roam-ui
   :ensure t
@@ -369,8 +308,7 @@ According to size, color and font family"
   (setq org-roam-ui-sync-theme t
         org-roam-ui-follow t
         org-roam-ui-update-on-save t
-        org-roam-ui-open-on-start t)  
-  )
+        org-roam-ui-open-on-start t))
 
 (use-package super-save 
   :ensure t  
@@ -398,20 +336,15 @@ According to size, color and font family"
 	which-key-max-description-length 35)
   (setq-default which-key-idle-delay 0.4) 
   (which-key-setup-minibuffer)
-  (which-key-mode)
-  )
+  (which-key-mode))
 
-(use-package rainbow-mode 
-  :ensure t)
+(use-package rainbow-mode :ensure t)
 
-(use-package ob-nix 
-  :ensure t)
+(use-package ob-nix :ensure t)
 
-(use-package ob-http 
-  :ensure t)
+(use-package ob-http :ensure t)
 
-(use-package ob-mermaid 
-  :ensure t)
+(use-package ob-mermaid :ensure t)
 
 (use-package orderless
   :ensure t
@@ -420,34 +353,29 @@ According to size, color and font family"
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
 
-(use-package bug-hunter 
-  :ensure t)
+(use-package bug-hunter :ensure t)
 
 (use-package sly 
   :ensure t  
   :config (setq inferior-lisp-program "sbcl"))
 
-(use-package f 
-  :ensure t)
+(use-package f :ensure t)
 
-(use-package speed-type 
-  :ensure t)
+(use-package speed-type :ensure t)
 
 (use-package dape 
   :ensure t  
   :init (setq dape-buffer-window-arrangement 'gud))
 
-(use-package dired-hacks-utils 
-  :ensure t)
+(use-package dired-hacks-utils :ensure t)
 
 (use-package dired-subtree 
   :ensure t  
-  :bind ( :map dired-mode-map (("<TAB>" . dired-subtree-toggle) 
-                               ("C-<tab>" . dired-subtree-toggle) 
-                               ("C-<TAB>" . dired-subtree-toggle))))
+  :bind (:map dired-mode-map (("<TAB>" . dired-subtree-toggle) 
+                              ("C-<tab>" . dired-subtree-toggle) 
+                              ("C-<TAB>" . dired-subtree-toggle))))
 
-(use-package dired-open-with 
-  :ensure t)
+(use-package dired-open-with :ensure t)
 
 (use-package move-text 
   :ensure t  
@@ -469,23 +397,20 @@ According to size, color and font family"
   :config
   (global-corfu-mode)
   (corfu-history-mode)
-  (corfu-popupinfo-mode 1)
-  )
+  (corfu-popupinfo-mode 1))
 
 (use-package nerd-icons-corfu
   :ensure t
   :after (corfu nerd-icons)
   :config
-  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
-  )
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 
 (use-package smartparens
   :ensure t
   :hook ((prog-mode . smartparens-mode))
   :config
-  (require 'smartparens-config)	
-  )
+  (require 'smartparens-config))
 
 (use-package consult 
   :ensure t  
@@ -535,9 +460,8 @@ According to size, color and font family"
 
 (use-package direnv
   :ensure t 
-  :bind (  ("C-c d d" . direnv-mode)
-           ("C-c d a" . direnv-allow)
-	   ))
+  :bind (("C-c d d" . direnv-mode)
+         ("C-c d a" . direnv-allow)))
 
 (use-package aggressive-indent
   :ensure t
@@ -557,11 +481,9 @@ According to size, color and font family"
     (variable-pitch-mode 1)
     (org-modern-mode)
     (org-indent-mode)
-    (auto-fill-mode 0))
-  )
+    (auto-fill-mode 0)))
 
-(use-package pandoc-mode
-  :ensure t)
+(use-package pandoc-mode :ensure t)
 
 (use-package nerd-icons-dired 
   :ensure t  
@@ -576,8 +498,7 @@ According to size, color and font family"
 	 ("C-h k" . helpful-key)
 	 ("C-c C-d" . helpful-at-point)
 	 ("C-h F" . helpful-function)
-	 ("C-h C" . helpful-command)
-	 ))
+	 ("C-h C" . helpful-command)))
 
 (defun jjba-bookmark-emacs-config ()
   "Visit jjba bookmark: Emacs main init.el config file."
@@ -596,24 +517,20 @@ According to size, color and font family"
   "Rebuild NixOS Joe's dotfiles."
   (interactive)
   (let ((default-directory "~/Ontwikkeling/Persoonlijk/dotfiles"))
-    (async-shell-command "nix develop -c cabal run dotfiles -- rebuild-system")
-    ))
+    (async-shell-command "nix develop -c cabal run dotfiles -- rebuild-system")))
 
 
 (defun jjba-restart-emacs ()
   "Restart the Emacs session and server."
   (interactive)
-  (async-shell-command "systemctl --user --no-pager restart emacs")
-  )
+  (async-shell-command "systemctl --user --no-pager restart emacs"))
 
 (use-package flymake
   :ensure nil
-  :bind(
-        ("C-c ! d" . flymake-show-buffer-diagnostics)
+  :bind(("C-c ! d" . flymake-show-buffer-diagnostics)
 	("C-c ! n" . flymake-goto-next-error)
 	("C-c ! p" . flymake-goto-prev-error)
-	("C-c ! f" . flymake-mode)
-        ))
+	("C-c ! f" . flymake-mode)))
 
 ;; Configure Emacs native features
 
@@ -623,11 +540,9 @@ According to size, color and font family"
          ("C-c a h" . highlight-compare-buffers) 
          ("C-c b e" . jjba-bookmark-emacs-config)
 	 ("C-c # b" . jjba-nixos-rebuild)
-	 ("C-c # r" . jjba-restart-emacs)
-	 )
+	 ("C-c # r" . jjba-restart-emacs))
   :hook ((text-mode . visual-line-mode)
-         (after-make-frame-functions . new-frame-setup)
-	 )
+         (after-make-frame-functions . new-frame-setup))
   :config
   (setq-default user-personal-name "Joe"
 		user-personal-full-name "Josep Jesus Bigorra Algaba"
@@ -636,8 +551,9 @@ According to size, color and font family"
   
   (setq org-todo-keywords '((sequence "TODO" "WIP" "REVIEWING" "|" "DONE")))
   (setq-default line-spacing 2 pgtk-wait-for-event-timeout 0 electric-indent-inhibit t)
-  (setq read-extended-command-predicate #'command-completion-default-include-p)
-  (setq backward-delete-char-untabify-method 'hungry)
+
+  (setq read-extended-command-predicate #'command-completion-default-include-p
+        backward-delete-char-untabify-method 'hungry)
   
   (setq treesit-font-lock-level 4
 	ring-bell-function #'ignore
