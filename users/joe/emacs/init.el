@@ -495,7 +495,9 @@ According to size, color and font family"
 
 (use-package fancy-compilation
   :ensure t
-  :commands (fancy-compilation-mode))
+  :commands (fancy-compilation-mode)
+  :config
+  (setq fancy-compilation-override-colors nil))
 
 (with-eval-after-load 'compile
   (fancy-compilation-mode))
