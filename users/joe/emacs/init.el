@@ -485,6 +485,10 @@ According to size, color and font family"
 
 (use-package pandoc-mode :ensure t)
 
+(use-package docker
+  :ensure t
+  :bind ("C-c d c" . docker))
+
 (use-package nerd-icons-dired 
   :ensure t  
   :hook ((dired-mode . nerd-icons-dired-mode)))
