@@ -477,6 +477,10 @@ According to size, color and font family"
   :after (org-modern)
   :hook ((org-mode . jjba-org-mode))
   :config
+  (set-face-attribute 'org-block nil                       
+		      :font jjba-font-mono)
+  (set-face-attribute 'org-code nil                       
+		      :font jjba-font-mono)
   (defun jjba-org-mode ()
     (variable-pitch-mode 1)
     (org-modern-mode)
