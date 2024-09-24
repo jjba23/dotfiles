@@ -512,6 +512,15 @@ According to size, color and font family"
 	 ("C-h F" . helpful-function)
 	 ("C-h C" . helpful-command)))
 
+(use-package cape
+  :ensure t
+  :bind ("C-c p" . cape-prefix-map)
+  :init
+  ;; first function returning a result wins
+  (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-history)
+  (add-hook 'completion-at-point-functions #'cape-elisp-block))
+
 (defun jjba-bookmark-emacs-config ()
   "Visit jjba bookmark: Emacs main init.el config file."
   (interactive) 
