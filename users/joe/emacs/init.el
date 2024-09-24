@@ -539,6 +539,10 @@ According to size, color and font family"
            ("C-c d a" . direnv-allow)
 	   ))
 
+(use-package aggressive-indent
+  :ensure t
+  :hook ((emacs-lisp-mode . aggressive-indent-mode)))
+
 (use-package org-modern
   :ensure t
   :config
