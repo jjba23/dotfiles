@@ -99,6 +99,10 @@
   :config
   (setq-default mode-line-format modusregel-format))
 
+(use-package welkomscherm
+  :ensure (:host github :repo "jjba23/welkomscherm.el" :branch "trunk")
+  )
+
 (use-package tekengrootte 
   :ensure (:host github :repo "jjba23/tekengrootte.el" :branch "trunk") 
   :after (auto-dark)  
@@ -550,8 +554,11 @@ According to size, color and font family"
       (progn
 	(message "window system")
 	(tekengrootte-set-scale-regular)
+        (welkomscherm)
 	)
-    (message "not a window system")))
+    (message "not a window system")
+    (welkomscherm)
+    ))
 
 (defun jjba-nixos-rebuild ()
   "Rebuild NixOS Joe's dotfiles."
