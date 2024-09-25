@@ -104,19 +104,19 @@
   :bind (("C-c SPC SPC" . welkomscherm)
          )
   :init
-  (setq welkomscherm-bookmarks-top
+  (setq welkomscherm-bookmarks-personal
         '((("dotfiles" . "~/Ontwikkeling/Persoonlijk/dotfiles/")
            ("notes" . "~/Ontwikkeling/Persoonlijk/private-notes/")
            ("emacs config" . "~/Ontwikkeling/Persoonlijk/dotfiles/users/joe/emacs/init.el")
            )
           (("wikimusic-api" . "~/Ontwikkeling/Persoonlijk/wikimusic-api/")
            ("wikimusic-ssr" . "~/Ontwikkeling/Persoonlijk/wikimusic-ssr/"))))
-  (setq welkomscherm-bookmarks-bottom
+  (setq welkomscherm-bookmarks-work
         '((("Vandebron" . "~/Ontwikkeling/Werk/Vandebron/")
            ("hem-wiki" . "~/Ontwikkeling/Werk/hem-wiki/"))          
           ))
 
-  (setq welkomscherm-middle-buttons
+  (setq welkomscherm-buttons-actions
         '((("*scratch*" . (lambda(btn) (switch-to-buffer "*scratch*")))
            ("*Messages*" . (lambda(btn) (switch-to-buffer "*Messages*")))
            ("re-render me" . (lambda(btn) (welkomscherm)))
