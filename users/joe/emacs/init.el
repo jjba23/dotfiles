@@ -580,6 +580,8 @@ According to size, color and font family"
   :bind (("C-x C-b" . ibuffer) 
          ("C-c a h" . highlight-compare-buffers) 
          ("C-c b e" . jjba-bookmark-emacs-config)
+         ("C-c l d" . toggle-debug-on-error)
+         ("C-c l e" . eval-buffer)
 	 ("C-c # b" . jjba-nixos-rebuild)
 	 ("C-c # r" . jjba-restart-emacs))
   :hook ((text-mode . visual-line-mode)
