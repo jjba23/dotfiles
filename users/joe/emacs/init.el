@@ -101,7 +101,29 @@
 
 (use-package welkomscherm
   :ensure (:host github :repo "jjba23/welkomscherm.el" :branch "trunk")
+  :bind (("C-c SPC SPC" . welkomscherm)
+         )
+  :init
+  (setq welkomscherm-bookmarks-top
+        '((("dotfiles" . "~/Ontwikkeling/Persoonlijk/dotfiles/")
+           ("notes" . "~/Ontwikkeling/Persoonlijk/private-notes/")
+           ("emacs config" . "~/Ontwikkeling/Persoonlijk/dotfiles/users/joe/emacs/init.el")
+           )
+          (("wikimusic-api" . "~/Ontwikkeling/Persoonlijk/wikimusic-api/")
+           ("wikimusic-ssr" . "~/Ontwikkeling/Persoonlijk/wikimusic-ssr/"))))
+  (setq welkomscherm-bookmarks-bottom
+        '((("Vandebron" . "~/Ontwikkeling/Werk/Vandebron/")
+           ("hem-wiki" . "~/Ontwikkeling/Werk/hem-wiki/"))          
+          ))
+
+  (setq welkomscherm-middle-buttons
+        '((("*scratch*" . (lambda(btn) (switch-to-buffer "*scratch*")))
+           ("*Messages*" . (lambda(btn) (switch-to-buffer "*Messages*")))
+           ("re-render me" . (lambda(btn) (welkomscherm)))
+           )
+          ))
   )
+
 
 (use-package tekengrootte 
   :ensure (:host github :repo "jjba23/tekengrootte.el" :branch "trunk") 
@@ -418,7 +440,7 @@ According to size, color and font family"
 
 (use-package consult 
   :ensure t  
-  :bind (("C-c h" . consult-history) 
+  :bind (
          ("C-c m" . consult-mode-command) 
          ("C-c k" . consult-kmacro) 
          ("C-x M-:" . consult-complex-command) 
