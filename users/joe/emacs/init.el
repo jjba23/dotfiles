@@ -374,6 +374,8 @@ According to size, color and font family"
 
 (use-package ob-mermaid :ensure t)
 
+(use-package page-break-lines :ensure t)
+
 (use-package orderless
   :ensure t
   :custom
