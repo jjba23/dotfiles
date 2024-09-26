@@ -28,7 +28,11 @@
   programs.emacs = {
     enable = true;
     package = pkgs.emacs30-pgtk;
-    extraPackages = epkgs: [ epkgs.treesit-grammars.with-all-grammars ];
+    extraPackages = epkgs: [
+      epkgs.treesit-grammars.with-all-grammars
+      epkgs.vterm
+      epkgs.mu4e
+    ];
   };
 
   home.file = {

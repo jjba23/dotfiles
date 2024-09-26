@@ -493,6 +493,33 @@ According to size, color and font family"
   :bind (("C-c d d" . direnv-mode)
          ("C-c d a" . direnv-allow)))
 
+(use-package mu4e
+  :ensure nil
+  :defer 3
+  :bind (("C-c C-m m" . mu4e)
+         ("C-c C-m s" . mu4e-search)
+         ("C-c C-m h" . mu4e-display-manual)
+         ("C-c C-m f" . mu4e-headers-toggle-full-search))
+  :config
+  (setq mu4e-change-filenames-when-moving t
+        mu4e-get-mail-command "true"
+        mu4e-update-interval nil
+        mu4e-maildir "~/Mail/jjbigorra@gmail.com/"
+        mu4e-headers-result-limit 1000)    
+
+  (setq mu4e-drafts-folder "/Concepten"
+        mu4e-refile-folder "/Archive"
+        mu4e-sent-folder   "/Archive"
+        mu4e-trash-folder  "/Prullenbak")
+
+  (setq mu4e-maildir-shortcuts
+        '((:maildir "/Inbox"    :key ?i)
+          (:maildir "/Archive" :key ?s)
+          (:maildir "/Prullenbak"     :key ?t)
+          (:maildir "/Concepten"    :key ?d)
+          (:maildir "/Archive"  :key ?a))
+        ))
+
 (use-package aggressive-indent
   :ensure t
   :hook ((emacs-lisp-mode . aggressive-indent-mode)))
@@ -554,21 +581,6 @@ According to size, color and font family"
   (add-hook 'completion-at-point-functions #'cape-file)
   (add-hook 'completion-at-point-functions #'cape-history)
   (add-hook 'completion-at-point-functions #'cape-elisp-block))
-
-;; TODO create my own welcome screen - welkomscherm
-;;
-;; (let ((buf (get-buffer-create "dash")))
-;;   (with-current-buffer "dash"    
-;;     (insert "----------------")
-;;     (insert "welkomscherm")
-;;     (insert "----------------")
-;;     (insert "\n")
-
-;;     )
-;;   (switch-to-buffer "dash")
-;;   )
-
-
 
 (defun jjba-bookmark-emacs-config ()
   "Visit jjba bookmark: Emacs main init.el config file."
