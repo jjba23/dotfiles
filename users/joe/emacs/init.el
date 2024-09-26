@@ -110,7 +110,8 @@
            ("emacs config" . "~/Ontwikkeling/Persoonlijk/dotfiles/users/joe/emacs/init.el")
            )
           (("wikimusic-api" . "~/Ontwikkeling/Persoonlijk/wikimusic-api/")
-           ("wikimusic-ssr" . "~/Ontwikkeling/Persoonlijk/wikimusic-ssr/"))))
+           ("wikimusic-ssr" . "~/Ontwikkeling/Persoonlijk/wikimusic-ssr/")
+           ("byggsteg" . "~/Ontwikkeling/Persoonlijk/byggsteg/"))))
   (setq welkomscherm-bookmarks-work
         '((("Vandebron" . "~/Ontwikkeling/Werk/Vandebron/")
            ("hem-wiki" . "~/Ontwikkeling/Werk/hem-wiki/"))          
