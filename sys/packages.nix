@@ -123,7 +123,7 @@ let
     blackbox-terminal
     caddy
     pfetch-rs
-    foot
+    guile
   ];
 in {
   environment.systemPackages =

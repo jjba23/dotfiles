@@ -558,6 +558,14 @@ According to size, color and font family"
   :ensure t  
   :hook ((dired-mode . nerd-icons-dired-mode)))
 
+(use-package geiser
+  :ensure t
+  :init
+  (setq geiser-active-implementations '(guile)))
+
+(use-package geiser-guile
+  :ensure t)
+
 (use-package fancy-compilation
   :ensure t
   :commands (fancy-compilation-mode)
