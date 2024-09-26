@@ -616,6 +616,12 @@ According to size, color and font family"
   (let ((default-directory "~/Ontwikkeling/Persoonlijk/dotfiles"))
     (async-shell-command "nix develop -c cabal run dotfiles -- rebuild-system")))
 
+(defun jjba-nixos-rebuild-soft ()
+  "Rebuild NixOS Joe's dotfiles but try to not restart things."
+  (interactive)
+  (let ((default-directory "~/Ontwikkeling/Persoonlijk/dotfiles"))
+    (async-shell-command "nix develop -c cabal run dotfiles -- rebuild-system-soft")))
+
 
 (defun jjba-restart-emacs ()
   "Restart the Emacs session and server."
@@ -640,6 +646,7 @@ According to size, color and font family"
          ("C-c l d" . toggle-debug-on-error)
          ("C-c l e" . eval-buffer)
 	 ("C-c # b" . jjba-nixos-rebuild)
+         ("C-c # s" . jjba-nixos-rebuild-soft)
 	 ("C-c # r" . jjba-restart-emacs))
   :hook ((text-mode . visual-line-mode)
          (after-make-frame-functions . new-frame-setup))

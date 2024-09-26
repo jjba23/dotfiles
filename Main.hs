@@ -9,8 +9,10 @@ import Data.Map qualified as Map
 import Data.Text qualified as T
 import Relude
 
-rebuildSystem :: (MonadIO m) => m ()
-rebuildSystem = do
+data RebuildSystemMode = Normal | Soft
+
+rebuildSystem :: (MonadIO m) => RebuildSystemMode -> m ()
+rebuildSystem rebuildMode = do
   logInfo "🔨 begin rebuilding the NixOS + HomeManager configuration from JJBA dotfiles"
   logLicense
   formatLint
@@ -45,12 +47,15 @@ rebuildSystem = do
   runCommand
     (Description "🔨 send success notification to user")
     (Command "notify-send 'Successful rebuilding of NixOS system + Home Manager flake'")
-  runCommand
-    (Description "🔨 restart Emacs daemon")
-    (Command "systemctl --user --no-pager restart emacs")
-  runCommand
-    (Description "🔨 check Emacs daemon status")
-    (Command "systemctl --user --no-pager status emacs")
+  case rebuildMode of
+    Normal -> do
+      runCommand
+        (Description "🔨 restart Emacs daemon")
+        (Command "systemctl --user --no-pager restart emacs")
+      runCommand
+        (Description "🔨 check Emacs daemon status")
+        (Command "systemctl --user --no-pager status emacs")
+    _ -> pure ()
 
 raiseTmpfs :: (MonadIO m) => m ()
 raiseTmpfs = do
@@ -113,7 +118,8 @@ main = do
     _ -> logError "❌ no suitable task has been found!"
 
 runTask :: (MonadIO m) => Text -> m ()
-runTask "rebuild-system" = rebuildSystem
+runTask "rebuild-system" = rebuildSystem Normal
+runTask "rebuild-system-soft" = rebuildSystem Soft
 runTask "update-system" = updateSystem
 runTask "format-lint" = formatLint
 runTask "collect-garbage" = collectGarbage
