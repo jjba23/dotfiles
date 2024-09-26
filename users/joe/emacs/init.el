@@ -533,7 +533,10 @@ According to size, color and font family"
   :ensure nil
   :after (org-modern)
   :hook ((org-mode . jjba-org-mode))
-  :config
+  :init
+  (setq org-todo-keywords '((sequence "TODO" "WIP" "REVIEWING" "|" "DONE")))
+  (setq org-log-done 'time)
+  :config  
   (defun jjba-org-mode ()
     (variable-pitch-mode 1)
     (org-modern-mode)
@@ -592,10 +595,9 @@ According to size, color and font family"
       (progn
 	(message "window system")
 	(tekengrootte-set-scale-regular)
-        (welkomscherm)
+
 	)
     (message "not a window system")
-    (welkomscherm)
     ))
 
 (defun jjba-nixos-rebuild ()
@@ -612,9 +614,9 @@ According to size, color and font family"
 
 (use-package flymake
   :ensure nil
-  :bind(("C-c ! d" . flymake-show-buffer-diagnostics)
+  :bind(("C-c ! b" . flymake-show-buffer-diagnostics)
 	("C-c ! n" . flymake-goto-next-error)
-	("C-c ! p" . flymake-goto-prev-error)
+	("C-c ! p" . flymake-show-project-diagnostics)
 	("C-c ! f" . flymake-mode)))
 
 
@@ -637,8 +639,9 @@ According to size, color and font family"
 		user-personal-email "jjbigorra@gmail.com"
 		user-personal-initials "JJBA")
   
-  (setq org-todo-keywords '((sequence "TODO" "WIP" "REVIEWING" "|" "DONE")))
-  (setq-default line-spacing 2 pgtk-wait-for-event-timeout 0 electric-indent-inhibit t)
+  (setq-default line-spacing 2
+                pgtk-wait-for-event-timeout 0
+                electric-indent-inhibit t)
 
   (setq read-extended-command-predicate #'command-completion-default-include-p
         backward-delete-char-untabify-method 'hungry)
@@ -668,6 +671,9 @@ According to size, color and font family"
   (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode 1)))
   (setq-default indent-tabs-mode nil)
   (global-prettify-symbols-mode +1)
+
+  (setq initial-buffer-choice
+        (lambda () (welkomscherm) (get-buffer welkomscherm-buffer-name)))
 
   )
 
