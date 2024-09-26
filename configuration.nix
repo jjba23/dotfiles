@@ -171,4 +171,5 @@
 
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
+  services.guix.enable = true;
 }

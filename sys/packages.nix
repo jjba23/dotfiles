@@ -126,6 +126,7 @@ let
     guile
     guile-hall
     stack
+    guix
   ];
 in {
   environment.systemPackages =
