@@ -124,6 +124,7 @@ let
     caddy
     pfetch-rs
     guile
+    guile-hall
     stack
   ];
 in {
