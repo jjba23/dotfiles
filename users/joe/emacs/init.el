@@ -401,7 +401,8 @@ According to size, color and font family"
 
 (use-package dired-subtree 
   :ensure t  
-  :bind (:map dired-mode-map (("<TAB>" . dired-subtree-toggle) 
+  :bind (:map dired-mode-map (("<mouse-1>" . dired-subtree-toggle)
+                              ("<TAB>" . dired-subtree-toggle) 
                               ("C-<tab>" . dired-subtree-toggle) 
                               ("C-<TAB>" . dired-subtree-toggle))))
 
