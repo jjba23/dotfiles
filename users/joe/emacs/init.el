@@ -692,7 +692,10 @@ According to size, color and font family"
 
   (setq initial-buffer-choice
         (lambda () (welkomscherm) (get-buffer welkomscherm-buffer-name)))
-
+  
+  (recentf-mode 1)
+  (setq recentf-max-menu-items 100
+        recentf-max-saved-items 100)
   )
 
 

@@ -127,6 +127,7 @@ let
     guile-hall
     stack
     guix
+    watchexec
   ];
 in {
   environment.systemPackages =
