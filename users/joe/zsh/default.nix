@@ -68,9 +68,9 @@
     shellAliases = {
       gco = "git checkout";
       npu = "nix-prefetch-url";
-      ll = "eza -lAh --group-directories-first";
-      l = "eza -lAh --group-directories-first";
-      ls = "eza";
+      ll = "ls -lAh --group-directories-first";
+      l = "ls -lAh --group-directories-first";
+      ls = "ls";
       gcl = "git clone";
       gpl = "git pull";
       gcm = "git commit";
