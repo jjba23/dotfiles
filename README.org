@@ -26,7 +26,7 @@ This is all to say that you understand the risks associated with tracking an eve
 Note: Screenshot below might be outdated and no longer representative of the current, everchanging state of these dotfiles.
 
 #+begin_html
-<img src="./resources/screenshots/20-09-2024.png"/>
+<img src="./resources/screenshots/28-09-2024.png"/>
 #+end_html
 
 * Using
