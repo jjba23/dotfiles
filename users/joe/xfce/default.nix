@@ -18,5 +18,19 @@
       "general/theme" = "WhiteSur-Dark";
       "general/title_font" = "Inter Medium 11";
     };
+    xfce4-terminal = {
+      "color-background" = "#1a731a731a73";
+      "color-foreground" = "#f6f6f5f5f4f4";
+      "font-name" = "Iosevka Comfy Wide Medium Expanded 12";
+    };
+    xfce4-keyboard-shortcuts = {
+      "commands/custom/<Super>t" = "exo-open --launch TerminalEmulator";
+      "commands/custom/<Super>e" = "emacsclient -c";
+      "commands/custom/<Super>f" = "thunar";
+      "commands/custom/<Super>p" = null;
+      "commands/default/<Super>p" = "";
+      "xfwm4/custom/<Super>n" = "right_workspace_key";
+      "xfwm4/custom/<Super>p" = "left_workspace_key";
+    };
   };
 }
