@@ -25,6 +25,15 @@ let
     ] else
       [ ])
   ];
+  devPackages = with pkgs; [
+    caddy
+    pfetch-rs
+    guile
+    guile-hall
+    stack
+    guix
+    watchexec
+  ];
   # Fonts
   fontPackages = with pkgs; [
     noto-fonts
@@ -60,9 +69,7 @@ let
     jdk21
     coreutils-full
     dconf
-    gedit
-    gnome-terminal
-    pitivi
+    kdePackages.kdenlive
     eyedropper
     fragments
     firefox
@@ -95,10 +102,8 @@ let
     playerctl
     pamixer
     xdg-utils
-    xdg-desktop-portal
     bluez
     gsettings-desktop-schemas
-    partition-manager
     gparted
     statix
     manix
@@ -113,24 +118,21 @@ let
     system-config-printer
     hplipWithPlugin
     hplip
-    gnome.gnome-disk-utility
-    gnome.cheese
-    gnome.gnome-tweaks
     libreoffice
-    gnome.gnome-calculator
-    gnome.gnome-calendar
+    obs-studio
+    transmission_4
     brave
-    blackbox-terminal
-    caddy
-    pfetch-rs
-    guile
-    guile-hall
-    stack
-    guix
-    watchexec
+    oranchelo-icon-theme
+    whitesur-gtk-theme
+    whitesur-icon-theme
+    whitesur-cursors
   ];
 in {
-  environment.systemPackages =
-    lib.mkMerge [ morePackages gnomeExtensionPackages selectedAppleSpecific ];
+  environment.systemPackages = lib.mkMerge [
+    morePackages
+    gnomeExtensionPackages
+    selectedAppleSpecific
+    devPackages
+  ];
   fonts.packages = fontPackages;
 }

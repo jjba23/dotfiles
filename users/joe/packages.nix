@@ -50,6 +50,8 @@ let
   ];
   # General development packages
   devPackages = with pkgs; [
+    sqlitebrowser
+    postgresql
     textpieces
     postman
     dbgate
@@ -64,7 +66,6 @@ let
     awscli2
     docker-compose
     amazon-ecr-credential-helper
-    postgresql_15
     libgcc
     gcc
     gnuplot
@@ -87,13 +88,10 @@ let
     feh
     nix-info
     onefetch
-    freshfetch
     tree
     pandoc
     neofetch
     fastfetch
-    btop
-    eza
     neo-cowsay
     clolcat
     fortune
@@ -109,60 +107,26 @@ let
     audacity
     inkscape
     digikam
-    krita
     cava
     ardour
-    amberol
     pavucontrol
     qpwgraph
   ];
 
   # Games
-  gamePackages = with pkgs; [ wesnoth prismlauncher cartridges ];
+  gamePackages = with pkgs; [ wesnoth prismlauncher ];
   # Office and productivity packages
-  officePackages = with pkgs; [ evince _1password-gui ];
+  officePackages = with pkgs; [ _1password-gui ];
   # Themes
-  themePackages = with pkgs; [ adw-gtk3 ];
+  themePackages = [ ];
   # Mail related software
   emailPackages = with pkgs; [ isync mu mailutils ];
   # Network utilities
   networkPackages = with pkgs; [ dig wireshark burpsuite httpie openssl ];
   # Music software
-  musicPackages = with pkgs; [ spotify-player fretboard audio-sharing ];
+  musicPackages = with pkgs; [ audio-sharing ];
   # More software, uncategorized
-  morePackages = with pkgs; [
-    sops
-    ispell
-    libnotify
-    apostrophe
-    blanket
-    collision
-    curtail
-    #decibels
-    gnome-decoder
-    dialect
-    deja-dup
-    eartag
-    elastic
-    emblem
-    #gaphor
-    gnome-graphs
-    health
-    impression
-    komikku
-    #letterpress
-    lorem
-    mousai
-    newsflash
-    gnome-obfuscate
-    #polari
-    shortwave
-    switcheroo
-    valuta
-    warp
-    wike
-    sqlitebrowser
-  ];
+  morePackages = with pkgs; [ sops ispell libnotify ];
 in {
   home.packages = lib.mkMerge [
     morePackages

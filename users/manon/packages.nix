@@ -24,31 +24,17 @@
     jq
     yq
 
-    vscode
-    gedit
-
-    # Nerd
-    neofetch
-    btop
-    eza
-
     # CLI
     tree
 
     # web
     brave
 
-    # Office
-    libreoffice
-
     # Multimedia
-    obs-studio
-    vlc
     audacity
 
     gimp
     inkscape
-    qbittorrent
 
     #
     _1password-gui

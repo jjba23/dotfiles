@@ -128,7 +128,6 @@
 
 (use-package tekengrootte 
   :ensure (:host github :repo "jjba23/tekengrootte.el" :branch "trunk") 
-  :after (auto-dark)  
   :bind (("C-c f c" . tekengrootte-set-scale-colossal) 
          ("C-c f j" . tekengrootte-set-scale-jumbo) 
          ("C-c f x" . tekengrootte-set-scale-larger) 
@@ -254,21 +253,17 @@ According to size, color and font family"
 
 ;; Emacs UI/UX/DX
 
-(use-package ef-themes :ensure t)
-
-(use-package auto-dark 
-  :ensure t 
-  :init
-  (setq auto-dark-polling-interval-seconds 4
-	auto-dark-allow-osascript nil
-	auto-dark-allow-powershell nil) 
+(use-package ef-themes
+  :ensure t
   :config
   (setq ef-dream-palette-overrides '((variable fg-main)))
   (setq ef-day-palette-overrides '((variable fg-main)))
+  (load-theme 'ef-dream t)
+  ;;(load-theme 'ef-day t)
+  )
 
-  (add-hook 'auto-dark-dark-mode-hook (lambda () (load-theme 'ef-dream t))) 
-  (add-hook 'auto-dark-light-mode-hook (lambda () (load-theme 'ef-day t))) 
-  (auto-dark-mode t))
+
+
 
 (use-package vertico 
   :ensure t 
@@ -680,8 +675,11 @@ According to size, color and font family"
   (scroll-bar-mode -1) 
   (menu-bar-mode -1) 
   (delete-selection-mode +1)
-  (set-frame-parameter nil 'alpha-background 90) 
-  (add-to-list 'default-frame-alist '(alpha-background . 90))
+
+  ;; when in wayland this can be nice:
+  ;; (set-frame-parameter nil 'alpha-background 90) 
+  ;; (add-to-list 'default-frame-alist '(alpha-background . 90))
+  
   (when (fboundp 'windmove-default-keybindings) 
     (windmove-default-keybindings))
   (defalias 'yes-or-no-p 'y-or-n-p)

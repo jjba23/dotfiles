@@ -44,27 +44,30 @@
   services = {
     xserver = {
       enable = true;
-      displayManager = {
-        gdm = {
+      desktopManager = {
+        xfce = {
           enable = true;
-          wayland = true;
-          banner = "Powered by Free Software. Free as in Freedom!";
+          enableScreensaver = true;
         };
       };
+
       xkb = {
         layout = config.masterOptions.keyLayout;
         variant = "";
       };
-      desktopManager = { gnome = { enable = true; }; };
+
       videoDrivers =
         lib.mkIf config.masterOptions.proprietaryNvidia.enable [ "nvidia" ];
     };
   };
 
   # Optional, hint electron apps to use wayland:
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  programs = { direnv.enable = true; };
+  programs = {
+    direnv.enable = true;
+    xfconf.enable = true;
+  };
 
   #
   # Users
@@ -116,8 +119,6 @@
 
     libvirtd.enable = true;
   };
-
-  xdg.portal = { enable = true; };
 
   services.power-profiles-daemon.enable = true;
 
