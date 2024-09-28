@@ -127,6 +127,7 @@ let
     whitesur-icon-theme
     whitesur-cursors
     dockbarx
+    xfce.xfce4-dockbarx-plugin
   ];
 in {
   environment.systemPackages = lib.mkMerge [
