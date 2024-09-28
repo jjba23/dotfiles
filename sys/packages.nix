@@ -126,7 +126,7 @@ let
     whitesur-gtk-theme
     whitesur-icon-theme
     whitesur-cursors
-    plank
+    dockbarx
   ];
 in {
   environment.systemPackages = lib.mkMerge [
