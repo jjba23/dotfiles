@@ -31,6 +31,9 @@
       "commands/default/<Super>p" = "";
       "xfwm4/custom/<Super>n" = "right_workspace_key";
       "xfwm4/custom/<Super>p" = "left_workspace_key";
+      "xfwm4/custom/<Super>Up" = "maximize_window_key";
+      "xfwm4/custom/<Super>Left" = "tile_left_key";
+      "xfwm4/custom/<Super>Right" = "tile_right_key";
     };
   };
 }
