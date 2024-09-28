@@ -20,7 +20,7 @@
 #
 #
 { pkgs, ... }: {
-  imports = [ ./packages.nix ];
+  imports = [ ./packages.nix ./xfce ];
 
   home = {
     stateVersion = "24.05";
