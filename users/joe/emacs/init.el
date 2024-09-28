@@ -596,6 +596,11 @@ According to size, color and font family"
   (interactive) 
   (find-file "/home/joe/Ontwikkeling/Persoonlijk/dotfiles/users/joe/emacs/init.el"))
 
+(defun jjba-bookmark-xfce-config ()
+  "Visit jjba bookmark: XFCE main xfconf config file."
+  (interactive) 
+  (find-file "/home/joe/Ontwikkeling/Persoonlijk/dotfiles/users/joe/xfce/default.nix"))
+
 (defun new-frame-setup (frame)
   (if (display-graphic-p frame)
       (progn
@@ -639,6 +644,7 @@ According to size, color and font family"
   :bind (("C-x C-b" . ibuffer) 
          ("C-c a h" . highlight-compare-buffers) 
          ("C-c b e" . jjba-bookmark-emacs-config)
+         ("C-c b x" . jjba-bookmark-xfce-config)
          ("C-c l d" . toggle-debug-on-error)
          ("C-c l e" . eval-buffer)
 	 ("C-c # b" . jjba-nixos-rebuild)

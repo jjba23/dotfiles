@@ -24,16 +24,19 @@
       "font-name" = "Iosevka Comfy Wide Medium Expanded 12";
     };
     xfce4-keyboard-shortcuts = {
-      "commands/custom/<Super>t" = "exo-open --launch TerminalEmulator";
+      # commands
+      "commands/custom/<Super>c" = "exo-open --launch TerminalEmulator";
       "commands/custom/<Super>e" = "emacsclient -c";
+      "commands/custom/<Super>t" = "mousepad -c";
       "commands/custom/<Super>f" = "thunar";
-      "commands/custom/<Super>p" = null;
-      "commands/default/<Super>p" = "";
-      "xfwm4/custom/<Super>n" = "right_workspace_key";
-      "xfwm4/custom/<Super>p" = "left_workspace_key";
+
+      # window manager
       "xfwm4/custom/<Super>Up" = "maximize_window_key";
       "xfwm4/custom/<Super>Left" = "tile_left_key";
       "xfwm4/custom/<Super>Right" = "tile_right_key";
+      "xfwm4/custom/<Super>Down" = "minimize_window_key";
+      "xfwm4/custom/<Super>]" = "right_workspace_key";
+      "xfwm4/custom/<Super>[" = "left_workspace_key";
     };
   };
 }
