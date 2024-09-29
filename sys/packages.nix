@@ -49,20 +49,6 @@ let
     iosevka-comfy.comfy-wide
     iosevka-comfy.comfy-wide-fixed
   ];
-  gnomeExtensionPackages = with pkgs; [
-    gnomeExtensions.rounded-window-corners-reborn
-    gnomeExtensions.dim-background-windows
-    gnomeExtensions.blur-my-shell
-    gnomeExtensions.gsconnect
-    gnomeExtensions.places-status-indicator
-    gnomeExtensions.tiling-shell
-    gnomeExtensions.removable-drive-menu
-    gnomeExtensions.vitals
-    gnomeExtensions.applications-menu
-    gnomeExtensions.move-clock
-    gnomeExtensions.caffeine
-    gnomeExtensions.dash-to-dock
-  ];
   # More software, uncategorized
   morePackages = with pkgs; [
     python3
@@ -122,19 +108,21 @@ let
     obs-studio
     transmission_4
     brave
-    oranchelo-icon-theme
-    whitesur-gtk-theme
-    whitesur-icon-theme
-    whitesur-cursors
+    canta-theme
+    cinnamon.mint-y-icons
+    cinnamon.mint-x-icons
+    cinnamon.mint-l-icons
+    cinnamon.mint-themes
+    cinnamon.mint-artwork
+    cinnamon.mint-cursor-themes
+    numix-gtk-theme
+    numix-icon-theme
+    numix-cursor-theme
     dockbarx
     xfce.xfce4-dockbarx-plugin
   ];
 in {
-  environment.systemPackages = lib.mkMerge [
-    morePackages
-    gnomeExtensionPackages
-    selectedAppleSpecific
-    devPackages
-  ];
+  environment.systemPackages =
+    lib.mkMerge [ morePackages selectedAppleSpecific devPackages ];
   fonts.packages = fontPackages;
 }

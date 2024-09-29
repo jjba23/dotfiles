@@ -4,6 +4,8 @@
     xsettings = {
       "Gtk/MonospaceFontName" = "Iosevka Comfy Wide Medium Expanded 12";
       "Gtk/FontName" = "Inter 12";
+      "Gtk/IconThemeName" = "Mint X";
+      "Gtk/ThemeName" = "Mint-Y-Dark";
     };
     xpanel = {
       "panels/panel2/autohide-behavior" = 1;
@@ -15,7 +17,7 @@
       "panels/panel2/size" = 62;
     };
     xfwm4 = {
-      "general/theme" = "WhiteSur-Dark";
+      "general/theme" = "RedmondXP";
       "general/title_font" = "Inter Medium 11";
     };
     xfce4-terminal = {
