@@ -17,7 +17,7 @@
       "panels/panel2/size" = 62;
     };
     xfwm4 = {
-      "general/theme" = "RedmondXP";
+      "general/theme" = "Mint-Y-Dark";
       "general/title_font" = "Inter Medium 11";
     };
     xfce4-terminal = {
