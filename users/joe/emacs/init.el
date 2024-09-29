@@ -256,10 +256,10 @@ According to size, color and font family"
 (use-package ef-themes
   :ensure t
   :config
-  (setq ef-dream-palette-overrides '((variable fg-main)))
-  (setq ef-day-palette-overrides '((variable fg-main)))
-  (load-theme 'ef-dream t)
-  ;;(load-theme 'ef-day t)
+  (setq ef-bio-palette-overrides '((variable fg-main)))
+  (setq ef-cyprus-palette-overrides '((variable fg-main)))
+  (load-theme 'ef-bio t)
+  ;;(load-theme 'ef-cyprus t)
   )
 
 

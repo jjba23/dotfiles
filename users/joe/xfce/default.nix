@@ -33,6 +33,8 @@
       "commands/custom/<Super>f" = "thunar";
       "commands/custom/<Super>b" = "firefox";
       "commands/custom/<Super>;" = "1password";
+      "commands/custom/<Super>p" = "";
+      "commands/custom/<Super>n" = "";
 
       # window manager
       "xfwm4/custom/<Super>Up" = "maximize_window_key";
