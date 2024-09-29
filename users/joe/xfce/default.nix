@@ -35,12 +35,13 @@
       "xfwm4/custom/<Super>Left" = "tile_left_key";
       "xfwm4/custom/<Super>Right" = "tile_right_key";
       "xfwm4/custom/<Super>Down" = "minimize_window_key";
-      "xfwm4/custom/<Super>]" = "right_workspace_key";
-      "xfwm4/custom/<Super>[" = "left_workspace_key";
+      "xfwm4/custom/<Super>p" = "right_workspace_key";
+      "xfwm4/custom/<Super>n" = "left_workspace_key";
       "xfwm4/custom/<Super>1" = "workspace_1_key";
       "xfwm4/custom/<Super>2" = "workspace_2_key";
       "xfwm4/custom/<Super>3" = "workspace_3_key";
       "xfwm4/custom/<Super>4" = "workspace_4_key";
+      "xfwm4/custom/<Super>k" = "close_window_key";
     };
   };
 }
