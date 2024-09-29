@@ -4,8 +4,8 @@
     xsettings = {
       "Gtk/MonospaceFontName" = "Iosevka Comfy Wide Medium Expanded 12";
       "Gtk/FontName" = "Inter 12";
-      "Gtk/IconThemeName" = "Mint X";
-      "Gtk/ThemeName" = "Mint-Y-Dark";
+      "Net/IconThemeName" = "Mint-Y";
+      "Net/ThemeName" = "Mint-Y-Dark";
     };
     xpanel = {
       "panels/panel2/autohide-behavior" = 1;
@@ -31,6 +31,8 @@
       "commands/custom/<Super>e" = "emacsclient -c";
       "commands/custom/<Super>t" = "mousepad -c";
       "commands/custom/<Super>f" = "thunar";
+      "commands/custom/<Super>b" = "firefox";
+      "commands/custom/<Super>;" = "1password";
 
       # window manager
       "xfwm4/custom/<Super>Up" = "maximize_window_key";
