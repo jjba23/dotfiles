@@ -241,6 +241,10 @@ According to size, color and font family"
   (defun jjba-markdown-mode ()
     (variable-pitch-mode 1)
     (auto-fill-mode 0)
+    (set-face-attribute 'markdown-pre-face nil                       
+		        :font jjba-font-mono)
+    (set-face-attribute 'markdown-code-face nil                       
+		        :font jjba-font-mono)
     (visual-line-mode 1)))
 
 (use-package haskell-mode :ensure t :mode "\\.hs\\'")
