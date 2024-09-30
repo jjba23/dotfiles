@@ -21,10 +21,9 @@
     ./git
     ./packages.nix
     ./ssh.nix
-    ./gtk.nix
+    ./xfce
     ./mail.nix
     ./dconf.nix
-    ./gnome
     ./autostart
 
   ];

@@ -51,7 +51,7 @@ rebuildSystem rebuildMode = do
     Normal -> do
       runCommand
         (Description "🔨 restart Emacs daemon")
-        (Command "systemctl --user --no-pager restart emacs")
+        (Command "pkill emacs || true && pkill emacsclient || true && systemctl --user --no-pager restart emacs")
       runCommand
         (Description "🔨 check Emacs daemon status")
         (Command "systemctl --user --no-pager status emacs")

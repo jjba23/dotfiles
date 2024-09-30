@@ -128,7 +128,6 @@
 
 (use-package tekengrootte 
   :ensure (:host github :repo "jjba23/tekengrootte.el" :branch "trunk") 
-  :after (auto-dark)  
   :bind (("C-c f c" . tekengrootte-set-scale-colossal) 
          ("C-c f j" . tekengrootte-set-scale-jumbo) 
          ("C-c f x" . tekengrootte-set-scale-larger) 
@@ -242,6 +241,10 @@ According to size, color and font family"
   (defun jjba-markdown-mode ()
     (variable-pitch-mode 1)
     (auto-fill-mode 0)
+    (set-face-attribute 'markdown-pre-face nil                       
+		        :font jjba-font-mono)
+    (set-face-attribute 'markdown-code-face nil                       
+		        :font jjba-font-mono)
     (visual-line-mode 1)))
 
 (use-package haskell-mode :ensure t :mode "\\.hs\\'")
@@ -254,21 +257,17 @@ According to size, color and font family"
 
 ;; Emacs UI/UX/DX
 
-(use-package ef-themes :ensure t)
-
-(use-package auto-dark 
-  :ensure t 
-  :init
-  (setq auto-dark-polling-interval-seconds 4
-	auto-dark-allow-osascript nil
-	auto-dark-allow-powershell nil) 
+(use-package ef-themes
+  :ensure t
   :config
-  (setq ef-dream-palette-overrides '((variable fg-main)))
-  (setq ef-day-palette-overrides '((variable fg-main)))
+  (setq ef-bio-palette-overrides '((variable fg-main)))
+  (setq ef-cyprus-palette-overrides '((variable fg-main)))
+  (load-theme 'ef-bio t)
+  ;;(load-theme 'ef-cyprus t)
+  )
 
-  (add-hook 'auto-dark-dark-mode-hook (lambda () (load-theme 'ef-dream t))) 
-  (add-hook 'auto-dark-light-mode-hook (lambda () (load-theme 'ef-day t))) 
-  (auto-dark-mode t))
+
+
 
 (use-package vertico 
   :ensure t 
@@ -374,6 +373,26 @@ According to size, color and font family"
 (use-package ob-http :ensure t)
 
 (use-package ob-mermaid :ensure t)
+
+(use-package mermaid-mode
+  :ensure t
+  :config
+  (setq mermaid-mode-map
+        (let ((map mermaid-mode-map))
+          (define-key map (kbd "C-c C-c") nil)
+          (define-key map (kbd "C-c C-f") nil)
+          (define-key map (kbd "C-c C-b") nil)
+          (define-key map (kbd "C-c C-r") nil)
+          (define-key map (kbd "C-c C-o") nil)
+          (define-key map (kbd "C-c C-d") nil)
+          (define-key map (kbd "C-c C-d c") 'mermaid-compile)
+          (define-key map (kbd "C-c C-d c") 'mermaid-compile)
+          (define-key map (kbd "C-c C-d f") 'mermaid-compile-file)
+          (define-key map (kbd "C-c C-d b") 'mermaid-compile-buffer)
+          (define-key map (kbd "C-c C-d r") 'mermaid-compile-region)
+          (define-key map (kbd "C-c C-d o") 'mermaid-open-browser)
+          (define-key map (kbd "C-c C-d d") 'mermaid-open-doc)
+          map)))
 
 (use-package page-break-lines :ensure t)
 
@@ -601,6 +620,11 @@ According to size, color and font family"
   (interactive) 
   (find-file "/home/joe/Ontwikkeling/Persoonlijk/dotfiles/users/joe/emacs/init.el"))
 
+(defun jjba-bookmark-xfce-config ()
+  "Visit jjba bookmark: XFCE main xfconf config file."
+  (interactive) 
+  (find-file "/home/joe/Ontwikkeling/Persoonlijk/dotfiles/users/joe/xfce/default.nix"))
+
 (defun new-frame-setup (frame)
   (if (display-graphic-p frame)
       (progn
@@ -644,6 +668,7 @@ According to size, color and font family"
   :bind (("C-x C-b" . ibuffer) 
          ("C-c a h" . highlight-compare-buffers) 
          ("C-c b e" . jjba-bookmark-emacs-config)
+         ("C-c b x" . jjba-bookmark-xfce-config)
          ("C-c l d" . toggle-debug-on-error)
          ("C-c l e" . eval-buffer)
 	 ("C-c # b" . jjba-nixos-rebuild)
@@ -680,8 +705,11 @@ According to size, color and font family"
   (scroll-bar-mode -1) 
   (menu-bar-mode -1) 
   (delete-selection-mode +1)
-  (set-frame-parameter nil 'alpha-background 90) 
-  (add-to-list 'default-frame-alist '(alpha-background . 90))
+
+  ;; when in wayland this can be nice:
+  ;; (set-frame-parameter nil 'alpha-background 90) 
+  ;; (add-to-list 'default-frame-alist '(alpha-background . 90))
+  
   (when (fboundp 'windmove-default-keybindings) 
     (windmove-default-keybindings))
   (defalias 'yes-or-no-p 'y-or-n-p)

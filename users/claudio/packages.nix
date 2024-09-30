@@ -19,13 +19,10 @@
 {
   home.packages = with pkgs; [
 
-    gedit
-
     neofetch
 
     # Multimedia
     brave
-    obs-studio
     inkscape
 
     #

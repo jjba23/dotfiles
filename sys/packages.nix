@@ -25,6 +25,15 @@ let
     ] else
       [ ])
   ];
+  devPackages = with pkgs; [
+    caddy
+    pfetch-rs
+    guile
+    guile-hall
+    stack
+    guix
+    watchexec
+  ];
   # Fonts
   fontPackages = with pkgs; [
     noto-fonts
@@ -40,29 +49,13 @@ let
     iosevka-comfy.comfy-wide
     iosevka-comfy.comfy-wide-fixed
   ];
-  gnomeExtensionPackages = with pkgs; [
-    gnomeExtensions.rounded-window-corners-reborn
-    gnomeExtensions.dim-background-windows
-    gnomeExtensions.blur-my-shell
-    gnomeExtensions.gsconnect
-    gnomeExtensions.places-status-indicator
-    gnomeExtensions.tiling-shell
-    gnomeExtensions.removable-drive-menu
-    gnomeExtensions.vitals
-    gnomeExtensions.applications-menu
-    gnomeExtensions.move-clock
-    gnomeExtensions.caffeine
-    gnomeExtensions.dash-to-dock
-  ];
   # More software, uncategorized
   morePackages = with pkgs; [
     python3
     jdk21
     coreutils-full
     dconf
-    gedit
-    gnome-terminal
-    pitivi
+    kdePackages.kdenlive
     eyedropper
     fragments
     firefox
@@ -95,10 +88,8 @@ let
     playerctl
     pamixer
     xdg-utils
-    xdg-desktop-portal
     bluez
     gsettings-desktop-schemas
-    partition-manager
     gparted
     statix
     manix
@@ -113,24 +104,28 @@ let
     system-config-printer
     hplipWithPlugin
     hplip
-    gnome.gnome-disk-utility
-    gnome.cheese
-    gnome.gnome-tweaks
     libreoffice
-    gnome.gnome-calculator
-    gnome.gnome-calendar
+    obs-studio
+    transmission_4
     brave
-    blackbox-terminal
-    caddy
-    pfetch-rs
-    guile
-    guile-hall
-    stack
-    guix
-    watchexec
+    canta-theme
+    cinnamon.mint-y-icons
+    cinnamon.mint-x-icons
+    cinnamon.mint-l-icons
+    cinnamon.mint-themes
+    cinnamon.mint-artwork
+    cinnamon.mint-cursor-themes
+    numix-gtk-theme
+    numix-icon-theme
+    numix-cursor-theme
+    dockbarx
+    xfce.xfce4-dockbarx-plugin
+    xfce.thunar-archive-plugin
+    xfce.thunar-volman
+    xarchiver
   ];
 in {
   environment.systemPackages =
-    lib.mkMerge [ morePackages gnomeExtensionPackages selectedAppleSpecific ];
+    lib.mkMerge [ morePackages selectedAppleSpecific devPackages ];
   fonts.packages = fontPackages;
 }

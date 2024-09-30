@@ -27,7 +27,8 @@
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs30-pgtk;
+    package = pkgs.emacs30;
+    # when in wayland, this can be nice:  package = pkgs.emacs30-pgtk;
     extraPackages = epkgs: [
       epkgs.treesit-grammars.with-all-grammars
       epkgs.vterm
