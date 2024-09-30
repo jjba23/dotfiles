@@ -120,6 +120,9 @@ let
     numix-cursor-theme
     dockbarx
     xfce.xfce4-dockbarx-plugin
+    xfce.thunar-archive-plugin
+    xfce.thunar-volman
+    xarchiver
   ];
 in {
   environment.systemPackages =
