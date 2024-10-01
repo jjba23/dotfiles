@@ -123,6 +123,7 @@ let
     xfce.thunar-archive-plugin
     xfce.thunar-volman
     xarchiver
+    thunderbird
   ];
 in {
   environment.systemPackages =
