@@ -124,6 +124,7 @@ let
     xfce.thunar-volman
     xarchiver
     thunderbird
+    gettext
   ];
 in {
   environment.systemPackages =
