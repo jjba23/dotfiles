@@ -154,8 +154,11 @@ According to size, color and font family"
     (set-face-attribute 'mode-line-inactive nil 
 		        :height (tekengrootte-mk-font-size 0.7) 
 		        :font jjba-font-mono)
+    (set-face-attribute 'variable-pitch nil 
+		        :font jjba-font-sans
+                        :height (tekengrootte-mk-font-size 1.4))
     (set-face-attribute 'org-default nil 
-		        :height (tekengrootte-mk-font-size 1.3) 
+		        :height (tekengrootte-mk-font-size 1.4) 
 		        :font jjba-font-sans)
     (set-face-attribute 'button nil :background 'unspecified
                         :weight 'bold)
