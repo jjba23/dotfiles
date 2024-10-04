@@ -260,8 +260,10 @@ According to size, color and font family"
 (use-package ef-themes
   :ensure t
   :config
-  (setq ef-bio-palette-overrides '((variable fg-main)))
-  (setq ef-cyprus-palette-overrides '((variable fg-main)))
+  (setq ef-bio-palette-overrides '((variable fg-main)
+                                   (bg-main bg-dim)))
+  (setq ef-cyprus-palette-overrides '((variable fg-main)
+                                      (bg-main bg-dim)))
   (load-theme 'ef-bio t)
   ;;(load-theme 'ef-cyprus t)
   )

@@ -6,7 +6,7 @@
       name = "Roboto Condensed";
       size = 12;
     };
-    theme.name = "Mint-Y-Dark";
+    theme.name = "Yaru-viridian-dark";
   };
 
   home.file.".config/gtk-3.0/gtk.css".text = ''
@@ -52,8 +52,8 @@
     xsettings = {
       "Gtk/MonospaceFontName" = "Roboto Mono 12";
       "Gtk/FontName" = "Roboto Condensed 13";
-      "Net/IconThemeName" = "Mint-Y";
-      "Net/ThemeName" = "Mint-Y-Dark";
+      "Net/IconThemeName" = "Yaru-viridian-dark";
+      "Net/ThemeName" = "Yaru-viridian-dark";
     };
     xfce4-panel = {
       # panel 1
@@ -84,8 +84,10 @@
       "plugins/plugin-7" = "dockbarx";
       "plugins/plugin-7/block-autohide" = false;
       "plugins/plugin-12" = "clock";
-      "plugins/plugin-12/digital-date-font" = "Roboto Condensed 10";
-      "plugins/plugin-12/digital-time-font" = "Roboto Condensed 10";
+      "plugins/plugin-12/digital-date-font" = "Roboto Condensed 13";
+      "plugins/plugin-12/digital-date-format" = "%A %e %b, %H:%M";
+      "plugins/plugin-12/digital-layout" = 2;
+      "plugins/plugin-12/digital-time-font" = "Roboto Condensed 13";
       "plugins/plugin-12/tooltip-format" = "%A %d %B %Y";
       "plugins/plugin-1" = "whiskermenu";
       "plugins/plugin-1/button-icon" = "format-justify-center";

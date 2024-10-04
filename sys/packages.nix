@@ -135,6 +135,8 @@ let
     xfce.xfce4-appfinder
     xfce.xfce4-pulseaudio-plugin
     xfce.xfce4-clipman-plugin
+    yaru-theme
+    yaru-remix-theme
   ];
 in {
   environment.systemPackages =
