@@ -64,6 +64,14 @@
       "panels/panel-1/position-locked" = true;
       "panels/panel-1/size" = 38;
 
+      # panel 2
+      "panels/panel-2/autohide-behavior" = 1;
+      "panels/panel-2/length" = 100;
+      "panels/panel-2/plugin-ids" = [ 7 ];
+      "panels/panel-2/position" = "p=10;x=0;y=1025";
+      "panels/panel-2/position-locked" = true;
+      "panels/panel-2/size" = 68;
+
       # plugins
       "plugins/plugin-14" = "actions";
       "plugins/plugin-16" = "directorymenu";
@@ -91,6 +99,8 @@
       "plugins/plugin-1/recent-items-max" = 15;
       "plugins/plugin-1/show-button-title" = true;
       "plugins/plugin-1/view-mode" = 1;
+      "plugins/plugin-7" = "dockbarx";
+      "plugins/plugin-7/block-autohide" = false;
     };
     xfwm4 = {
       "general/theme" = "Mint-Y-Dark";
@@ -109,6 +119,7 @@
       "commands/custom/<Super>f" = "thunar";
       "commands/custom/<Super>b" = "firefox";
       "commands/custom/<Super>;" = "1password";
+      "commands/custom/<Super>r" = "xfce4-appfinder";
       "commands/custom/<Super>p" = null;
       "commands/custom/<Super>n" = null;
 

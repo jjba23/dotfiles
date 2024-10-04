@@ -116,7 +116,9 @@ let
     cinnamon.mint-themes
     cinnamon.mint-artwork
     cinnamon.mint-cursor-themes
-    plank
+
+    dockbarx
+    xfce.xfce4-dockbarx-plugin
 
     xfce.thunar-volman
     xarchiver
