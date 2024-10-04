@@ -142,6 +142,11 @@
   (defun jjba-set-base-faces ()
     "Adjust the base Emacs faces to my preferences.
 According to size, color and font family"
+
+    (set-face-attribute 'window-divider nil
+                        :foreground (ef-themes-get-color-value 'bg-alt)
+                        :background (ef-themes-get-color-value 'bg-alt))
+    
     (set-face-attribute 'default nil 
 		        :height (round (tekengrootte-mk-font-size 114)) 
 		        :font jjba-font-mono)
@@ -157,6 +162,7 @@ According to size, color and font family"
     (set-face-attribute 'variable-pitch nil 
 		        :font jjba-font-sans
                         :height (tekengrootte-mk-font-size 1.4))
+
     (set-face-attribute 'org-default nil 
 		        :height (tekengrootte-mk-font-size 1.4) 
 		        :font jjba-font-sans)
