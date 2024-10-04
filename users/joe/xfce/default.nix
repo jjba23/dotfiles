@@ -1,10 +1,10 @@
 {
   home.file.".config/gtk-3.0/gtk.css".text = ''
     .xfce4-panel {
-        border-bottom-left-radius: 10px;
+        /* border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
         border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+        border-top-right-radius: 10px; */
      }
       
      .xfce4-panel .tasklist .toggle :checked {
