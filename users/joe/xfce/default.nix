@@ -11,7 +11,7 @@
 
   home.file.".config/gtk-3.0/gtk.css".text = ''
     .xfce4-panel {
-        font-family: "Roboto Mono";
+        font-family: "Roboto Condensed";
         background-color: rgba(22,22,22,0.8);        
      }
       
@@ -25,19 +25,19 @@
       
      .flat,
      .toggle {
-       font-family: "Roboto Mono";
+       font-family: "Roboto Condensed";
        font-size: 16px;
        padding: 4px;
      }
      .flat:hover,
      .toggle:hover {
-       font-family: "Roboto Mono";
+       font-family: "Roboto Condensed";
        font-size: 16px;
        padding: 4px;
      }
      .flat:checked,
      .toggle:checked {
-       font-family: "Roboto Mono";
+       font-family: "Roboto Condensed";
        font-size: 16px;
        border-bottom: 3px solid white;
        padding: 4px;
@@ -84,8 +84,8 @@
       "plugins/plugin-7" = "dockbarx";
       "plugins/plugin-7/block-autohide" = false;
       "plugins/plugin-12" = "clock";
-      "plugins/plugin-12/digital-date-font" = "Roboto Mono 10";
-      "plugins/plugin-12/digital-time-font" = "Roboto Mono 10";
+      "plugins/plugin-12/digital-date-font" = "Roboto Condensed 10";
+      "plugins/plugin-12/digital-time-font" = "Roboto Condensed 10";
       "plugins/plugin-12/tooltip-format" = "%A %d %B %Y";
       "plugins/plugin-1" = "whiskermenu";
       "plugins/plugin-1/button-icon" = "format-justify-center";
