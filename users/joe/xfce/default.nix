@@ -1,4 +1,41 @@
 {
+  home.file.".config/gtk-3.0/gtk.css".text = ''
+    .xfce4-panel {
+        border-bottom-left-radius: 13px;
+        border-bottom-right-radius: 13px;
+        border-top-left-radius: 13px;
+        border-top-right-radius: 13px;
+     }
+      
+     .xfce4-panel .tasklist .toggle :checked {
+       border-radius: 10px;
+     }
+      
+     .tasklist button:checked {
+       border-bottom: 3px solid white;
+     }
+      
+     .flat,
+     .toggle {
+       font-family: "Iosevka Comfy Wide Medium Expanded";
+       font-size: 16px;
+       padding: 4px;
+     }
+     .flat:hover,
+     .toggle:hover {
+       font-family: "Iosevka Comfy Wide Medium Expanded";
+       font-size: 16px;
+       padding: 4px;
+     }
+     .flat:checked,
+     .toggle:checked {
+       font-family: "Iosevka Comfy Wide Medium Expanded";
+       font-size: 16px;
+       border-bottom: 3px solid white;
+       padding: 4px;
+     }
+  '';
+
   xfconf.settings = {
     xfce4-session = { "startup/ssh-agent/enabled" = true; };
     xsettings = {
@@ -7,10 +44,19 @@
       "Net/IconThemeName" = "Mint-Y";
       "Net/ThemeName" = "Mint-Y-Dark";
     };
-    xpanel = {
+    xfce4-panel = {
+      # panel 1
+      "panels/panel1/icon-size" = 24;
+      "panels/panel1/length" = 100;
+      "panels/panel1/plugin-ids" = [ 1 2 3 4 5 6 8 9 10 11 12 13 14 ];
+      "panels/panel1/position" = "p=6;x=0;y=0";
+      "panels/panel1/position-locked" = true;
+      "panels/panel1/size" = 32;
+
+      # panel 2
       "panels/panel2/autohide-behavior" = 1;
       "panels/panel2/background-style" = 0;
-      "panels/panel2/length" = 1.0;
+      "panels/panel2/length" = 1;
       "panels/panel2/plugin-ids" = [ 7 ];
       "panels/panel2/position" = "p=10;x=830;y=1025";
       "panels/panel2/position-locked" = true;
