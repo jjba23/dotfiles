@@ -2,10 +2,12 @@
   home.file.".config/gtk-3.0/gtk.css".text = ''
     .xfce4-panel {
         font-family: "Iosevka Comfy Wide Medium Expanded";
-        /* border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px; */
+        background-color: rgba(22,22,22,0.8);
+        
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
      }
       
      .xfce4-panel .tasklist .toggle :checked {
@@ -47,8 +49,6 @@
     };
     xfce4-panel = {
       # panel 1
-      "panels/panel-1/background-rgba" = [ 8.0e-2 8.0e-2 8.0e-2 8.0e-2 ];
-      "panels/panel-1/background-style" = 1;
       "panels/panel-1/icon-size" = 24;
       "panels/panel-1/length" = 100;
       "panels/panel-1/plugin-ids" = [ 15 16 5 4 3 6 8 9 10 11 12 13 14 ];
@@ -58,8 +58,6 @@
 
       # panel 2
       "panels/panel-2/autohide-behavior" = 1;
-      "panels/panel-2/background-rgba" = [ 8.0e-2 8.0e-2 8.0e-2 8.0e-2 ];
-      "panels/panel-2/background-style" = 1;
       "panels/panel-2/length" = 1;
       "panels/panel-2/plugin-ids" = [ 7 ];
       "panels/panel-2/position" = "p=10;x=830;y=1025";
