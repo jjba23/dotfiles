@@ -1,14 +1,14 @@
 {
   home.file.".config/gtk-3.0/gtk.css".text = ''
     .xfce4-panel {
-        border-bottom-left-radius: 13px;
-        border-bottom-right-radius: 13px;
-        border-top-left-radius: 13px;
-        border-top-right-radius: 13px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
      }
       
      .xfce4-panel .tasklist .toggle :checked {
-       border-radius: 10px;
+       /*border-radius: 10px;*/
      }
       
      .tasklist button:checked {
@@ -46,21 +46,37 @@
     };
     xfce4-panel = {
       # panel 1
-      "panels/panel1/icon-size" = 24;
-      "panels/panel1/length" = 100;
-      "panels/panel1/plugin-ids" = [ 1 2 3 4 5 6 8 9 10 11 12 13 14 ];
-      "panels/panel1/position" = "p=6;x=0;y=0";
-      "panels/panel1/position-locked" = true;
-      "panels/panel1/size" = 32;
+      "panels/panel-1/icon-size" = 24;
+      "panels/panel-1/length" = 100;
+      "panels/panel-1/plugin-ids" = [ 15 16 5 4 3 6 8 9 10 11 12 13 14 ];
+      "panels/panel-1/position" = "p=6;x=0;y=8";
+      "panels/panel-1/position-locked" = true;
+      "panels/panel-1/size" = 38;
 
       # panel 2
-      "panels/panel2/autohide-behavior" = 1;
-      "panels/panel2/background-style" = 0;
-      "panels/panel2/length" = 1;
-      "panels/panel2/plugin-ids" = [ 7 ];
-      "panels/panel2/position" = "p=10;x=830;y=1025";
-      "panels/panel2/position-locked" = true;
-      "panels/panel2/size" = 62;
+      "panels/panel-2/autohide-behavior" = 1;
+      "panels/panel-2/background-style" = 0;
+      "panels/panel-2/length" = 1;
+      "panels/panel-2/plugin-ids" = [ 7 ];
+      "panels/panel-2/position" = "p=10;x=830;y=1025";
+      "panels/panel-2/position-locked" = true;
+      "panels/panel-2/size" = 62;
+
+      # plugins
+      "plugins/plugin-14" = "actions";
+      "plugins/plugin-15" = "applicationsmenu";
+      "plugins/plugin-16" = "directorymenu";
+      "plugins/plugin-3/expand" = true;
+      "plugins/plugin-3/style" = 0;
+      "plugins/plugin-5/style" = 0;
+      "plugins/plugin-7" = "dockbarx";
+      "plugins/plugin-7/block-autohide" = false;
+      "plugins/plugin-12" = "clock";
+      "plugins/plugin-12/digital-date-font" =
+        "Iosevka Comfy Wide Bold Expanded 10";
+      "plugins/plugin-12/digital-time-font" =
+        "Iosevka Comfy Wide Bold Expanded 10";
+      "plugins/plugin-12/tooltip-format" = "%A %d %B %Y";
     };
     xfwm4 = {
       "general/theme" = "Mint-Y-Dark";
@@ -79,8 +95,8 @@
       "commands/custom/<Super>f" = "thunar";
       "commands/custom/<Super>b" = "firefox";
       "commands/custom/<Super>;" = "1password";
-      "commands/custom/<Super>p" = "";
-      "commands/custom/<Super>n" = "";
+      "commands/custom/<Super>p" = "right_workspace_key";
+      "commands/custom/<Super>n" = "left_workspace_key";
 
       # window manager
       "xfwm4/custom/<Super>Up" = "maximize_window_key";
