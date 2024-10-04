@@ -109,17 +109,15 @@ let
     obs-studio
     transmission_4
     brave
-    canta-theme
+
     cinnamon.mint-y-icons
     cinnamon.mint-x-icons
     cinnamon.mint-l-icons
     cinnamon.mint-themes
     cinnamon.mint-artwork
     cinnamon.mint-cursor-themes
-    numix-gtk-theme
-    numix-icon-theme
-    numix-cursor-theme
-    dockbarx
+    plank
+
     xfce.thunar-volman
     xarchiver
     thunderbird
@@ -129,14 +127,13 @@ let
     xfce.xfce4-timer-plugin
     xfce.xfce4-whiskermenu-plugin
     xfce.xfce4-sensors-plugin
-    xfce.xfce4-dockbarx-plugin
+
     xfce.xfwm4-themes
     xfce.xfdashboard
     xfce.xfce4-appfinder
     xfce.xfce4-pulseaudio-plugin
     xfce.xfce4-clipman-plugin
-    yaru-theme
-    yaru-remix-theme
+
   ];
 in {
   environment.systemPackages =
