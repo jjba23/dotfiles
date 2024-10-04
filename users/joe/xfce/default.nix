@@ -2,12 +2,7 @@
   home.file.".config/gtk-3.0/gtk.css".text = ''
     .xfce4-panel {
         font-family: "Iosevka Comfy Wide Medium Expanded";
-        background-color: rgba(22,22,22,0.8);
-        
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
+        background-color: rgba(22,22,22,0.8);        
      }
       
      .xfce4-panel .tasklist .toggle :checked {
@@ -71,6 +66,9 @@
       "plugins/plugin-16" = "directorymenu";
       "plugins/plugin-3/expand" = true;
       "plugins/plugin-3/style" = 0;
+      "plugins/plugin-4" = "pager";
+      "plugins/plugin-4/miniature-view" = false;
+      "plugins/plugin-4/rows" = 1;
       "plugins/plugin-5/style" = 0;
       "plugins/plugin-7" = "dockbarx";
       "plugins/plugin-7/block-autohide" = false;
