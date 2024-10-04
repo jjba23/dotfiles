@@ -37,6 +37,8 @@ let
   # Fonts
   fontPackages = with pkgs; [
     noto-fonts
+    crimson
+    crimson-pro
     noto-fonts-emoji
     libre-baskerville
     roboto
@@ -46,8 +48,7 @@ let
     google-fonts
     inter
     inconsolata
-    iosevka-comfy.comfy-wide
-    iosevka-comfy.comfy-wide-fixed
+    iosevka
   ];
   # More software, uncategorized
   morePackages = with pkgs; [
@@ -119,12 +120,21 @@ let
     numix-icon-theme
     numix-cursor-theme
     dockbarx
-    xfce.xfce4-dockbarx-plugin
-    xfce.thunar-archive-plugin
     xfce.thunar-volman
     xarchiver
     thunderbird
-    gettext
+    xfce.xfce4-weather-plugin
+    xfce.xfce4-systemload-plugin
+    xfce.thunar-archive-plugin
+    xfce.xfce4-timer-plugin
+    xfce.xfce4-whiskermenu-plugin
+    xfce.xfce4-sensors-plugin
+    xfce.xfce4-dockbarx-plugin
+    xfce.xfwm4-themes
+    xfce.xfdashboard
+    xfce.xfce4-appfinder
+    xfce.xfce4-pulseaudio-plugin
+    xfce.xfce4-clipman-plugin
   ];
 in {
   environment.systemPackages =

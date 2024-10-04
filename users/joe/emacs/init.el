@@ -80,11 +80,11 @@
   "JJBA customization group."
   :group 'tools)
 
-(defcustom jjba-font-mono "Iosevka Comfy Wide"
+(defcustom jjba-font-mono "Roboto Mono"
   "My personal choice for monospaced font family." 
   :type 'string)
 
-(defcustom jjba-font-sans "Inter"
+(defcustom jjba-font-sans "Roboto Condensed"
   "My personal choice for sans font family." 
   :type 'string)
 
@@ -154,8 +154,8 @@ According to size, color and font family"
     (set-face-attribute 'mode-line-inactive nil 
 		        :height (tekengrootte-mk-font-size 0.7) 
 		        :font jjba-font-mono)
-    (set-face-attribute 'variable-pitch nil 
-		        :height (tekengrootte-mk-font-size 1.2) 
+    (set-face-attribute 'org-default nil 
+		        :height (tekengrootte-mk-font-size 1.3) 
 		        :font jjba-font-sans)
     (set-face-attribute 'button nil :background 'unspecified
                         :weight 'bold)

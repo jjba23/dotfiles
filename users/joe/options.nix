@@ -22,18 +22,18 @@ with lib; {
     description = ''
       Monospaced font for many applications and UI.
     '';
-    default = "Iosevka Comfy Wide";
+    default = "Roboto Mono";
   };
   sansFontFamily = mkOption {
     description = ''
       Sans Serif font for many applications and UI.
     '';
-    default = "Inter";
+    default = "Roboto Condensed";
   };
   serifFontFamily = mkOption {
     description = ''
       Serif font for many applications and UI.
     '';
-    default = "Inter";
+    default = "Roboto Slab";
   };
 }
