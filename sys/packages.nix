@@ -136,6 +136,7 @@ let
     xfce.xfce4-pulseaudio-plugin
     xfce.xfce4-clipman-plugin
 
+    marwaita-icons
   ];
 in {
   environment.systemPackages =

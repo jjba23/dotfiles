@@ -52,7 +52,7 @@
     xsettings = {
       "Gtk/MonospaceFontName" = "Roboto Mono 12";
       "Gtk/FontName" = "Roboto Condensed 13";
-      "Net/IconThemeName" = "Mint-Y";
+      "Net/IconThemeName" = "Marwaita-Dark-Green";
       "Net/ThemeName" = "Mint-Y-Dark";
     };
     xfce4-panel = {
@@ -101,6 +101,12 @@
       "plugins/plugin-1/view-mode" = 1;
       "plugins/plugin-7" = "dockbarx";
       "plugins/plugin-7/block-autohide" = false;
+      "plugins/plugin-2" = "systemload";
+      "plugins/plugin-2/cpu/color" = [ 0.14 0.63 0.41 1.0 ];
+      "plugins/plugin-2/memory/color" = [ 0.14 0.63 0.41 1.0 ];
+      "plugins/plugin-2/network/color" = [ 0.14 0.63 0.41 1.0 ];
+      "plugins/plugin-2/swap/enabled" = false;
+
     };
     xfwm4 = {
       "general/theme" = "Mint-Y-Dark";
