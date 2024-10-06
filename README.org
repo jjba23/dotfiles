@@ -31,7 +31,7 @@ Note: Screenshot below might be outdated and no longer representative of the cur
 
 * Using
 
-If you are a Nix connaisseur, you will very likely immediately know what to do and have no questions here.
+If you are a Nix connaisseur, you will likely immediately know what to do and have no questions here.
 
 Otherwise, for convenience, I have written some Haskell code that automates my usage of these dotfiles. See [[file:Main.hs][Main.hs]] for more.
 This should be highly readable to everyone, even if you are not familiar with Haskell.
@@ -109,20 +109,21 @@ See [[file:options.nix][options.nix file]] for more details on all possibilities
 Having your dotfiles and configurations in version control allows you to backup, restore, and sync the preferences and settings for your toolbox.
 Your dotfiles might be the most important files on your machine.
 
-You can then also learn from the community and spread the knowledge. Discover new tools for your toolbox and new tricks for the ones you already use.
+You can then also learn from the community and spread the knowledge. Discover new tools for your toolbox and new tricks for the ona you already use.
 
 For maximum profit and reproducibility you should use NixOS and/or the nix package manager.
 
 
 * Copyright and licensing
 
-Copyright (C) 2024  Josep Jesus Bigorra Algaba (jjbigorra@gmail.com)
+Copyright © 2024  Josep Jesus Bigorra Algaba (jjbigorra@gmail.com)
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 * Project management - backlog
 ** TODO Improve cheatsheet and export to org/markdown automatically

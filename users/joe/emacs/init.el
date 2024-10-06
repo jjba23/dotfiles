@@ -161,23 +161,23 @@ According to size, color and font family"
 		        :font jjba-font-mono)
     (set-face-attribute 'variable-pitch nil 
 		        :font jjba-font-sans
-                        :height (tekengrootte-mk-font-size 1.4))
+                        :height (tekengrootte-mk-font-size 1.2))
 
     (set-face-attribute 'org-default nil 
-		        :height (tekengrootte-mk-font-size 1.4) 
+		        :height (tekengrootte-mk-font-size 1.2) 
 		        :font jjba-font-sans)
     (set-face-attribute 'button nil :background 'unspecified
                         :weight 'bold)
     (set-face-attribute 'org-level-1 nil 
-		        :height (tekengrootte-mk-font-size 1.3))
+		        :height (tekengrootte-mk-font-size 1.2))
     (set-face-attribute 'org-level-2 nil 
-		        :height (tekengrootte-mk-font-size 1.3))
+		        :height (tekengrootte-mk-font-size 1.2))
     (set-face-attribute 'org-level-3 nil 
-		        :height (tekengrootte-mk-font-size 1.2))
+		        :height (tekengrootte-mk-font-size 1.1))
     (set-face-attribute 'org-level-4 nil 
-		        :height (tekengrootte-mk-font-size 1.2))
+		        :height (tekengrootte-mk-font-size 1.1))
     (set-face-attribute 'org-level-5 nil 
-		        :height (tekengrootte-mk-font-size 1.2)))
+		        :height (tekengrootte-mk-font-size 1.0)))
   
   (jjba-set-base-faces))
 
@@ -679,6 +679,8 @@ According to size, color and font family"
          (org-mode . (lambda () (flymake-mode)(flymake-proselint-setup))))
   )
 
+
+
 ;; Configure Emacs native features
 
 (use-package emacs 
@@ -689,11 +691,22 @@ According to size, color and font family"
          ("C-c b x" . jjba-bookmark-xfce-config)
          ("C-c l d" . toggle-debug-on-error)
          ("C-c l e" . eval-buffer)
+         ("C-c s b" . flyspell-buffer)
+         ("C-c s r" . flyspell-region)
+         ("C-c s p" . flyspell-prog-mode)
 	 ("C-c # b" . jjba-nixos-rebuild)
          ("C-c # s" . jjba-nixos-rebuild-soft)
 	 ("C-c # r" . jjba-restart-emacs))
   :hook ((text-mode . visual-line-mode)
-         (after-make-frame-functions . new-frame-setup))
+         (after-make-frame-functions . new-frame-setup)
+         (text-mode . flyspell-mode)
+         (org-mode . flyspell-mode)
+         (org-mode . flyspell-mode)
+         (prog-mode . flyspell-prog-mode)
+         (markdown-mode . flyspell-mode)
+         (text-mode . flyspell-buffer)
+         (org-mode . flyspell-buffer)
+         (org-mode . flyspell-buffer))
   :config
   (setq-default user-personal-name "Joe"
 		user-personal-full-name "Josep Jesus Bigorra Algaba"
