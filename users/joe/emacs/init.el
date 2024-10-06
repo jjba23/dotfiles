@@ -672,6 +672,12 @@ According to size, color and font family"
 	("C-c ! p" . flymake-show-project-diagnostics)
 	("C-c ! f" . flymake-mode)))
 
+(use-package flymake-proselint
+  :ensure t
+  :hook ((text-mode . (lambda () (flymake-mode)(flymake-proselint-setup)))
+         (markdown-mode . (lambda () (flymake-mode)(flymake-proselint-setup)))
+         (org-mode . (lambda () (flymake-mode)(flymake-proselint-setup))))
+  )
 
 ;; Configure Emacs native features
 
