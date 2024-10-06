@@ -52,6 +52,8 @@
     xsettings = {
       "Gtk/MonospaceFontName" = "Roboto Mono 12";
       "Gtk/FontName" = "Roboto Condensed 13";
+      "Gtk/CursorThemeName" = "Marwaita";
+      "Gtk/CursorThemeSize" = 20;
       "Net/IconThemeName" = "Marwaita-Dark-Green";
       "Net/ThemeName" = "Mint-Y-Dark";
     };
@@ -59,7 +61,7 @@
       # panel 1
       "panels/panel-1/icon-size" = 24;
       "panels/panel-1/length" = 100;
-      "panels/panel-1/plugin-ids" = [ 1 16 5 4 3 6 8 9 2 10 11 12 13 14 ];
+      "panels/panel-1/plugin-ids" = [ 1 16 5 4 3 6 2 8 9 10 11 12 13 14 ];
       "panels/panel-1/position" = "p=6;x=0;y=8";
       "panels/panel-1/position-locked" = true;
       "panels/panel-1/size" = 38;

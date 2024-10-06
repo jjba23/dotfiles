@@ -137,6 +137,7 @@ let
     xfce.xfce4-clipman-plugin
 
     marwaita-icons
+    proselint
   ];
 in {
   environment.systemPackages =
