@@ -33,10 +33,13 @@ let
     stack
     guix
     watchexec
+
   ];
   # Fonts
   fontPackages = with pkgs; [
     noto-fonts
+    intel-one-mono
+    liberation_ttf
     crimson
     crimson-pro
     noto-fonts-emoji

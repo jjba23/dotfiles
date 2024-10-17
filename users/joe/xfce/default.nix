@@ -3,7 +3,7 @@
   gtk = {
     enable = true;
     font = {
-      name = "Roboto Condensed";
+      name = "Liberation Sans";
       size = 12;
     };
     theme.name = "Mint-Y-Dark";
@@ -11,7 +11,7 @@
 
   home.file.".config/gtk-3.0/gtk.css".text = ''
     .xfce4-panel {
-        font-family: "Roboto Condensed";
+        font-family: "Liberation Sans";
         background-color: rgba(22,22,22,0.8);        
      }
       
@@ -25,19 +25,19 @@
       
      .flat,
      .toggle {
-       font-family: "Roboto Condensed";
+       font-family: "Liberation Sans";
        font-size: 16px;
        padding: 4px;
      }
      .flat:hover,
      .toggle:hover {
-       font-family: "Roboto Condensed";
+       font-family: "Liberation Sans";
        font-size: 16px;
        padding: 4px;
      }
      .flat:checked,
      .toggle:checked {
-       font-family: "Roboto Condensed";
+       font-family: "Liberation Sans";
        font-size: 16px;
        border-bottom: 3px solid white;
        padding: 4px;
@@ -50,8 +50,8 @@
   xfconf.settings = {
     xfce4-session = { "startup/ssh-agent/enabled" = true; };
     xsettings = {
-      "Gtk/MonospaceFontName" = "Roboto Mono 12";
-      "Gtk/FontName" = "Roboto Condensed 13";
+      "Gtk/MonospaceFontName" = "Intel One Mono 12";
+      "Gtk/FontName" = "Liberation Sans 13";
       "Gtk/CursorThemeName" = "Marwaita";
       "Gtk/CursorThemeSize" = 20;
       "Net/IconThemeName" = "Marwaita-Dark-Green";
@@ -84,10 +84,10 @@
       "plugins/plugin-4/rows" = 1;
       "plugins/plugin-5/style" = 0;
       "plugins/plugin-12" = "clock";
-      "plugins/plugin-12/digital-date-font" = "Roboto Condensed 13";
+      "plugins/plugin-12/digital-date-font" = "Liberation Sans 13";
       "plugins/plugin-12/digital-date-format" = "%A %e %b, %H:%M";
       "plugins/plugin-12/digital-layout" = 2;
-      "plugins/plugin-12/digital-time-font" = "Roboto Condensed 13";
+      "plugins/plugin-12/digital-time-font" = "Liberation Sans 13";
       "plugins/plugin-12/tooltip-format" = "%A %d %B %Y";
       "plugins/plugin-1" = "whiskermenu";
       "plugins/plugin-1/button-icon" = "format-justify-center";
@@ -112,12 +112,12 @@
     };
     xfwm4 = {
       "general/theme" = "Mint-Y-Dark";
-      "general/title_font" = "Roboto Condensed 13";
+      "general/title_font" = "Liberation Sans 13";
     };
     xfce4-terminal = {
       "color-background" = "#1a731a731a73";
       "color-foreground" = "#f6f6f5f5f4f4";
-      "font-name" = "Roboto Mono 12";
+      "font-name" = "Intel One Mono 12";
     };
     xfce4-keyboard-shortcuts = {
       # commands

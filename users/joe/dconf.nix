@@ -29,7 +29,7 @@ with lib.hm.gvariant; {
 
     "com/raggesilver/BlackBox" = {
       show-headerbar = true;
-      font = "Roboto Mono 12";
+      font = "Intel One Mono 12";
       terminal-bell = false;
       opacity = 100;
       theme-dark = "Dracula";

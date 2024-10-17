@@ -22,13 +22,13 @@ with lib; {
     description = ''
       Monospaced font for many applications and UI.
     '';
-    default = "Roboto Mono";
+    default = "Intel One Mono";
   };
   sansFontFamily = mkOption {
     description = ''
       Sans Serif font for many applications and UI.
     '';
-    default = "Roboto Condensed";
+    default = "Liberation Sans";
   };
   serifFontFamily = mkOption {
     description = ''
